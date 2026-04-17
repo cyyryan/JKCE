@@ -9,10 +9,11 @@ import { Footer } from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
-import OurWork from './pages/OurWork'
-import Blog from './pages/Blog'
+import ServiceDetail from './pages/ServiceDetail'
+import Projects from './pages/Projects'
+import ProjectDetail from './pages/ProjectDetail'
 import Contact from './pages/Contact'
-import { InnerPagePlaceholder } from './pages/InnerPagePlaceholder'
+import NotFound from './pages/NotFound'
 
 /**
  * ScrollToTop
@@ -44,26 +45,38 @@ function AppShell() {
   return (
     <>
       <ScrollToTop />
+      <a
+        href="#main-content"
+        style={{
+          position: 'absolute',
+          left: '-9999px',
+          top: '1rem',
+          zIndex: 1000,
+          padding: '0.75rem 1rem',
+          background: '#f5f1e8',
+          color: '#111',
+        }}
+        onFocus={(event) => {
+          event.currentTarget.style.left = '1rem'
+        }}
+        onBlur={(event) => {
+          event.currentTarget.style.left = '-9999px'
+        }}
+      >
+        Skip to content
+      </a>
       <Navbar />
-      <main>
+      <main id="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/our-work" element={<OurWork />} />
-          <Route path="/projects" element={<OurWork />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/services/:slug" element={<ServiceDetail />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/contact" element={<Contact />} />
 
-          {/* 404 兜底 */}
-          <Route path="*" element={
-            <InnerPagePlaceholder
-              eyebrow="404"
-              title="Page not"
-              titleItalic="found."
-              hint="The page you're looking for doesn't exist. Head back to the homepage."
-            />
-          } />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />

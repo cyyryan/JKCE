@@ -57,27 +57,32 @@ export const HeroBody = styled.p`
 `
 
 export const Section = styled.section`
-  padding: 4rem 0;
+  padding: 5rem 0;
   border-bottom: ${({ $border = true, theme }) =>
     $border ? `1px solid ${theme.colors.line}` : 'none'};
+
+  @media (max-width: 768px) {
+    padding: 4rem 0;
+  }
 `
 
 export const SectionHeader = styled.div`
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
   gap: 2rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `
 
-export const SectionLabel = styled.span`
+export const SectionLabel = styled.h2`
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textMuted};
+  margin: 0;
 `
 
 export const SectionLead = styled.p`
@@ -105,7 +110,7 @@ export const TwoColumnText = styled.div`
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: ${({ $columns = 3 }) => `repeat(${$columns}, minmax(0, 1fr))`};
-  gap: 1.5rem;
+  gap: 2rem;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -117,8 +122,8 @@ export const Grid = styled.div`
 `
 
 export const Card = styled.article`
-  padding: 1.75rem;
-  background: ${({ theme }) => theme.colors.bgSecondary};
+  padding: 1.5rem;
+  background: ${({ theme }) => theme.colors.bgPrimary};
   border: 1px solid ${({ theme }) => theme.colors.line};
   border-radius: 1.5rem;
 
@@ -129,8 +134,24 @@ export const Card = styled.article`
 
   p {
     color: ${({ theme }) => theme.colors.textSecondary};
-    line-height: 1.7;
+    line-height: 1.65;
   }
+`
+
+export const IconBadge = styled.span`
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+  background: ${({ theme }) => theme.colors.bgPrimary};
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `
 
 export const Meta = styled.div`
@@ -161,7 +182,7 @@ export const Tag = styled.span`
 `
 
 export const CTA = styled.div`
-  margin-top: 4rem;
+  margin-top: 4.5rem;
   padding: 2rem;
   border-radius: 2rem;
   background: ${({ theme }) => theme.colors.bgDark};
@@ -179,12 +200,67 @@ export const CTA = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
+    padding: 1.5rem;
+  }
+`
+
+export const SplitPanel = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 3rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+`
+
+export const PlainList = styled.div`
+  display: grid;
+  gap: 1rem;
+`
+
+export const PlainItem = styled.div`
+  padding-top: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.line};
+
+  h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.textSecondary};
+    line-height: 1.65;
+  }
+`
+
+export const CompactList = styled.div`
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+`
+
+export const CompactItem = styled.div`
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 0.6rem;
+  align-items: start;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  line-height: 1.55;
+
+  span:first-child {
+    color: ${({ theme }) => theme.colors.textPrimary};
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 `
 
 export const CTAButton = styled(Link)`
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.9rem 1.2rem;
   border-radius: 999px;
@@ -193,6 +269,10 @@ export const CTAButton = styled(Link)`
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 `
 
 export function PageHero({ eyebrow, title, titleItalic, body }) {

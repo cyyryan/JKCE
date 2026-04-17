@@ -7,11 +7,11 @@ import { homeContent } from '../content/home'
 const { intro } = homeContent
 
 const Section = styled.section`
-  padding: 12rem 2.5rem 10rem;
+  padding: 8rem 2.5rem 7rem;
   background: ${({ theme }) => theme.colors.bgPrimary};
 
   @media (max-width: 768px) {
-    padding: 6rem 1.5rem 5rem;
+    padding: 5rem 1.5rem 4rem;
   }
 `
 
@@ -31,89 +31,25 @@ const Eyebrow = styled.span`
 `
 
 const Headline = styled.h2`
-  font-size: clamp(2.5rem, 6vw, 5.25rem);
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
   font-weight: 300;
   line-height: 1.02;
   letter-spacing: -0.025em;
-  max-width: 20ch;
-  margin-bottom: 4rem;
+  max-width: 16ch;
+  margin-bottom: 2rem;
 
   em {
     font-style: italic;
   }
 `
 
-const Row = styled.div`
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  gap: 6rem;
-  align-items: start;
-
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-`
-
 const Body = styled.p`
   font-family: ${({ theme }) => theme.fonts.serif};
-  font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
   line-height: 1.55;
   color: ${({ theme }) => theme.colors.textSecondary};
-  max-width: 48ch;
-`
-
-const Stats = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.line};
-
-  div {
-    strong {
-      display: block;
-      font-family: ${({ theme }) => theme.fonts.display};
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 300;
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-    span {
-      font-size: 0.8125rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: ${({ theme }) => theme.colors.textMuted};
-    }
-  }
-`
-
-const Principles = styled.div`
-  display: grid;
-  gap: 1rem;
-  margin-top: 2rem;
-`
-
-const PrincipleCard = styled.div`
-  padding: 1.25rem 0 1.5rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.line};
-
-  h3 {
-    font-family: ${({ theme }) => theme.fonts.sans};
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    margin-bottom: 0.875rem;
-  }
-
-  p {
-    font-family: ${({ theme }) => theme.fonts.serif};
-    font-size: 1.05rem;
-    line-height: 1.65;
-    color: ${({ theme }) => theme.colors.textSecondary};
-    max-width: 40ch;
-  }
+  max-width: 56ch;
+  margin-bottom: 1.5rem;
 `
 
 export function Intro() {
@@ -135,37 +71,13 @@ export function Intro() {
           />
         </Headline>
 
-        <Row>
-          <Reveal delay={0.2}>
-            <Body>{intro.body.en}</Body>
-          </Reveal>
+        <Reveal delay={0.2}>
+          <Body>{intro.body.en}</Body>
+        </Reveal>
 
-          <Reveal delay={0.35}>
-            <Stats>
-              {[
-                { value: '15+', label: { en: 'Years of field experience' } },
-                { value: '100+', label: { en: 'Scopes supported' } },
-                { value: '24/7', label: { en: 'Communication mindset' } },
-              ].map((s) => (
-                <div key={s.value}>
-                  <strong>{s.value}</strong>
-                  <span>{s.label.en}</span>
-                </div>
-              ))}
-            </Stats>
-            <Principles>
-              {intro.principles.map((item) => (
-                <PrincipleCard key={item.title.en}>
-                  <h3>{item.title.en}</h3>
-                  <p>{item.body.en}</p>
-                </PrincipleCard>
-              ))}
-            </Principles>
-            <div style={{ marginTop: '2rem' }}>
-              <ArrowLink to={intro.cta.to}>{intro.cta.en}</ArrowLink>
-            </div>
-          </Reveal>
-        </Row>
+        <Reveal delay={0.3}>
+          <ArrowLink to={intro.cta.to}>{intro.cta.en}</ArrowLink>
+        </Reveal>
       </Inner>
     </Section>
   )

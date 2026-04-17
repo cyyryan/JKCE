@@ -50,6 +50,15 @@ export const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
 
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors.textPrimary};
+    outline-offset: 3px;
+  }
+
   button {
     font-family: inherit;
     background: none;

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { RevealText } from '../components/RevealText'
 import { ArrowLink } from '../components/ArrowLink'
 import { homeContent } from '../content/home'
@@ -105,6 +106,27 @@ const Summary = styled.div`
   }
 `
 
+const Actions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+`
+
+const PrimaryButton = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 170px;
+  padding: 1rem 1.25rem;
+  border-radius: 999px;
+  background: ${({ theme }) => theme.colors.bgPrimary};
+  color: ${({ theme }) => theme.colors.textPrimary};
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+`
+
 const MetricsPanel = styled(motion.div)`
   backdrop-filter: blur(16px);
   background: rgba(9, 12, 15, 0.52);
@@ -182,6 +204,7 @@ export function Hero() {
           muted
           loop
           playsInline
+          aria-hidden="true"
           poster="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80"
         >
           <source src="/videos/banner-video-v2.mp4" type="video/mp4" />
@@ -223,7 +246,10 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.6 }}
             >
-              <ArrowLink to={hero.cta.to} dark>{hero.cta.en}</ArrowLink>
+              <Actions>
+                <PrimaryButton to={hero.primaryCta.to}>{hero.primaryCta.en}</PrimaryButton>
+                <ArrowLink to={hero.secondaryCta.to} dark>{hero.secondaryCta.en}</ArrowLink>
+              </Actions>
             </motion.div>
           </Summary>
 

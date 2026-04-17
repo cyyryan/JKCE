@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jkce-new-web-dzs5.vercel.app/sitemap.xml

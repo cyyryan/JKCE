@@ -178,13 +178,14 @@ export function Navbar() {
         transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
       >
         <Inner>
-          <Logo to="/">jkce</Logo>
+          <Logo to="/" aria-label="JKCE homepage">jkce</Logo>
           <NavLinks>
             {primaryNav.map((l) => (
               <li key={l.to}>
                 <NavLink
                   to={l.to}
                   className={location.pathname === l.to ? 'active' : ''}
+                  aria-current={location.pathname === l.to ? 'page' : undefined}
                 >
                   {l.label}
                 </NavLink>
@@ -194,7 +195,10 @@ export function Navbar() {
           <Burger
             data-open={open}
             onClick={() => setOpen((v) => !v)}
-            aria-label="Menu"
+            aria-label={open ? 'Close site navigation' : 'Open site navigation'}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            type="button"
           >
             <span /><span /><span />
           </Burger>
@@ -204,6 +208,7 @@ export function Navbar() {
       <AnimatePresence>
         {open && (
           <MobileMenu
+            id="mobile-navigation"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -212,7 +217,12 @@ export function Navbar() {
             <ul>
               {primaryNav.map((l) => (
                 <li key={l.to}>
-                  <Link to={l.to}>{l.label}</Link>
+                  <Link
+                    to={l.to}
+                    aria-current={location.pathname === l.to ? 'page' : undefined}
+                  >
+                    {l.label}
+                  </Link>
                 </li>
               ))}
             </ul>

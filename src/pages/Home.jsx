@@ -1,22 +1,27 @@
 import { Hero } from '../sections/Hero'
 import { Intro } from '../sections/Intro'
-import { FeaturedProject } from '../sections/FeaturedProject'
-import { Dedication } from '../sections/Dedication'
-import { Community } from '../sections/Community'
+import { CoreServices } from '../sections/CoreServices'
+import { WhyChoose } from '../sections/WhyChoose'
+import { FeaturedProjectsHome } from '../sections/FeaturedProjectsHome'
+import { FinalCTA } from '../sections/FinalCTA'
+import { Seo } from '../components/Seo'
+import { pageMeta } from '../content/siteData'
 
 /**
  * Home 首页
  * ---------
- * 首页由品牌引导、工作方式、服务范围、流程方法与场地责任五个板块组成。
+ * 首页保留现有设计方向,作为顶层 IA 的入口页。
  */
 export default function Home() {
   return (
     <>
+      <Seo {...pageMeta.home} />
       <Hero />
       <Intro />
-      <FeaturedProject />
-      <Dedication />
-      <Community />
+      <CoreServices />
+      <WhyChoose />
+      <FeaturedProjectsHome />
+      <FinalCTA />
     </>
   )
 }

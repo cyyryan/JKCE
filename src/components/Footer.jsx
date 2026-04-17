@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Reveal } from './Reveal'
-import { primaryNav } from '../content/siteData'
+import { companyInfo, primaryNav } from '../content/siteData'
 
 const Wrapper = styled.footer`
   background: ${({ theme }) => theme.colors.bgDark};
@@ -117,6 +117,18 @@ const Newsletter = styled.form`
   }
 `
 
+const SrOnly = styled.label`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+`
+
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
@@ -139,10 +151,10 @@ export function Footer() {
         <Top>
           <Reveal>
             <Brand>
-              <h3>JKCE projects<br />built with care.</h3>
+              <h3>JKCE construction<br />built with care.</h3>
               <p>
-                Construction and site services delivered with precision,
-                safety, and long-term accountability for every community we serve.
+                Full-service construction support across excavation,
+                construction management, design service, and ICF capability.
               </p>
             </Brand>
           </Reveal>
@@ -164,9 +176,9 @@ export function Footer() {
             <Col>
               <h4>Visit</h4>
               <ul>
-                <li><p>3600 Viking Way,<br />Richmond BC V6V 1N6</p></li>
-                <li><a href="tel:+16047296583">+1 604-729-6583</a></li>
-                <li><a href="mailto:info@jkceprobuild.com">info@jkceprobuild.com</a></li>
+                <li><p>3600 Viking Way,<br />Richmond, BC V6V 1N6</p></li>
+                <li><a href={companyInfo.phoneHref}>{companyInfo.phone}</a></li>
+                <li><a href={companyInfo.emailHref}>{companyInfo.email}</a></li>
               </ul>
             </Col>
           </Reveal>
@@ -178,16 +190,17 @@ export function Footer() {
                 Updates on projects and initiatives.
               </p>
               <Newsletter onSubmit={(e) => e.preventDefault()}>
-                <input type="email" placeholder="your@email.com" />
-                <button type="submit">Subscribe →</button>
+                <SrOnly htmlFor="newsletter-email">Email address</SrOnly>
+                <input id="newsletter-email" type="email" placeholder="your@email.com" aria-label="Email address" />
+                <button type="submit" aria-label="Subscribe to the newsletter">Subscribe →</button>
               </Newsletter>
             </Col>
           </Reveal>
         </Top>
 
         <Bottom>
-          <span>© 2026 JKCE Demo Site.</span>
-          <span>Structured from the legacy JKCE site architecture</span>
+          <span>© 2026 {companyInfo.name}.</span>
+          <span>Built on a centralized production-ready content structure</span>
         </Bottom>
       </Inner>
     </Wrapper>

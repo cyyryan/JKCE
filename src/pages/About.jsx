@@ -9,16 +9,21 @@ import {
   TwoColumnText,
   Grid,
   Card,
-  Meta,
+  IconBadge,
+  SplitPanel,
+  PlainList,
+  PlainItem,
   CTA,
   CTAButton,
 } from '../components/PageScaffold'
 import { Reveal } from '../components/Reveal'
-import { aboutContent } from '../content/siteData'
+import { Seo } from '../components/Seo'
+import { aboutContent, pageMeta } from '../content/siteData'
 
 export default function About() {
   return (
     <PageWrapper>
+      <Seo {...pageMeta.about} />
       <PageInner>
         <PageHero
           eyebrow={aboutContent.eyebrow}
@@ -29,15 +34,13 @@ export default function About() {
 
         <Section>
           <SectionHeader>
-            <Reveal><SectionLabel>Story</SectionLabel></Reveal>
+            <Reveal><SectionLabel>Company Overview</SectionLabel></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>
-                The old unfinished site positioned JKCE as a contractor that bridges site work and managed construction delivery. That structure is now reflected here.
-              </SectionLead>
+              <SectionLead>JKCE is a full-service construction company built around quality, safety, and dependable delivery.</SectionLead>
             </Reveal>
           </SectionHeader>
           <TwoColumnText>
-            {aboutContent.story.map((paragraph) => (
+            {aboutContent.overview.map((paragraph) => (
               <Reveal key={paragraph}>
                 <p>{paragraph}</p>
               </Reveal>
@@ -47,15 +50,39 @@ export default function About() {
 
         <Section>
           <SectionHeader>
-            <Reveal><SectionLabel>Values</SectionLabel></Reveal>
+            <Reveal><SectionLabel>Mission & Vision</SectionLabel></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>Three themes from the legacy project now anchor the new site’s company page and internal structure.</SectionLead>
+              <SectionLead>JKCE’s approach is grounded in quality, integrity, safety, and long-term value for every client and project.</SectionLead>
             </Reveal>
           </SectionHeader>
-          <Grid>
-            {aboutContent.values.map((value, index) => (
-              <Reveal key={value.title} delay={index * 0.08}>
+          <SplitPanel>
+            <Reveal>
+              <div>
+                <h3>Mission</h3>
+                <p>{aboutContent.mission}</p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <div>
+                <h3>Vision</h3>
+                <p>{aboutContent.vision}</p>
+              </div>
+            </Reveal>
+          </SplitPanel>
+        </Section>
+
+        <Section>
+          <SectionHeader>
+            <Reveal><SectionLabel>Core Strengths</SectionLabel></Reveal>
+            <Reveal delay={0.1}>
+              <SectionLead>Clients trust JKCE because the company combines proven construction fundamentals with modern technical capability.</SectionLead>
+            </Reveal>
+          </SectionHeader>
+          <Grid $columns={3}>
+            {aboutContent.strengths.map((value, index) => (
+              <Reveal key={value.title} delay={index * 0.06}>
                 <Card>
+                  <IconBadge>{['01', '02', '03'][index]}</IconBadge>
                   <h3>{value.title}</h3>
                   <p>{value.description}</p>
                 </Card>
@@ -66,29 +93,44 @@ export default function About() {
 
         <Section $border={false}>
           <SectionHeader>
-            <Reveal><SectionLabel>Timeline</SectionLabel></Reveal>
+            <Reveal><SectionLabel>Modern Capability</SectionLabel></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>A compact version of the milestone narrative from the previous repository.</SectionLead>
+              <SectionLead>Modern tools only matter if they improve delivery in the field.</SectionLead>
             </Reveal>
           </SectionHeader>
-          <Grid $columns={4}>
-            {aboutContent.milestones.map((item, index) => (
-              <Reveal key={item.year} delay={index * 0.08}>
-                <Card>
-                  <Meta><span>{item.year}</span></Meta>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </Card>
-              </Reveal>
-            ))}
-          </Grid>
+          <SplitPanel>
+            <Reveal>
+              <div>
+                <h3>Technical Capability</h3>
+                <PlainList>
+                  {aboutContent.capabilities.map((item) => (
+                    <PlainItem key={item}>
+                      <p>{item}</p>
+                    </PlainItem>
+                  ))}
+                </PlainList>
+              </div>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <div>
+                <h3>Service Promise</h3>
+                <PlainList>
+                  {aboutContent.promise.map((item) => (
+                    <PlainItem key={item}>
+                      <p>{item}</p>
+                    </PlainItem>
+                  ))}
+                </PlainList>
+              </div>
+            </Reveal>
+          </SplitPanel>
 
           <CTA>
             <div>
-              <h3>Need a team that can coordinate beyond the drawing set?</h3>
-              <p>Use the new contact page to keep the old site’s inquiry path intact while we continue building out deeper content.</p>
+              <h3>{aboutContent.cta.title}</h3>
+              <p>{aboutContent.cta.body}</p>
             </div>
-            <CTAButton to="/contact">Contact JKCE</CTAButton>
+            <CTAButton to={aboutContent.cta.to}>{aboutContent.cta.button}</CTAButton>
           </CTA>
         </Section>
       </PageInner>
