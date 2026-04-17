@@ -186,7 +186,7 @@ export function Navbar() {
         transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
       >
         <Inner>
-          <Logo to="/">everglade</Logo>
+          <Logo to="/">jkce</Logo>
           <NavLinks>
             {links.map((l) => (
               <li key={l.to}>

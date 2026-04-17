@@ -10,7 +10,7 @@ import { Community } from '../sections/Community'
  * 按原站顺序串联所有板块:
  *   Hero (视频)
  *   → Intro (品牌哲学)
- *   → FeaturedProject (Oakhaus)
+ *   → FeaturedProject (JKCE showcase)
  *   → Dedication (深色交付)
  *   → Community (社区)
  *
