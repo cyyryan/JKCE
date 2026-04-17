@@ -36,12 +36,15 @@ export default function About() {
           <SectionHeader>
             <Reveal><SectionLabel>Company Overview</SectionLabel></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>JKCE is a full-service construction company built around quality, safety, and dependable delivery.</SectionLead>
+              <SectionLead>
+                JKCE is a full-service construction company built on over 20 years of experience,
+                professionalism, quality, and integrity.
+              </SectionLead>
             </Reveal>
           </SectionHeader>
           <TwoColumnText>
-            {aboutContent.overview.map((paragraph) => (
-              <Reveal key={paragraph}>
+            {aboutContent.overview.map((paragraph, i) => (
+              <Reveal key={i} delay={i * 0.06}>
                 <p>{paragraph}</p>
               </Reveal>
             ))}
@@ -50,9 +53,30 @@ export default function About() {
 
         <Section>
           <SectionHeader>
+            <Reveal><SectionLabel>Our Commitments</SectionLabel></Reveal>
+            <Reveal delay={0.1}>
+              <SectionLead>{aboutContent.promisesIntro}</SectionLead>
+            </Reveal>
+          </SectionHeader>
+          <PlainList>
+            {aboutContent.promises.map((item, i) => (
+              <Reveal key={item} delay={i * 0.06}>
+                <PlainItem>
+                  <p>{item}</p>
+                </PlainItem>
+              </Reveal>
+            ))}
+          </PlainList>
+        </Section>
+
+        <Section>
+          <SectionHeader>
             <Reveal><SectionLabel>Mission & Vision</SectionLabel></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>JKCE’s approach is grounded in quality, integrity, safety, and long-term value for every client and project.</SectionLead>
+              <SectionLead>
+                JKCE's approach is grounded in quality, integrity, safety, and long-term value
+                for every client and project.
+              </SectionLead>
             </Reveal>
           </SectionHeader>
           <SplitPanel>
@@ -75,7 +99,10 @@ export default function About() {
           <SectionHeader>
             <Reveal><SectionLabel>Core Strengths</SectionLabel></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>Clients trust JKCE because the company combines proven construction fundamentals with modern technical capability.</SectionLead>
+              <SectionLead>
+                Clients trust JKCE because the company combines proven construction fundamentals
+                with modern technical capability.
+              </SectionLead>
             </Reveal>
           </SectionHeader>
           <Grid $columns={3}>
@@ -93,9 +120,12 @@ export default function About() {
 
         <Section $border={false}>
           <SectionHeader>
-            <Reveal><SectionLabel>Modern Capability</SectionLabel></Reveal>
+            <Reveal><SectionLabel>Technology & Capability</SectionLabel></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>Modern tools only matter if they improve delivery in the field.</SectionLead>
+              <SectionLead>
+                Modern tools only matter when they improve delivery in the field. JKCE pairs
+                technical capability with practical construction experience.
+              </SectionLead>
             </Reveal>
           </SectionHeader>
           <SplitPanel>

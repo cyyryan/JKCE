@@ -2,6 +2,7 @@ export const primaryNav = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
   { to: '/services', label: 'Services' },
+  { to: '/icf', label: 'ICF' },
   { to: '/projects', label: 'Projects' },
   { to: '/contact', label: 'Contact' },
 ]
@@ -387,25 +388,36 @@ export const aboutContent = {
   titleItalic: 'for Greater Vancouver.',
   intro: '20+ years of experience, delivered with quality, integrity, and control.',
   overview: [
-    'JKCE supports excavation, construction management, design service, and ICF-related work.',
-    'We work with clients who value dependable execution, safety, and long-term value.',
+    'With over 20 years of experience in the construction industry, JKCE Probuild has built its reputation on a foundation of professionalism, quality, and integrity. We are committed to delivering construction projects that meet the highest standards of workmanship and client satisfaction.',
+    'From initial site planning and design to on-site management and quality control, JKCE Probuild offers a comprehensive range of construction services. Our team of experienced professionals works closely with clients at every stage to ensure that projects are completed on time, on budget, and to specification.',
+  ],
+  promisesIntro:
+    'JKCE Probuild is dedicated to building lasting client relationships through consistent delivery of our core commitments:',
+  promises: [
+    'Personalized one-on-one service throughout the project lifecycle',
+    'Transparent communication and regular progress updates',
+    'Precision workmanship and rigorous quality control',
+    'On-time, on-budget delivery with proactive schedule management',
+    'Long-term value through durable materials and safety-first execution',
   ],
   mission:
     'Deliver construction work with precision, integrity, safety, and accountability.',
   vision:
     'Be a trusted Greater Vancouver construction partner known for quality and control.',
   strengths: [
-    { title: '20+ Years', description: 'Practical construction knowledge across varied project types.' },
-    { title: 'Quality', description: 'Detail-oriented execution from planning to closeout.' },
-    { title: 'Safety', description: 'Safety is built into planning, site management, and delivery.' },
+    { title: '20+ Years', description: 'Practical construction knowledge across varied project types and delivery environments.' },
+    { title: 'Quality', description: 'Detail-oriented execution from planning through closeout, backed by modern tools.' },
+    { title: 'Safety', description: 'Safety is built into every phase — planning, site management, and delivery.' },
   ],
   capabilities: [
-    'Revit and BIM-informed coordination',
-    'LiDAR and drone-supported site information',
-    'ICF capability with hands-on project understanding',
+    'Revit Design — BIM-ready 3D modelling and coordination',
+    'BIM — integrated project data for better planning and execution',
+    'LiDAR Scanning — millimetre-accurate 3D site capture',
+    'Sierra Ridge Drone — aerial progress tracking and mapping',
+    'ICF Construction — insulated concrete form expertise',
   ],
   promise: [
-    'Clear communication',
+    'Clear and consistent communication',
     'Quality and schedule control',
     'Modern tools backed by field experience',
   ],

@@ -1,13 +1,10 @@
 export const homeContent = {
   hero: {
-    eyebrow: {
-      en: 'Greater Vancouver Construction Company',
-    },
     titleLines: {
-      en: ['Full-service', 'construction in', 'Greater Vancouver.'],
+      en: ['We turn your', 'blueprints', 'into reality.'],
     },
     body: {
-      en: 'Excavation, construction management, design service, and ICF for commercial and residential projects.',
+      en: 'Full-service construction in Greater Vancouver — excavation, construction management, design service, and ICF.',
     },
     metrics: [
       { value: '20+', label: { en: 'Years of experience' } },
@@ -39,26 +36,75 @@ export const homeContent = {
     },
   },
 
-  whyChoose: {
-    eyebrow: { en: 'Why Choose JKCE' },
+  techEdge: {
+    eyebrow: { en: 'Competitive Edge' },
     headingLines: {
-      en: ['Built on trust,', 'precision, and', 'control.'],
+      en: ['Technology', 'that delivers', 'precision.'],
     },
     body: {
-      en: 'Three reasons clients trust JKCE.',
+      en: 'JKCE pairs field experience with modern tools to plan better, build cleaner, and deliver with confidence.',
+    },
+    cards: [
+      {
+        icon: 'RD',
+        title: 'Revit Design',
+        body: 'BIM-ready 3D modelling for accurate design coordination and clash detection before work begins on site.',
+      },
+      {
+        icon: 'BIM',
+        title: 'BIM',
+        body: 'Building Information Modelling integrates all project data into a single coordinated model for better planning and execution.',
+      },
+      {
+        icon: 'LS',
+        title: 'LiDAR Scanning',
+        body: 'High-precision 3D site scanning captures existing conditions with millimetre accuracy for reliable design and construction input.',
+      },
+      {
+        icon: 'DR',
+        title: 'Sierra Ridge Drone',
+        body: 'Aerial drone surveys provide real-time site progress tracking, mapping, and visual documentation throughout the project lifecycle.',
+      },
+      {
+        icon: 'ICF',
+        title: 'ICF Construction',
+        body: 'Insulated Concrete Form expertise delivers superior structural performance, thermal efficiency, and long-term durability.',
+      },
+    ],
+  },
+
+  whyChoose: {
+    eyebrow: { en: 'Our Promises' },
+    headingLines: {
+      en: ['Six commitments,', 'every', 'project.'],
+    },
+    body: {
+      en: 'How we work — with every client, on every project.',
     },
     advantages: [
       {
-        title: '20+ Years',
-        body: 'Experienced across site work, planning, and project delivery.',
+        title: 'Personalized One-on-One Service',
+        body: 'Every client works directly with JKCE leadership — no middlemen, no hand-offs.',
       },
       {
-        title: 'Greater Vancouver',
-        body: 'Local knowledge of site conditions, approvals, and coordination.',
+        title: 'Transparent Communication',
+        body: 'Clear updates at every stage so you always know where your project stands.',
       },
       {
-        title: 'Modern Capability',
-        body: 'Revit, BIM, LiDAR, drone mapping, and ICF-backed execution.',
+        title: 'Precision & Quality',
+        body: 'Exacting standards from site prep through final finish, backed by modern tools.',
+      },
+      {
+        title: 'On-Time, On-Budget Delivery',
+        body: 'Disciplined scheduling and cost control keep projects on track from start to close.',
+      },
+      {
+        title: 'Safety First',
+        body: 'Rigorous on-site safety protocols protect workers, neighbours, and your investment.',
+      },
+      {
+        title: 'Long-Term Value',
+        body: 'Durable materials and careful detailing deliver assets that hold their value for decades.',
       },
     ],
   },

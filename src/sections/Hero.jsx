@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { RevealText } from '../components/RevealText'
 import { ArrowLink } from '../components/ArrowLink'
 import { homeContent } from '../content/home'
 
@@ -45,16 +44,18 @@ const Content = styled.div`
   height: 100%;
   max-width: ${({ theme }) => theme.container.maxWidth};
   margin: 0 auto;
-  padding: 0 2.5rem;
+  padding: 7rem 2.5rem 5rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 5rem;
   color: ${({ theme }) => theme.colors.textOnDark};
 
   @media (max-width: 768px) {
-    padding: 0 1.5rem 4rem;
+    padding: 6rem 1.5rem 4rem;
   }
+`
+
+const Spacer = styled.div`
+  flex: 1;
 `
 
 const Eyebrow = styled(motion.span)`
@@ -212,24 +213,34 @@ export function Hero() {
       </VideoLayer>
 
       <Content>
-        <Eyebrow
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 0.85, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          {hero.eyebrow.en}
-        </Eyebrow>
+        <Spacer />
 
         <Title>
-          <RevealText
-            lines={[
-              hero.titleLines.en[0],
-              hero.titleLines.en[1],
-              <em key="e">{hero.titleLines.en[2]}</em>,
-            ]}
-            delay={1}
-            stagger={0.15}
-          />
+          {[
+            hero.titleLines.en[0],
+            hero.titleLines.en[1],
+          ].map((line, i) => (
+            <span key={i} style={{ display: 'block', overflow: 'hidden', lineHeight: 1.05 }}>
+              <motion.span
+                style={{ display: 'inline-block' }}
+                initial={{ y: '105%' }}
+                animate={{ y: '0%' }}
+                transition={{ duration: 1, delay: 1 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {line}
+              </motion.span>
+            </span>
+          ))}
+          <span style={{ display: 'block', overflow: 'hidden', lineHeight: 1.05 }}>
+            <motion.span
+              style={{ display: 'inline-block' }}
+              initial={{ y: '105%' }}
+              animate={{ y: '0%' }}
+              transition={{ duration: 1, delay: 1.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <em>{hero.titleLines.en[2]}</em>
+            </motion.span>
+          </span>
         </Title>
 
         <BottomRow>

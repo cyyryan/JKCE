@@ -56,7 +56,7 @@ const Logo = styled(Link)`
 
 const NavLinks = styled.ul`
   display: flex;
-  gap: 2.75rem;
+  gap: 2rem;
   list-style: none;
 
   @media (max-width: 900px) {

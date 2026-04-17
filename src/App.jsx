@@ -13,6 +13,7 @@ import ServiceDetail from './pages/ServiceDetail'
 import Projects from './pages/Projects'
 import ProjectDetail from './pages/ProjectDetail'
 import Contact from './pages/Contact'
+import ICF from './pages/ICF'
 import NotFound from './pages/NotFound'
 
 /**
@@ -75,6 +76,7 @@ function AppShell() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/icf" element={<ICF />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
