@@ -48,7 +48,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding-bottom: 6rem;
+  padding-bottom: 5rem;
   color: ${({ theme }) => theme.colors.textOnDark};
 
   @media (max-width: 768px) {
@@ -72,12 +72,73 @@ const Title = styled.h1`
   font-size: clamp(3rem, 8vw, 7rem);
   line-height: 1;
   letter-spacing: -0.03em;
-  max-width: 14ch;
-  margin-bottom: 3rem;
+  max-width: 12ch;
+  margin-bottom: 2rem;
 
   em {
     font-style: italic;
     font-weight: 300;
+  }
+`
+
+const BottomRow = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 420px);
+  gap: 3rem;
+  align-items: end;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+`
+
+const Summary = styled.div`
+  max-width: 44rem;
+
+  p {
+    font-family: ${({ theme }) => theme.fonts.serif};
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    line-height: 1.6;
+    color: rgba(255,255,255,0.82);
+    margin-bottom: 1.75rem;
+  }
+`
+
+const MetricsPanel = styled(motion.div)`
+  backdrop-filter: blur(16px);
+  background: rgba(9, 12, 15, 0.52);
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+  div {
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255,255,255,0.16);
+  }
+
+  strong {
+    display: block;
+    font-family: ${({ theme }) => theme.fonts.display};
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  span {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.72);
+  }
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
   }
 `
 
@@ -148,13 +209,37 @@ export function Hero() {
           />
         </Title>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.6 }}
-        >
-          <ArrowLink to={hero.cta.to} dark>{hero.cta.en}</ArrowLink>
-        </motion.div>
+        <BottomRow>
+          <Summary>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.45 }}
+            >
+              {hero.body.en}
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.6 }}
+            >
+              <ArrowLink to={hero.cta.to} dark>{hero.cta.en}</ArrowLink>
+            </motion.div>
+          </Summary>
+
+          <MetricsPanel
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.8 }}
+          >
+            {hero.metrics.map((metric) => (
+              <div key={metric.value}>
+                <strong>{metric.value}</strong>
+                <span>{metric.label.en}</span>
+              </div>
+            ))}
+          </MetricsPanel>
+        </BottomRow>
       </Content>
 
       <ScrollIndicator

@@ -58,7 +58,7 @@ const Badge = styled.span`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: 1.35fr 1fr;
   gap: 5rem;
   align-items: center;
 
@@ -112,6 +112,53 @@ const Info = styled.div`
   }
 `
 
+const ServiceList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const ServicePill = styled.span`
+  padding: 0.9rem 1rem;
+  background: ${({ theme }) => theme.colors.bgSecondary};
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+`
+
+const StatRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  div {
+    padding-top: 1rem;
+    border-top: 1px solid ${({ theme }) => theme.colors.line};
+  }
+
+  strong {
+    display: block;
+    font-family: ${({ theme }) => theme.fonts.display};
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 300;
+    margin-bottom: 0.4rem;
+  }
+
+  span {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.textMuted};
+  }
+`
+
 export function FeaturedProject() {
   const imageRef = useRef(null)
   const { scrollYProgress } = useScroll({
@@ -152,6 +199,23 @@ export function FeaturedProject() {
             </Reveal>
             <Reveal delay={0.25}>
               <p>{featured.body.en}</p>
+            </Reveal>
+            <Reveal delay={0.32}>
+              <ServiceList>
+                {featured.services.map((service) => (
+                  <ServicePill key={service}>{service}</ServicePill>
+                ))}
+              </ServiceList>
+            </Reveal>
+            <Reveal delay={0.36}>
+              <StatRow>
+                {featured.stats.map((stat) => (
+                  <div key={stat.value}>
+                    <strong>{stat.value}</strong>
+                    <span>{stat.label.en}</span>
+                  </div>
+                ))}
+              </StatRow>
             </Reveal>
             <Reveal delay={0.4}>
               <ArrowLink to={featured.cta.to}>{featured.cta.en}</ArrowLink>

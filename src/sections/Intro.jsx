@@ -45,7 +45,7 @@ const Headline = styled.h2`
 
 const Row = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
   gap: 6rem;
   align-items: start;
 
@@ -65,7 +65,7 @@ const Body = styled.p`
 
 const Stats = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid ${({ theme }) => theme.colors.line};
@@ -85,6 +85,34 @@ const Stats = styled.div`
       text-transform: uppercase;
       color: ${({ theme }) => theme.colors.textMuted};
     }
+  }
+`
+
+const Principles = styled.div`
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+`
+
+const PrincipleCard = styled.div`
+  padding: 1.25rem 0 1.5rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.line};
+
+  h3 {
+    font-family: ${({ theme }) => theme.fonts.sans};
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 0.875rem;
+  }
+
+  p {
+    font-family: ${({ theme }) => theme.fonts.serif};
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    max-width: 40ch;
   }
 `
 
@@ -114,13 +142,25 @@ export function Intro() {
 
           <Reveal delay={0.35}>
             <Stats>
-              {intro.stats.map((s) => (
+              {[
+                { value: '15+', label: { en: 'Years of field experience' } },
+                { value: '100+', label: { en: 'Scopes supported' } },
+                { value: '24/7', label: { en: 'Communication mindset' } },
+              ].map((s) => (
                 <div key={s.value}>
                   <strong>{s.value}</strong>
                   <span>{s.label.en}</span>
                 </div>
               ))}
             </Stats>
+            <Principles>
+              {intro.principles.map((item) => (
+                <PrincipleCard key={item.title.en}>
+                  <h3>{item.title.en}</h3>
+                  <p>{item.body.en}</p>
+                </PrincipleCard>
+              ))}
+            </Principles>
             <div style={{ marginTop: '2rem' }}>
               <ArrowLink to={intro.cta.to}>{intro.cta.en}</ArrowLink>
             </div>

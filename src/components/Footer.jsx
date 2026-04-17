@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Reveal } from './Reveal'
+import { primaryNav } from '../content/siteData'
 
 const Wrapper = styled.footer`
   background: ${({ theme }) => theme.colors.bgDark};
@@ -150,10 +151,11 @@ export function Footer() {
             <Col>
               <h4>Explore</h4>
               <ul>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/homes">Homes</Link></li>
-                <li><Link to="/community">In the Community</Link></li>
-                <li><Link to="/homeowner">Homeowner Care</Link></li>
+                {primaryNav.map((item) => (
+                  <li key={item.to}>
+                    <Link to={item.to}>{item.label}</Link>
+                  </li>
+                ))}
               </ul>
             </Col>
           </Reveal>
@@ -162,9 +164,9 @@ export function Footer() {
             <Col>
               <h4>Visit</h4>
               <ul>
-                <li><p>301-103 6th Ave W,<br />Vancouver BC V5Y 1K3</p></li>
-                <li><a href="tel:+16040000000">+1 604-000-0000</a></li>
-                <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+                <li><p>3600 Viking Way,<br />Richmond BC V6V 1N6</p></li>
+                <li><a href="tel:+16047296583">+1 604-729-6583</a></li>
+                <li><a href="mailto:info@jkceprobuild.com">info@jkceprobuild.com</a></li>
               </ul>
             </Col>
           </Reveal>
@@ -185,7 +187,7 @@ export function Footer() {
 
         <Bottom>
           <span>© 2026 JKCE Demo Site.</span>
-          <span>Built with React + Framer Motion + Lenis</span>
+          <span>Structured from the legacy JKCE site architecture</span>
         </Bottom>
       </Inner>
     </Wrapper>

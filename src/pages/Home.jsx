@@ -7,14 +7,7 @@ import { Community } from '../sections/Community'
 /**
  * Home 首页
  * ---------
- * 按原站顺序串联所有板块:
- *   Hero (视频)
- *   → Intro (品牌哲学)
- *   → FeaturedProject (JKCE showcase)
- *   → Dedication (深色交付)
- *   → Community (社区)
- *
- * 深-浅-浅-深-浅 的节奏,形成视觉起伏。
+ * 首页由品牌引导、工作方式、服务范围、流程方法与场地责任五个板块组成。
  */
 export default function Home() {
   return (

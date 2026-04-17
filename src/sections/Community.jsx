@@ -83,6 +83,31 @@ const ParallaxImg = styled(motion.img)`
   will-change: transform;
 `
 
+const Checklist = styled.ul`
+  list-style: none;
+  display: grid;
+  gap: 0.9rem;
+  margin-bottom: 2rem;
+
+  li {
+    padding-left: 1.25rem;
+    position: relative;
+    color: ${({ theme }) => theme.colors.textSecondary};
+    line-height: 1.6;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0.62rem;
+      left: 0;
+      width: 0.35rem;
+      height: 0.35rem;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.colors.textPrimary};
+    }
+  }
+`
+
 export function Community() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
@@ -109,6 +134,13 @@ export function Community() {
             </h2>
             <Reveal delay={0.2}>
               <p>{responsibility.body.en}</p>
+            </Reveal>
+            <Reveal delay={0.28}>
+              <Checklist>
+                {responsibility.checklist.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </Checklist>
             </Reveal>
             <Reveal delay={0.35}>
               <ArrowLink to={responsibility.cta.to}>{responsibility.cta.en}</ArrowLink>

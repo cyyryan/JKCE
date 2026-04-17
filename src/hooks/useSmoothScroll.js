@@ -4,7 +4,7 @@ import Lenis from 'lenis'
 /**
  * useSmoothScroll
  * ---------------
- * 初始化 Lenis 平滑滚动 —— 原站最核心的"丝滑感"来源。
+ * 初始化 Lenis 平滑滚动，让整站滚动体验更连贯。
  *
  * 实现要点:
  * 1. Lenis 接管浏览器原生滚动,用 requestAnimationFrame 驱动

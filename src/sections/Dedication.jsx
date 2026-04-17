@@ -49,7 +49,33 @@ const Body = styled.div`
     line-height: 1.55;
     color: ${({ theme }) => theme.colors.line};
     max-width: 48ch;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+  }
+`
+
+const Steps = styled.div`
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+`
+
+const Step = styled.div`
+  padding-top: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.lineDark};
+
+  h3 {
+    font-family: ${({ theme }) => theme.fonts.sans};
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    margin-bottom: 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
   }
 `
 
@@ -84,6 +110,16 @@ export function Dedication() {
         <Body>
           <Reveal delay={0.2}>
             <p>{dedication.body.en}</p>
+          </Reveal>
+          <Reveal delay={0.28}>
+            <Steps>
+              {dedication.steps.map((step) => (
+                <Step key={step.title.en}>
+                  <h3>{step.title.en}</h3>
+                  <p>{step.body.en}</p>
+                </Step>
+              ))}
+            </Steps>
           </Reveal>
           <Reveal delay={0.35}>
             <ArrowLink to={dedication.cta.to} dark>{dedication.cta.en}</ArrowLink>

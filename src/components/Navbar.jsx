@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { primaryNav } from '../content/siteData'
 
 /**
  * Navbar
  * ------
  * 功能:
- * 1. 滚动超过 80px 时背景变实色 + 收缩高度(原站同款效果)
+ * 1. 滚动超过 80px 时背景变实色 + 收缩高度
  * 2. 进入首屏(scroll=0)时背景透明,文字白色(视频 hero 上方)
  * 3. 非首页时默认深色文字 + 米色背景
  * 4. 移动端抽屉菜单
@@ -147,15 +148,6 @@ const MobileMenu = styled(motion.div)`
   }
 `
 
-const links = [
-  { to: '/about', label: 'About' },
-  { to: '/homes', label: 'Homes' },
-  { to: '/community', label: 'In the Community' },
-  { to: '/homeowner', label: 'Homeowner Care' },
-  { to: '/career', label: 'Career Hub' },
-  { to: '/contact', label: 'Contact' },
-]
-
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -188,7 +180,7 @@ export function Navbar() {
         <Inner>
           <Logo to="/">jkce</Logo>
           <NavLinks>
-            {links.map((l) => (
+            {primaryNav.map((l) => (
               <li key={l.to}>
                 <NavLink
                   to={l.to}
@@ -218,7 +210,7 @@ export function Navbar() {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <ul>
-              {links.map((l) => (
+              {primaryNav.map((l) => (
                 <li key={l.to}>
                   <Link to={l.to}>{l.label}</Link>
                 </li>
