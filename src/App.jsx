@@ -50,14 +50,14 @@ function AppShell() {
               eyebrow="About"
               title="A team obsessed"
               titleItalic="with the craft."
-              hint="This page will feature the Everglade story, philosophy, leadership team, and project timeline. Coming in stage 2."
+              hint="This page will feature the JKCE story, philosophy, leadership team, and project timeline. Coming in stage 2."
             />
           } />
           <Route path="/homes" element={
             <InnerPagePlaceholder
               eyebrow="Homes"
               title="Residences"
-              titleItalic="by Everglade."
+              titleItalic="by JKCE."
               hint="A grid of all past and current projects with filtering by neighborhood, status, and home type. Coming in stage 2."
             />
           } />

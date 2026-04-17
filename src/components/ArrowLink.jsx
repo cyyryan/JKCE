@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 /**
  * ArrowLink —— 带细箭头的链接,悬停时箭头右移。
- * 原站在 "About Everglade" / "Visit Oakhaus" 等 CTA 上用的都是这种风格。
+ * 适合用在品牌站里的主 CTA 和二级跳转。
  */
 const StyledLink = styled(Link)`
   display: inline-flex;

@@ -138,10 +138,10 @@ export function Footer() {
         <Top>
           <Reveal>
             <Brand>
-              <h3>Homes crafted<br />with intention.</h3>
+              <h3>JKCE projects<br />built with care.</h3>
               <p>
-                Thoughtfully designed residences that stand the test of time—
-                built with care for the communities we call home.
+                Construction and site services delivered with precision,
+                safety, and long-term accountability for every community we serve.
               </p>
             </Brand>
           </Reveal>
@@ -184,7 +184,7 @@ export function Footer() {
         </Top>
 
         <Bottom>
-          <span>© 2026 Everglade-style Demo. Learning project.</span>
+          <span>© 2026 JKCE Demo Site.</span>
           <span>Built with React + Framer Motion + Lenis</span>
         </Bottom>
       </Inner>
