@@ -36,8 +36,7 @@ export function RevealText({ lines, text, delay = 0, stagger = 0.12 }) {
         <Line key={i}>
           <Inner
             initial={{ y: '105%' }}
-            whileInView={{ y: '0%' }}
-            viewport={{ once: true, amount: 0.4 }}
+            animate={{ y: '0%' }}
             transition={{
               duration: 1,
               delay: delay + i * stagger,
