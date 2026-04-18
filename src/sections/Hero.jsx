@@ -224,7 +224,7 @@ export function Hero() {
               <motion.span
                 style={{ display: 'inline-block' }}
                 initial={{ y: '105%' }}
-                animate={{ y: '0%' }}
+                animate={{ y: 0 }}
                 transition={{ duration: 1, delay: 1 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
               >
                 {line}
@@ -235,7 +235,7 @@ export function Hero() {
             <motion.span
               style={{ display: 'inline-block' }}
               initial={{ y: '105%' }}
-              animate={{ y: '0%' }}
+              animate={{ y: 0 }}
               transition={{ duration: 1, delay: 1.3, ease: [0.22, 1, 0.36, 1] }}
             >
               <em>{hero.titleLines.en[2]}</em>

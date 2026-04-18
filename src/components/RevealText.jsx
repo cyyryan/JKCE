@@ -13,7 +13,7 @@ export function RevealText({ lines, text, delay = 0, stagger = 0.12 }) {
           <motion.span
             style={{ display: 'inline-block', willChange: 'transform' }}
             initial={{ y: '105%' }}
-            animate={{ y: '0%' }}
+            animate={{ y: 0 }}
             transition={{
               duration: 1,
               delay: delay + i * stagger,
