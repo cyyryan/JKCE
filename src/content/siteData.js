@@ -230,13 +230,23 @@ export const projects = [
     ],
     gallery: [
       {
-        src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Housing development placeholder image',
+        src: 'https://images.unsplash.com/photo-1448630360428-65456885c650?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Residential building exterior',
         caption: 'Placeholder visual for housing and community development work.',
       },
       {
+        src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Housing development interior',
+        caption: 'Placeholder visual for residential envelope and ICF wall assembly.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?auto=format&fit=crop&w=1400&q=80',
+        alt: 'ICF concrete wall construction',
+        caption: 'Placeholder visual for ICF formwork and concrete placement.',
+      },
+      {
         src: 'https://images.unsplash.com/photo-1605146769289-440113cc3d00?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Construction coordination placeholder image',
+        alt: 'Construction coordination on site',
         caption: 'Placeholder visual for coordinated field delivery and building systems.',
       },
     ],
@@ -274,14 +284,24 @@ export const projects = [
     ],
     gallery: [
       {
-        src: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Luxury residential placeholder image',
+        src: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Luxury residential exterior',
         caption: 'Placeholder visual for custom residential site and foundation work.',
       },
       {
+        src: 'https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Excavation and earthworks',
+        caption: 'Placeholder visual for excavation, grading, and site preparation.',
+      },
+      {
         src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Excavation placeholder image',
+        alt: 'Construction team on site',
         caption: 'Placeholder visual for excavation and site-readiness execution.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Aerial view of construction site',
+        caption: 'Placeholder visual for site overview and foundation coordination.',
       },
     ],
     featuredOnHome: true,
@@ -319,13 +339,23 @@ export const projects = [
     gallery: [
       {
         src: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Showroom interior placeholder image',
+        alt: 'Modern showroom interior',
         caption: 'Placeholder visual for commercial interior and showroom renovation work.',
       },
       {
         src: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Commercial fit-out placeholder image',
+        alt: 'Commercial fit-out detail',
         caption: 'Placeholder visual for coordinated tenant improvement and fit-out delivery.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Construction management and planning',
+        caption: 'Placeholder visual for project planning, scheduling, and trade coordination.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Commercial building exterior',
+        caption: 'Placeholder visual for commercial construction and building envelope work.',
       },
     ],
     featuredOnHome: true,
@@ -362,14 +392,24 @@ export const projects = [
     ],
     gallery: [
       {
-        src: 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Temple construction placeholder image',
+        src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Special construction site overview',
         caption: 'Placeholder visual for culturally significant and special construction work.',
       },
       {
+        src: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Construction planning and coordination',
+        caption: 'Placeholder visual for careful planning and design-construction alignment.',
+      },
+      {
         src: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Special construction placeholder image',
+        alt: 'Aerial construction site view',
         caption: 'Placeholder visual for coordinated special project delivery.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Project team coordination',
+        caption: 'Placeholder visual for project team planning and quality-focused execution.',
       },
     ],
     featuredOnHome: false,

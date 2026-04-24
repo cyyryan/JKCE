@@ -28,12 +28,35 @@ const BackLink = styled(Link)`
   text-transform: uppercase;
 `
 
-const GalleryGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+const HeroBanner = styled.div`
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  margin-bottom: 1rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
   @media (max-width: 768px) {
+    height: 280px;
+  }
+`
+
+const GalleryGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 500px) {
     grid-template-columns: 1fr;
   }
 `
@@ -41,25 +64,33 @@ const GalleryGrid = styled.div`
 const GalleryItem = styled.figure`
   margin: 0;
   overflow: hidden;
-  border-radius: 1.5rem;
+  border-radius: 1.25rem;
   background: ${({ theme }) => theme.colors.bgSecondary};
   border: 1px solid ${({ theme }) => theme.colors.line};
 
   img {
     width: 100%;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
+    transition: transform 0.5s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.04);
   }
 
   figcaption {
-    padding: 1rem 1.25rem 1.25rem;
+    padding: 0.85rem 1rem 1rem;
+    font-size: 0.85rem;
     color: ${({ theme }) => theme.colors.textSecondary};
-    line-height: 1.6;
+    line-height: 1.55;
   }
 `
 
 export function ProjectPageTemplate({ project, relatedServices }) {
+  const [heroImage, ...galleryImages] = project.gallery
+
   return (
     <PageWrapper>
       <PageInner>
@@ -73,6 +104,14 @@ export function ProjectPageTemplate({ project, relatedServices }) {
           titleItalic={project.location}
           body={project.projectSummary}
         />
+
+        {heroImage && (
+          <Reveal>
+            <HeroBanner>
+              <img src={heroImage.src} alt={heroImage.alt} loading="lazy" />
+            </HeroBanner>
+          </Reveal>
+        )}
 
         <Section>
           <SectionHeader>
@@ -113,13 +152,36 @@ export function ProjectPageTemplate({ project, relatedServices }) {
             </Reveal>
           </SectionHeader>
           <PlainList>
-            {project.scopeOfWork.slice(0, 3).map((item) => (
-              <PlainItem key={item}>
-                <p>{item}</p>
-              </PlainItem>
+            {project.scopeOfWork.map((item) => (
+              <Reveal key={item}>
+                <PlainItem>
+                  <p>{item}</p>
+                </PlainItem>
+              </Reveal>
             ))}
           </PlainList>
         </Section>
+
+        {galleryImages.length > 0 && (
+          <Section>
+            <SectionHeader>
+              <Reveal><SectionLabel>Project Gallery</SectionLabel></Reveal>
+              <Reveal delay={0.1}>
+                <SectionLead>Site and construction photography from this project.</SectionLead>
+              </Reveal>
+            </SectionHeader>
+            <GalleryGrid>
+              {galleryImages.map((item, index) => (
+                <Reveal key={item.src} delay={index * 0.07}>
+                  <GalleryItem>
+                    <img src={item.src} alt={item.alt} loading="lazy" />
+                    <figcaption>{item.caption}</figcaption>
+                  </GalleryItem>
+                </Reveal>
+              ))}
+            </GalleryGrid>
+          </Section>
+        )}
 
         <Section $border={false}>
           <SectionHeader>
@@ -128,31 +190,15 @@ export function ProjectPageTemplate({ project, relatedServices }) {
               <SectionLead>Why this project matters.</SectionLead>
             </Reveal>
           </SectionHeader>
-          <SplitPanel>
-            <PlainList as="div">
-              {project.highlights.slice(0, 2).map((item, index) => (
-                <Reveal key={item} delay={index * 0.06}>
-                  <PlainItem>
-                    <p>{item}</p>
-                  </PlainItem>
-                </Reveal>
-              ))}
-            </PlainList>
-            <Reveal delay={0.12}>
-              <GalleryGrid>
-                {project.gallery.slice(0, 1).map((item, index) => (
-                  <GalleryItem key={item.src}>
-                    <img
-                      src={item.src}
-                      alt={item.alt || `${project.title} gallery image ${index + 1}`}
-                      loading="lazy"
-                    />
-                    <figcaption>{item.caption}</figcaption>
-                  </GalleryItem>
-                ))}
-              </GalleryGrid>
-            </Reveal>
-          </SplitPanel>
+          <PlainList>
+            {project.highlights.map((item, index) => (
+              <Reveal key={item} delay={index * 0.06}>
+                <PlainItem>
+                  <p>{item}</p>
+                </PlainItem>
+              </Reveal>
+            ))}
+          </PlainList>
 
           <CTA>
             <div>
