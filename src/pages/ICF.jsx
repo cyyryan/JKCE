@@ -18,6 +18,89 @@ import {
 } from '../components/PageScaffold'
 import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
+import styled from 'styled-components'
+
+const ImageTextGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+`
+
+const ImageFrame = styled.div`
+  overflow: hidden;
+  border-radius: 1.5rem;
+  aspect-ratio: 4 / 3;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+`
+
+const CaseStudyImage = styled.div`
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  margin-bottom: 3rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    height: 260px;
+  }
+`
+
+const ProcessGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const ProcessCard = styled.div`
+  padding: 1.5rem;
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  border-radius: 1.25rem;
+
+  h3 {
+    font-size: 1.15rem;
+    margin: 0.75rem 0 0.5rem;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.textSecondary};
+    line-height: 1.65;
+    font-size: 0.95rem;
+  }
+`
+
+const StepNum = styled.span`
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.45;
+`
 
 const ICF_ADVANTAGES = [
   {
@@ -108,24 +191,35 @@ export default function ICF() {
               </SectionLead>
             </Reveal>
           </SectionHeader>
-          <TwoColumnText>
+          <ImageTextGrid>
             <Reveal>
-              <p>
-                Unlike traditional wood framing, ICF walls are built by stacking hollow foam
-                blocks or panels, placing rebar inside the cavity, and filling the core with
-                poured concrete. Once cured, the foam stays in place — providing continuous
-                insulation on both sides of a solid concrete wall.
-              </p>
+              <ImageFrame>
+                <img
+                  src="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?auto=format&fit=crop&w=900&q=80"
+                  alt="ICF concrete wall construction"
+                  loading="lazy"
+                />
+              </ImageFrame>
             </Reveal>
-            <Reveal delay={0.08}>
-              <p>
-                The result is a monolithic, thermally efficient wall assembly that far
-                outperforms standard framing in strength, insulation, sound control, and
-                resilience. ICF is suitable for foundations, above-grade walls, and entire
-                building envelopes across residential and commercial applications.
-              </p>
-            </Reveal>
-          </TwoColumnText>
+            <div>
+              <Reveal>
+                <p style={{ lineHeight: 1.8, marginBottom: '1.5rem', color: 'inherit' }}>
+                  Unlike traditional wood framing, ICF walls are built by stacking hollow foam
+                  blocks or panels, placing rebar inside the cavity, and filling the core with
+                  poured concrete. Once cured, the foam stays in place — providing continuous
+                  insulation on both sides of a solid concrete wall.
+                </p>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <p style={{ lineHeight: 1.8, color: 'inherit' }}>
+                  The result is a monolithic, thermally efficient wall assembly that far
+                  outperforms standard framing in strength, insulation, sound control, and
+                  resilience. ICF is suitable for foundations, above-grade walls, and entire
+                  building envelopes across residential and commercial applications.
+                </p>
+              </Reveal>
+            </div>
+          </ImageTextGrid>
         </Section>
 
         {/* How it Works */}
@@ -139,21 +233,27 @@ export default function ICF() {
               </SectionLead>
             </Reveal>
           </SectionHeader>
-          <PlainList>
+          <Reveal>
+            <ImageFrame style={{ marginBottom: '2.5rem', aspectRatio: '16/5', borderRadius: '1.5rem' }}>
+              <img
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1400&q=80"
+                alt="ICF construction site"
+                loading="lazy"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            </ImageFrame>
+          </Reveal>
+          <ProcessGrid>
             {HOW_IT_WORKS_STEPS.map((item, index) => (
               <Reveal key={item.step} delay={index * 0.06}>
-                <PlainItem>
-                  <h3>
-                    <span style={{ fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', opacity: 0.5, marginRight: '0.75rem' }}>
-                      {item.step}
-                    </span>
-                    {item.title}
-                  </h3>
+                <ProcessCard>
+                  <StepNum>{item.step}</StepNum>
+                  <h3>{item.title}</h3>
                   <p>{item.body}</p>
-                </PlainItem>
+                </ProcessCard>
               </Reveal>
             ))}
-          </PlainList>
+          </ProcessGrid>
         </Section>
 
         {/* Why Choose ICF */}
@@ -190,6 +290,15 @@ export default function ICF() {
               </SectionLead>
             </Reveal>
           </SectionHeader>
+          <Reveal>
+            <CaseStudyImage>
+              <img
+                src="https://images.unsplash.com/photo-1448630360428-65456885c650?auto=format&fit=crop&w=1600&q=80"
+                alt="Tlowitsis Nation housing development"
+                loading="lazy"
+              />
+            </CaseStudyImage>
+          </Reveal>
           <SplitPanel>
             <Reveal>
               <div>

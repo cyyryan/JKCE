@@ -19,6 +19,50 @@ import {
 import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
 import { aboutContent, pageMeta } from '../content/siteData'
+import styled from 'styled-components'
+
+const BannerImage = styled.div`
+  width: 100%;
+  height: 480px;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  margin-bottom: 1rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    height: 260px;
+  }
+`
+
+const ImageTextGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const ImageFrame = styled.div`
+  overflow: hidden;
+  border-radius: 1.5rem;
+  aspect-ratio: 4 / 3;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+`
 
 export default function About() {
   return (
@@ -33,6 +77,15 @@ export default function About() {
         />
 
         <Section>
+          <Reveal>
+            <BannerImage>
+              <img
+                src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600&q=80"
+                alt="JKCE construction site overview"
+                loading="lazy"
+              />
+            </BannerImage>
+          </Reveal>
           <SectionHeader>
             <Reveal><SectionLabel>Company Overview</SectionLabel></Reveal>
             <Reveal delay={0.1}>
@@ -79,20 +132,31 @@ export default function About() {
               </SectionLead>
             </Reveal>
           </SectionHeader>
-          <SplitPanel>
+          <ImageTextGrid>
             <Reveal>
-              <div>
-                <h3>Mission</h3>
-                <p>{aboutContent.mission}</p>
-              </div>
+              <ImageFrame>
+                <img
+                  src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=900&q=80"
+                  alt="JKCE team planning session"
+                  loading="lazy"
+                />
+              </ImageFrame>
             </Reveal>
-            <Reveal delay={0.08}>
-              <div>
-                <h3>Vision</h3>
-                <p>{aboutContent.vision}</p>
-              </div>
-            </Reveal>
-          </SplitPanel>
+            <div>
+              <Reveal>
+                <div style={{ marginBottom: '2rem' }}>
+                  <h3>Mission</h3>
+                  <p style={{ marginTop: '0.5rem', color: 'inherit', lineHeight: 1.7 }}>{aboutContent.mission}</p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <div>
+                  <h3>Vision</h3>
+                  <p style={{ marginTop: '0.5rem', color: 'inherit', lineHeight: 1.7 }}>{aboutContent.vision}</p>
+                </div>
+              </Reveal>
+            </div>
+          </ImageTextGrid>
         </Section>
 
         <Section>

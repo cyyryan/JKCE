@@ -26,6 +26,52 @@ const ServiceLink = styled(Link)`
   text-transform: uppercase;
 `
 
+const ServiceCard = styled.article`
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: ${({ theme }) => theme.colors.bgPrimary};
+
+  h3 {
+    font-size: 1.55rem;
+    margin-bottom: 0.9rem;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.textSecondary};
+    line-height: 1.65;
+  }
+`
+
+const ServiceCardImage = styled.div`
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.04);
+  }
+`
+
+const ServiceCardBody = styled.div`
+  padding: 1.5rem;
+`
+
+const SERVICE_IMAGES = {
+  excavation: 'https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?auto=format&fit=crop&w=900&q=80',
+  'construction-management': 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80',
+  'design-service': 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80',
+  icf: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=80',
+}
+
 export default function Services() {
   return (
     <PageWrapper>
@@ -48,12 +94,21 @@ export default function Services() {
           <Grid $columns={2}>
             {services.map((service, index) => (
               <Reveal key={service.slug} delay={index * 0.08}>
-                <Card>
-                  <IconBadge>{service.icon}</IconBadge>
-                  <h3>{service.name}</h3>
-                  <p>{service.description}</p>
-                  <ServiceLink to={`/services/${service.slug}`}>View Service</ServiceLink>
-                </Card>
+                <ServiceCard>
+                  <ServiceCardImage>
+                    <img
+                      src={SERVICE_IMAGES[service.slug]}
+                      alt={service.name}
+                      loading="lazy"
+                    />
+                  </ServiceCardImage>
+                  <ServiceCardBody>
+                    <IconBadge>{service.icon}</IconBadge>
+                    <h3>{service.name}</h3>
+                    <p>{service.description}</p>
+                    <ServiceLink to={`/services/${service.slug}`}>View Service</ServiceLink>
+                  </ServiceCardBody>
+                </ServiceCard>
               </Reveal>
             ))}
           </Grid>
