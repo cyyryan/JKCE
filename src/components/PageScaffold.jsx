@@ -4,10 +4,10 @@ import { Reveal } from './Reveal'
 import { RevealText } from './RevealText'
 
 export const PageWrapper = styled.div`
-  padding: 10rem 2.5rem 7rem;
+  padding: 7rem 2.5rem 7rem;
 
   @media (max-width: 768px) {
-    padding: 8rem 1.5rem 4rem;
+    padding: 6rem 1.5rem 4rem;
   }
 `
 
