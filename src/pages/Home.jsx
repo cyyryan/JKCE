@@ -1,8 +1,7 @@
 import { Hero } from '../sections/Hero'
 import { Intro } from '../sections/Intro'
 import { CoreServices } from '../sections/CoreServices'
-import { TechEdge } from '../sections/TechEdge'
-import { WhyChoose } from '../sections/WhyChoose'
+import { TechAndPromises } from '../sections/TechAndPromises'
 import { FeaturedProjectsHome } from '../sections/FeaturedProjectsHome'
 import { FinalCTA } from '../sections/FinalCTA'
 import { Seo } from '../components/Seo'
@@ -15,8 +14,7 @@ export default function Home() {
       <Hero />
       <Intro />
       <CoreServices />
-      <TechEdge />
-      <WhyChoose />
+      <TechAndPromises />
       <FeaturedProjectsHome />
       <FinalCTA />
     </>
