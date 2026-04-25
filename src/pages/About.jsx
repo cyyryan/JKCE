@@ -6,7 +6,6 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
-  TwoColumnText,
   Grid,
   Card,
   IconBadge,
@@ -64,6 +63,42 @@ const ImageFrame = styled.div`
   }
 `
 
+const PanelTitle = styled.h3`
+  font-size: 0.75rem;
+  font-family: ${({ theme }) => theme.fonts.sans};
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textMuted};
+  margin-bottom: 1.5rem;
+`
+
+const DividerList = styled.div`
+  border-top: 1px solid ${({ theme }) => theme.colors.line};
+`
+
+const DividerItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+`
+
+const StrengthBadge = styled.span`
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: ${({ theme }) => theme.colors.textMuted};
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+`
+
 export default function About() {
   return (
     <PageWrapper>
@@ -76,6 +111,7 @@ export default function About() {
           body={aboutContent.intro}
         />
 
+        {/* Company Overview — banner image + first paragraph only */}
         <Section>
           <Reveal>
             <BannerImage>
@@ -95,33 +131,43 @@ export default function About() {
               </SectionLead>
             </Reveal>
           </SectionHeader>
-          <TwoColumnText>
-            {aboutContent.overview.map((paragraph, i) => (
-              <Reveal key={i} delay={i * 0.06}>
-                <p>{paragraph}</p>
-              </Reveal>
-            ))}
-          </TwoColumnText>
+          <Reveal>
+            <p style={{ lineHeight: 1.8, maxWidth: '72ch', color: 'inherit' }}>
+              {aboutContent.overview[0]}
+            </p>
+          </Reveal>
         </Section>
 
+        {/* Commitments + Core Strengths — merged split panel */}
         <Section>
-          <SectionHeader>
-            <Reveal><SectionLabel>Our Commitments</SectionLabel></Reveal>
-            <Reveal delay={0.1}>
-              <SectionLead>{aboutContent.promisesIntro}</SectionLead>
+          <SplitPanel>
+            <Reveal>
+              <div>
+                <PanelTitle>Our Commitments</PanelTitle>
+                <DividerList>
+                  {aboutContent.promises.map((item, i) => (
+                    <DividerItem key={i}>{item}</DividerItem>
+                  ))}
+                </DividerList>
+              </div>
             </Reveal>
-          </SectionHeader>
-          <PlainList>
-            {aboutContent.promises.map((item, i) => (
-              <Reveal key={item} delay={i * 0.06}>
-                <PlainItem>
-                  <p>{item}</p>
-                </PlainItem>
-              </Reveal>
-            ))}
-          </PlainList>
+            <Reveal delay={0.08}>
+              <div>
+                <PanelTitle>Core Strengths</PanelTitle>
+                <DividerList>
+                  {aboutContent.strengths.map((s, i) => (
+                    <DividerItem key={s.title}>
+                      <StrengthBadge>0{i + 1}</StrengthBadge>
+                      {s.title}
+                    </DividerItem>
+                  ))}
+                </DividerList>
+              </div>
+            </Reveal>
+          </SplitPanel>
         </Section>
 
+        {/* Mission & Vision — unchanged */}
         <Section>
           <SectionHeader>
             <Reveal><SectionLabel>Mission & Vision</SectionLabel></Reveal>
@@ -159,66 +205,8 @@ export default function About() {
           </ImageTextGrid>
         </Section>
 
-        <Section>
-          <SectionHeader>
-            <Reveal><SectionLabel>Core Strengths</SectionLabel></Reveal>
-            <Reveal delay={0.1}>
-              <SectionLead>
-                Clients trust JKCE because the company combines proven construction fundamentals
-                with modern technical capability.
-              </SectionLead>
-            </Reveal>
-          </SectionHeader>
-          <Grid $columns={3}>
-            {aboutContent.strengths.map((value, index) => (
-              <Reveal key={value.title} delay={index * 0.06}>
-                <Card>
-                  <IconBadge>{['01', '02', '03'][index]}</IconBadge>
-                  <h3>{value.title}</h3>
-                  <p>{value.description}</p>
-                </Card>
-              </Reveal>
-            ))}
-          </Grid>
-        </Section>
-
+        {/* CTA only — Technology & Capability section removed */}
         <Section $border={false}>
-          <SectionHeader>
-            <Reveal><SectionLabel>Technology & Capability</SectionLabel></Reveal>
-            <Reveal delay={0.1}>
-              <SectionLead>
-                Modern tools only matter when they improve delivery in the field. JKCE pairs
-                technical capability with practical construction experience.
-              </SectionLead>
-            </Reveal>
-          </SectionHeader>
-          <SplitPanel>
-            <Reveal>
-              <div>
-                <h3>Technical Capability</h3>
-                <PlainList>
-                  {aboutContent.capabilities.map((item) => (
-                    <PlainItem key={item}>
-                      <p>{item}</p>
-                    </PlainItem>
-                  ))}
-                </PlainList>
-              </div>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <div>
-                <h3>Service Promise</h3>
-                <PlainList>
-                  {aboutContent.promise.map((item) => (
-                    <PlainItem key={item}>
-                      <p>{item}</p>
-                    </PlainItem>
-                  ))}
-                </PlainList>
-              </div>
-            </Reveal>
-          </SplitPanel>
-
           <CTA>
             <div>
               <h3>{aboutContent.cta.title}</h3>
