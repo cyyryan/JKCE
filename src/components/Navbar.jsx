@@ -49,12 +49,27 @@ const Inner = styled.div`
 const Logo = styled(Link)`
   display: inline-flex;
   align-items: center;
+`
 
-  img {
-    height: 56px;
-    width: auto;
-    display: block;
-  }
+const LogoWrap = styled.div`
+  position: relative;
+  display: inline-flex;
+`
+
+/* Base image — logo-w (white), controls layout height */
+const LogoBase = styled.img`
+  height: ${({ $big }) => ($big ? '84px' : '56px')};
+  width: auto;
+  display: block;
+  transition: height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.35s ease;
+`
+
+/* Overlay image — logo-g (dark), absolutely on top */
+const LogoOver = styled(LogoBase)`
+  position: absolute;
+  top: 0;
+  left: 0;
 `
 
 const NavLinks = styled.ul`
@@ -182,7 +197,23 @@ export function Navbar() {
       >
         <Inner>
           <Logo to="/" aria-label="JKCE homepage">
-            <img src="/logo/logo-g.png" alt="JKCE Probuild" />
+            <LogoWrap>
+              {/* White logo — hero state */}
+              <LogoBase
+                src="/logo/logo-w.PNG"
+                alt="JKCE Probuild"
+                $big={transparent && !scrolled}
+                style={{ opacity: transparent && !scrolled ? 1 : 0 }}
+              />
+              {/* Dark logo — scrolled / inner pages */}
+              <LogoOver
+                src="/logo/logo-g.png"
+                alt=""
+                aria-hidden="true"
+                $big={transparent && !scrolled}
+                style={{ opacity: transparent && !scrolled ? 0 : 1 }}
+              />
+            </LogoWrap>
           </Logo>
           <NavLinks>
             {primaryNav.map((l) => (
