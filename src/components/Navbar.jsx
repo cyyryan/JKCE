@@ -51,7 +51,7 @@ const Logo = styled(Link)`
   align-items: center;
 
   img {
-    height: 28px;
+    height: 56px;
     width: auto;
     display: block;
   }
