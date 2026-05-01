@@ -1,25 +1,25 @@
 // 设计系统变量 —— 所有组件统一引用,方便整站调色调字体
-// 配色思路:奶油米白背景 + 深炭灰主色 + 暖土褐色辅色,呈现专业、沉稳的建筑品牌调性
+// 配色思路:奶油米白背景 + 深海军蓝主色 + 暖古铜金辅色,呈现专业、权威的建筑品牌调性
 
 export const theme = {
   colors: {
     // 背景
     bgPrimary: '#F5F1EA',      // 主背景:温暖米白
     bgSecondary: '#EAE4D8',    // 次背景:稍深
-    bgDark: '#1E1E1E',         // 深色板块:炭灰近黑
-    bgAccent: '#2A2A2A',       // 深色辅助
+    bgDark: '#0D1B2A',         // 深色板块:深海军蓝
+    bgAccent: '#162336',       // 深色辅助
 
     // 文字
-    textPrimary: '#1E1E1E',    // 主文字:炭灰,柔和的黑
+    textPrimary: '#0D1B2A',    // 主文字:深海军蓝
     textSecondary: '#5A5951',  // 次文字:暖灰
     textMuted: '#8A8778',      // 弱化文字
     textOnDark: '#F5F1EA',     // 深底上的文字
 
     // 品牌色
-    accent: '#6B7F5C',         // 橄榄绿:点缀色
+    accent: '#74551A',         // 古铜金:logo主色
     accentWarm: '#B8956A',     // 暖土褐:高光点缀
     line: '#D4CDBD',           // 分隔线
-    lineDark: '#383838',
+    lineDark: '#1E2F42',
   },
 
   fonts: {
