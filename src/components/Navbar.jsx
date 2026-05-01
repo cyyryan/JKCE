@@ -58,7 +58,7 @@ const LogoWrap = styled.div`
 
 /* Base image — logo-w (white), controls layout height */
 const LogoBase = styled.img`
-  height: ${({ $big }) => ($big ? '84px' : '56px')};
+  height: ${({ $big }) => ($big ? '101px' : '56px')};
   width: auto;
   display: block;
   transition: height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
