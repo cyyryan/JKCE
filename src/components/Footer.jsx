@@ -190,72 +190,6 @@ const SrOnly = styled.label`
   border: 0;
 `
 
-const HiringBanner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 1.5rem 2rem;
-  margin-bottom: 5rem;
-  border: 1px solid ${({ theme }) => theme.colors.lineDark};
-  border-radius: 1.25rem;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.25rem;
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 3rem;
-  }
-`
-
-const HiringText = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-`
-
-const HiringLabel = styled.span`
-  font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textMuted};
-  background: ${({ theme }) => theme.colors.bgAccent};
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  flex-shrink: 0;
-`
-
-const HiringTitle = styled.span`
-  font-size: 1rem;
-  font-weight: 300;
-  color: ${({ theme }) => theme.colors.textOnDark};
-  letter-spacing: -0.01em;
-`
-
-const HiringLink = styled(Link)`
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.4rem;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.textOnDark};
-  font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textOnDark};
-  transition: background 0.25s, color 0.25s;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.textOnDark};
-    color: ${({ theme }) => theme.colors.bgDark};
-  }
-`
-
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
@@ -275,14 +209,6 @@ export function Footer() {
   return (
     <Wrapper>
       <Inner>
-        <HiringBanner>
-          <HiringText>
-            <HiringLabel>We're hiring</HiringLabel>
-            <HiringTitle>Project Manager — Greater Vancouver</HiringTitle>
-          </HiringText>
-          <HiringLink to="/careers">View Roles →</HiringLink>
-        </HiringBanner>
-
         <Top>
           <Reveal>
             <Brand>
