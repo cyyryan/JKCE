@@ -6,13 +6,7 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
-  TwoColumnText,
-  Grid,
-  Card,
-  IconBadge,
   SplitPanel,
-  PlainList,
-  PlainItem,
   CTA,
   CTAButton,
 } from '../components/PageScaffold'
@@ -64,104 +58,143 @@ const CaseStudyImage = styled.div`
   }
 `
 
-const ProcessGrid = styled.div`
+/* ── Shared divider list ── */
+const DividerList = styled.div`
+  border-top: 1px solid ${({ theme }) => theme.colors.line};
+`
+
+const DividerItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+`
+
+const Badge = styled.span`
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: ${({ theme }) => theme.colors.textMuted};
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+`
+
+/* ── Two-column divider list ── */
+const TwoColDivider = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 3rem;
 
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  @media (max-width: 500px) {
+  @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `
 
-const ProcessCard = styled.div`
-  padding: 1.5rem;
-  border: 1px solid ${({ theme }) => theme.colors.line};
-  border-radius: 1.25rem;
+/* ── Step row for How It Works ── */
+const StepRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid ${({ theme }) => theme.colors.line};
 
-  h3 {
-    font-size: 1.15rem;
-    margin: 0.75rem 0 0.5rem;
-  }
-
-  p {
-    color: ${({ theme }) => theme.colors.textSecondary};
-    line-height: 1.65;
-    font-size: 0.95rem;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 `
 
-const StepNum = styled.span`
-  font-size: 0.7rem;
+const StepItem = styled.div`
+  padding: 1.25rem 0 1.25rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  border-right: 1px solid ${({ theme }) => theme.colors.line};
+
+  &:last-child {
+    border-right: none;
+  }
+
+  @media (max-width: 768px) {
+    &:nth-child(2) { border-right: none; }
+    &:nth-child(3) { border-right: 1px solid ${({ theme }) => theme.colors.line}; }
+  }
+`
+
+const StepNumber = styled.div`
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.68rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  opacity: 0.45;
+  color: ${({ theme }) => theme.colors.textMuted};
+  margin-bottom: 0.5rem;
+  padding-right: 1.25rem;
+`
+
+const StepTitle = styled.div`
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-right: 1.25rem;
+`
+
+/* ── Case study panel title ── */
+const PanelTitle = styled.p`
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textMuted};
+  margin-bottom: 1.5rem;
+`
+
+/* ── Case study label rows ── */
+const MetaRow = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  font-size: 0.85rem;
+  line-height: 1.5;
+
+  &:first-child {
+    border-top: 1px solid ${({ theme }) => theme.colors.line};
+  }
+`
+
+const MetaLabel = styled.span`
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textMuted};
+  flex: 0 0 9rem;
+  padding-top: 0.1rem;
+`
+
+const MetaValue = styled.span`
+  color: inherit;
+  flex: 1;
 `
 
 const ICF_ADVANTAGES = [
-  {
-    num: '01',
-    title: 'Superior Energy Efficiency',
-    description:
-      'ICF walls achieve R-values of 23+ — significantly higher than standard wood-frame construction — cutting heating and cooling costs year-round.',
-  },
-  {
-    num: '02',
-    title: 'Exceptional Structural Strength',
-    description:
-      'Reinforced concrete core withstands extreme wind loads, seismic events, and fire far beyond conventional framing standards.',
-  },
-  {
-    num: '03',
-    title: 'Sound Attenuation',
-    description:
-      'Solid concrete mass reduces airborne sound transmission by up to 60 dB, creating quieter, more comfortable interior environments.',
-  },
-  {
-    num: '04',
-    title: 'Faster Construction Timeline',
-    description:
-      'Factory-formed interlocking panels stack and brace quickly, compressing the framing and insulation phases into a single step.',
-  },
-  {
-    num: '05',
-    title: 'Pest & Mould Resistant',
-    description:
-      'Inorganic concrete and EPS foam provide no food source for pests and are impervious to rot, mould, and moisture intrusion.',
-  },
-  {
-    num: '06',
-    title: 'Long-Term Sustainability',
-    description:
-      'Dramatically reduced lifetime energy use, minimal maintenance, and a century-plus lifespan make ICF an environmentally responsible choice.',
-  },
+  { num: '01', title: 'Superior Energy Efficiency' },
+  { num: '02', title: 'Exceptional Structural Strength' },
+  { num: '03', title: 'Sound Attenuation' },
+  { num: '04', title: 'Faster Construction Timeline' },
+  { num: '05', title: 'Pest & Mould Resistant' },
+  { num: '06', title: 'Long-Term Sustainability' },
 ]
 
 const HOW_IT_WORKS_STEPS = [
-  {
-    step: 'Step 01',
-    title: 'Form Assembly',
-    body: 'Interlocking EPS foam panels are stacked course by course and braced to hold alignment during the pour.',
-  },
-  {
-    step: 'Step 02',
-    title: 'Steel Reinforcement',
-    body: 'Horizontal and vertical rebar is threaded through the hollow core to meet structural and seismic requirements.',
-  },
-  {
-    step: 'Step 03',
-    title: 'Concrete Pour',
-    body: 'High-strength concrete is pumped into the forms in controlled lifts, consolidating around the rebar cage.',
-  },
-  {
-    step: 'Step 04',
-    title: 'Integrated Finishing',
-    body: 'The foam forms stay in place permanently, serving as the insulation and substrate for interior drywall and exterior cladding.',
-  },
+  { step: 'Step 01', title: 'Form Assembly' },
+  { step: 'Step 02', title: 'Steel Reinforcement' },
+  { step: 'Step 03', title: 'Concrete Pour' },
+  { step: 'Step 04', title: 'Integrated Finishing' },
 ]
 
 export default function ICF() {
@@ -201,24 +234,16 @@ export default function ICF() {
                 />
               </ImageFrame>
             </Reveal>
-            <div>
-              <Reveal>
-                <p style={{ lineHeight: 1.8, marginBottom: '1.5rem', color: 'inherit' }}>
-                  Unlike traditional wood framing, ICF walls are built by stacking hollow foam
-                  blocks or panels, placing rebar inside the cavity, and filling the core with
-                  poured concrete. Once cured, the foam stays in place — providing continuous
-                  insulation on both sides of a solid concrete wall.
-                </p>
-              </Reveal>
-              <Reveal delay={0.08}>
-                <p style={{ lineHeight: 1.8, color: 'inherit' }}>
-                  The result is a monolithic, thermally efficient wall assembly that far
-                  outperforms standard framing in strength, insulation, sound control, and
-                  resilience. ICF is suitable for foundations, above-grade walls, and entire
-                  building envelopes across residential and commercial applications.
-                </p>
-              </Reveal>
-            </div>
+            <Reveal delay={0.08}>
+              <p style={{ lineHeight: 1.8, color: 'inherit' }}>
+                Unlike traditional wood framing, ICF walls are built by stacking hollow foam
+                blocks or panels, placing rebar inside the cavity, and filling the core with
+                poured concrete. Once cured, the foam stays in place — providing continuous
+                insulation on both sides of a solid concrete wall. The result is a monolithic,
+                thermally efficient assembly that outperforms standard framing in strength,
+                insulation, sound control, and resilience.
+              </p>
+            </Reveal>
           </ImageTextGrid>
         </Section>
 
@@ -243,17 +268,16 @@ export default function ICF() {
               />
             </ImageFrame>
           </Reveal>
-          <ProcessGrid>
-            {HOW_IT_WORKS_STEPS.map((item, index) => (
-              <Reveal key={item.step} delay={index * 0.06}>
-                <ProcessCard>
-                  <StepNum>{item.step}</StepNum>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </ProcessCard>
-              </Reveal>
-            ))}
-          </ProcessGrid>
+          <Reveal>
+            <StepRow>
+              {HOW_IT_WORKS_STEPS.map((item) => (
+                <StepItem key={item.step}>
+                  <StepNumber>{item.step}</StepNumber>
+                  <StepTitle>{item.title}</StepTitle>
+                </StepItem>
+              ))}
+            </StepRow>
+          </Reveal>
         </Section>
 
         {/* Why Choose ICF */}
@@ -267,17 +291,20 @@ export default function ICF() {
               </SectionLead>
             </Reveal>
           </SectionHeader>
-          <Grid $columns={3}>
-            {ICF_ADVANTAGES.map((item, index) => (
-              <Reveal key={item.num} delay={index * 0.06}>
-                <Card>
-                  <IconBadge>{item.num}</IconBadge>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </Card>
-              </Reveal>
-            ))}
-          </Grid>
+          <Reveal>
+            <TwoColDivider>
+              {[ICF_ADVANTAGES.slice(0, 3), ICF_ADVANTAGES.slice(3)].map((col, ci) => (
+                <DividerList key={ci}>
+                  {col.map((item) => (
+                    <DividerItem key={item.num}>
+                      <Badge>{item.num}</Badge>
+                      {item.title}
+                    </DividerItem>
+                  ))}
+                </DividerList>
+              ))}
+            </TwoColDivider>
+          </Reveal>
         </Section>
 
         {/* Case Study: Tlowitsis Nation */}
@@ -302,57 +329,33 @@ export default function ICF() {
           <SplitPanel>
             <Reveal>
               <div>
-                <h3>Project Overview</h3>
-                <PlainList>
-                  <PlainItem>
-                    <h3>Client</h3>
-                    <p>Tlowitsis Nation</p>
-                  </PlainItem>
-                  <PlainItem>
-                    <h3>Project Type</h3>
-                    <p>Residential community housing — ICF construction</p>
-                  </PlainItem>
-                  <PlainItem>
-                    <h3>Location</h3>
-                    <p>British Columbia, Canada</p>
-                  </PlainItem>
-                  <PlainItem>
-                    <h3>Scope</h3>
-                    <p>
-                      Full-envelope ICF construction for a multi-unit residential development
-                      serving the Tlowitsis Nation community, including foundations, above-grade
-                      walls, and structural coordination.
-                    </p>
-                  </PlainItem>
-                </PlainList>
+                <PanelTitle>Project Overview</PanelTitle>
+                <MetaRow>
+                  <MetaLabel>Client</MetaLabel>
+                  <MetaValue>Tlowitsis Nation</MetaValue>
+                </MetaRow>
+                <MetaRow>
+                  <MetaLabel>Type</MetaLabel>
+                  <MetaValue>Residential community housing — ICF</MetaValue>
+                </MetaRow>
+                <MetaRow>
+                  <MetaLabel>Location</MetaLabel>
+                  <MetaValue>British Columbia, Canada</MetaValue>
+                </MetaRow>
+                <MetaRow>
+                  <MetaLabel>Scope</MetaLabel>
+                  <MetaValue>Full-envelope ICF, foundations, above-grade walls, structural coordination</MetaValue>
+                </MetaRow>
               </div>
             </Reveal>
             <Reveal delay={0.1}>
               <div>
-                <h3>Outcomes</h3>
-                <PlainList>
-                  <PlainItem>
-                    <h3>Energy Performance</h3>
-                    <p>
-                      ICF envelope delivers significantly reduced heating loads — critical for
-                      a remote community where energy costs and reliability are primary concerns.
-                    </p>
-                  </PlainItem>
-                  <PlainItem>
-                    <h3>Structural Durability</h3>
-                    <p>
-                      Reinforced concrete construction ensures long service life with minimal
-                      maintenance, protecting the community's housing investment for decades.
-                    </p>
-                  </PlainItem>
-                  <PlainItem>
-                    <h3>Build Quality</h3>
-                    <p>
-                      The precision of ICF formwork produced tight, consistent wall assemblies
-                      that met and exceeded project specifications.
-                    </p>
-                  </PlainItem>
-                </PlainList>
+                <PanelTitle>Outcomes</PanelTitle>
+                <DividerList>
+                  <DividerItem>Energy Performance</DividerItem>
+                  <DividerItem>Structural Durability</DividerItem>
+                  <DividerItem>Build Quality</DividerItem>
+                </DividerList>
               </div>
             </Reveal>
           </SplitPanel>
