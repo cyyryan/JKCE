@@ -55,13 +55,6 @@ const LogoWrap = styled.div`
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: ${({ $hero }) => ($hero ? '0.45rem 0.9rem' : '0')};
-  border-radius: 999px;
-  background: ${({ $hero }) => ($hero ? 'rgba(0, 0, 0, 0.22)' : 'transparent')};
-  backdrop-filter: ${({ $hero }) => ($hero ? 'blur(6px)' : 'none')};
-  transition: padding 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              background 0.5s ease,
-              backdrop-filter 0.5s ease;
 `
 
 /* Base image — logo-w (white), controls layout height */
@@ -205,7 +198,7 @@ export function Navbar() {
       >
         <Inner>
           <Logo to="/" aria-label="JKCE homepage">
-            <LogoWrap $hero={transparent && !scrolled}>
+            <LogoWrap>
               {/* White logo — hero state */}
               <LogoBase
                 src="/logo/logo-w.PNG"
