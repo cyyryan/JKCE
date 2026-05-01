@@ -47,11 +47,14 @@ const Inner = styled.div`
 `
 
 const Logo = styled(Link)`
-  font-family: ${({ theme }) => theme.fonts.display};
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  font-style: italic;
+  display: inline-flex;
+  align-items: center;
+
+  img {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
 `
 
 const NavLinks = styled.ul`
@@ -178,7 +181,9 @@ export function Navbar() {
         transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
       >
         <Inner>
-          <Logo to="/" aria-label="JKCE homepage">jkce</Logo>
+          <Logo to="/" aria-label="JKCE homepage">
+            <img src="/logo/logo-g.png" alt="JKCE Probuild" />
+          </Logo>
           <NavLinks>
             {primaryNav.map((l) => (
               <li key={l.to}>
