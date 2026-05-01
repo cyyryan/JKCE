@@ -53,6 +53,42 @@ const Brand = styled.div`
   }
 `
 
+const SocialRow = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+
+  a {
+    font-family: ${({ theme }) => theme.fonts.sans};
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.textMuted};
+    transition: color 0.25s;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.textOnDark};
+    }
+  }
+`
+
+const BbbSeal = styled.a`
+  display: inline-flex;
+  align-items: center;
+
+  img {
+    height: 40px;
+    width: auto;
+    display: block;
+    opacity: 0.85;
+    transition: opacity 0.25s;
+  }
+
+  &:hover img {
+    opacity: 1;
+  }
+`
+
 const Col = styled.div`
   h4 {
     font-family: ${({ theme }) => theme.fonts.sans};
@@ -156,6 +192,11 @@ export function Footer() {
                 Full-service construction support across excavation,
                 construction management, design service, and ICF capability.
               </p>
+              <SocialRow>
+                <a href="https://www.instagram.com/jkceprobuild/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://www.facebook.com/jkceprobuild/" target="_blank" rel="noopener noreferrer">Facebook</a>
+                <a href="https://www.linkedin.com/company/jkceprobuild/posts/?feedView=all" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              </SocialRow>
             </Brand>
           </Reveal>
 
@@ -200,7 +241,14 @@ export function Footer() {
 
         <Bottom>
           <span>© 2026 {companyInfo.name}.</span>
-          <span>Built on a centralized production-ready content structure</span>
+          <BbbSeal
+            href="https://www.bbb.org/ca/bc/richmond/profile/general-contractor/jkce-probuild-contracting-corp-0037-2433919/#sealclick"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="JKCE BBB Business Review"
+          >
+            <img src="/blue-seal-250-52-bbb-2433919.png" alt="BBB Accredited Business" />
+          </BbbSeal>
         </Bottom>
       </Inner>
     </Wrapper>
