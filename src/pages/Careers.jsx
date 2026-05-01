@@ -61,16 +61,10 @@ const ApplyButton = styled.a`
 
 const POSITIONS = [
   {
-    title: 'Excavator Operator',
+    title: 'Project Manager',
     description:
-      'Operate heavy excavation equipment on active residential and commercial construction sites across Greater Vancouver. Experience with CAT, Komatsu, or equivalent equipment required.',
-    link: 'https://ca.indeed.com/cmp/Jkce-Probuild-Contracting-Corp',
-  },
-  {
-    title: 'Site Superintendent',
-    description:
-      'Lead on-site construction operations, coordinate trades, and ensure projects are delivered on schedule and to specification. Minimum 5 years of field experience required.',
-    link: 'https://ca.indeed.com/cmp/Jkce-Probuild-Contracting-Corp',
+      'Oversee construction projects from planning through closeout across residential and commercial work in Greater Vancouver. Coordinate with clients, trades, and site teams to ensure on-time, on-budget delivery.',
+    link: 'https://ca.indeed.com/cmp/Lj-Supplies?campaignid=mobvjcmp&from=mobviewjob&tk=1jnih9lls2c5r000&fromjk=7f8c04bddba2212c',
   },
 ]
 
