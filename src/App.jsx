@@ -14,6 +14,8 @@ import Projects from './pages/Projects'
 import ProjectDetail from './pages/ProjectDetail'
 import Contact from './pages/Contact'
 import ICF from './pages/ICF'
+import Careers from './pages/Careers'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 import NotFound from './pages/NotFound'
 
 /**
@@ -77,6 +79,8 @@ function AppShell() {
           <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/icf" element={<ICF />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

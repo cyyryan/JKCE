@@ -3,6 +3,21 @@ import { Link } from 'react-router-dom'
 import { Reveal } from './Reveal'
 import { companyInfo, primaryNav } from '../content/siteData'
 
+const LegalLinks = styled.div`
+  display: flex;
+  gap: 1.5rem;
+
+  a {
+    font-size: 0.8125rem;
+    color: ${({ theme }) => theme.colors.textMuted};
+    transition: color 0.25s;
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.textOnDark};
+    }
+  }
+`
+
 const Wrapper = styled.footer`
   background: ${({ theme }) => theme.colors.bgDark};
   color: ${({ theme }) => theme.colors.textOnDark};
@@ -263,6 +278,10 @@ export function Footer() {
 
         <Bottom>
           <span>© 2026 {companyInfo.name}.</span>
+          <LegalLinks>
+            <Link to="/careers">Join Our Team</Link>
+            <Link to="/privacy-policy">Privacy Policy</Link>
+          </LegalLinks>
           <BbbSeal
             href="https://www.bbb.org/ca/bc/richmond/profile/general-contractor/jkce-probuild-contracting-corp-0037-2433919/#sealclick"
             target="_blank"
