@@ -65,11 +65,26 @@ const ServiceCardBody = styled.div`
   padding: 1.5rem;
 `
 
+const SubList = styled.div`
+  margin-top: 1.25rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.line};
+`
+
+const SubItem = styled.div`
+  padding: 0.6rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textSecondary};
+`
+
 const SERVICE_IMAGES = {
   excavation: 'https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?auto=format&fit=crop&w=900&q=80',
   'construction-management': 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80',
   'design-service': 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80',
-  icf: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=80',
 }
 
 export default function Services() {
@@ -91,7 +106,7 @@ export default function Services() {
               <SectionLead>{servicesPageContent.overview}</SectionLead>
             </Reveal>
           </SectionHeader>
-          <Grid $columns={2}>
+          <Grid $columns={3}>
             {services.map((service, index) => (
               <Reveal key={service.slug} delay={index * 0.08}>
                 <ServiceCard>
@@ -106,7 +121,14 @@ export default function Services() {
                     <IconBadge>{service.icon}</IconBadge>
                     <h3>{service.name}</h3>
                     <p>{service.description}</p>
-                    <ServiceLink to={`/services/${service.slug}`}>View Service</ServiceLink>
+                    {service.subcategories?.length > 0 && (
+                      <SubList>
+                        {service.subcategories.map((sub) => (
+                          <SubItem key={sub.name}>{sub.name}</SubItem>
+                        ))}
+                      </SubList>
+                    )}
+                    <ServiceLink to={`/services/${service.slug}`} style={{ marginTop: '1.25rem' }}>View Service</ServiceLink>
                   </ServiceCardBody>
                 </ServiceCard>
               </Reveal>

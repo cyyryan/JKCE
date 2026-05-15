@@ -2,7 +2,6 @@ export const primaryNav = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
   { to: '/services', label: 'Services' },
-  { to: '/icf', label: 'ICF' },
   { to: '/projects', label: 'Projects' },
   { to: '/contact', label: 'Contact' },
 ]
@@ -30,44 +29,40 @@ export const siteMeta = {
 export const services = [
   {
     slug: 'excavation',
-    name: 'Excavation',
+    name: 'Excavation Division',
     shortName: 'Excavation',
     icon: 'EX',
-    summary: 'Site preparation, grading, trenching, shoring, and civil groundwork for projects that need a controlled start.',
-    description:
-      'Field-led excavation for commercial, residential, and mixed-use projects across Greater Vancouver.',
-    heroBody:
-      'From early site preparation to utility-related groundwork, our excavation team helps create the conditions the rest of the project depends on.',
-    overview:
-      'We coordinate excavation with the next phase of work so the site is ready to move forward cleanly.',
-    bullets: [
-      'Site preparation and clearing',
-      'Bulk excavation and grading',
-      'Trenching for utilities and services',
-      'Shoring coordination and earth retention',
-      'Civil and utility-related groundwork',
-      'Dewatering and haul-off management',
+    summary: 'Civil work, pipe laying, building excavation, and shoring — complete ground-up site preparation for any project scale.',
+    description: 'Field-led excavation services for commercial, residential, and mixed-use projects across Greater Vancouver.',
+    heroBody: 'From civil infrastructure to deep building excavation, our division provides the groundwork every successful construction project depends on.',
+    overview: 'We coordinate excavation with the next phase of work so the site is ready to move forward cleanly.',
+    subcategories: [
+      {
+        name: 'Civil Work',
+        description: 'Road work, sewer line, and water main installation for public and private infrastructure projects.',
+      },
+      {
+        name: 'Pipe Laying',
+        description: 'Installation of underground pipes for water, gas, and drainage systems with accuracy and durability.',
+      },
+      {
+        name: 'Building Excavation',
+        description: 'Careful digging and removal of earth to prepare foundations and site groundwork for construction projects.',
+      },
+      {
+        name: 'Shoring',
+        description: 'Temporary support systems to stabilize trenches and structures, ensuring safety during excavation and construction.',
+      },
     ],
     scopeOfWork: [
-      'Site clearing, stripping, and early site setup',
-      'Cut and fill management with grading control',
-      'Underground trenching and civil utility support',
-      'Shoring coordination for constrained or deeper excavation conditions',
-      'Subgrade preparation for the next construction phase',
-    ],
-    idealProjects: [
-      'Commercial developments needing full site preparation',
-      'Residential and mixed-use projects with utility and grading requirements',
-      'Projects that need early civil coordination before vertical construction',
-    ],
-    whyChoose: [
-      'Field-first planning',
-      'Local site knowledge',
-      'Strong schedule and safety coordination',
+      'Civil work — road, sewer, and water main installation',
+      'Pipe laying for underground water, gas, and drainage systems',
+      'Building excavation for foundations and site groundwork',
+      'Shoring and trench stabilization for safe, controlled excavation',
     ],
     cta: {
       title: 'Need excavation support for an upcoming project?',
-      body: 'Talk to JKCE about site preparation, trenching, grading, and utility-related groundwork.',
+      body: 'Talk to JKCE about civil work, pipe laying, building excavation, and shoring.',
       button: 'Contact Us',
       to: '/contact',
     },
@@ -77,40 +72,37 @@ export const services = [
     name: 'Construction Management',
     shortName: 'Construction Mgmt',
     icon: 'CM',
-    summary: 'Planning, coordination, execution, and quality control for commercial and residential project delivery.',
-    description:
-      'Construction management with clear coordination, schedule discipline, and accountable execution.',
-    heroBody:
-      'We manage planning, coordination, execution, and closeout with a practical approach that keeps quality, schedule, and budget in view.',
-    overview:
-      'We connect planning, trade coordination, and field execution so projects move with better control.',
-    bullets: [
-      'Pre-construction planning and sequencing',
-      'Consultant and trade coordination',
-      'Budget awareness and schedule tracking',
-      'Execution management and site communication',
-      'Quality control and deficiency closeout',
-      'Commercial and residential delivery oversight',
+    summary: 'Commercial tenant improvement, new construction, residential renovation, and home builds — delivered with full project control.',
+    description: 'End-to-end construction management with clear coordination, schedule discipline, and accountable execution.',
+    heroBody: 'From commercial tenant improvements to full home builds, we manage every phase with a practical approach that keeps quality, schedule, and budget in view.',
+    overview: 'We connect planning, trade coordination, and field execution so projects move with better control.',
+    subcategories: [
+      {
+        name: 'Commercial Tenant Improvement',
+        description: 'Upgrading and customizing commercial spaces to meet tenant needs — interior build-outs, layout changes, and system upgrades to improve both functionality and appearance.',
+      },
+      {
+        name: 'Constructing',
+        description: 'Transforming existing spaces through remodeling and upgrades that improve living and working environments with modern designs, materials, and functionality.',
+      },
+      {
+        name: 'Residential Renovation',
+        description: 'Transforming existing homes through remodeling and upgrades to improve living spaces with modern designs, materials, and functionality.',
+      },
+      {
+        name: 'Home Construction',
+        description: 'Building new residential properties from foundation to finish, creating durable homes that fit clients\' needs and preferences.',
+      },
     ],
     scopeOfWork: [
-      'Project planning, phasing, and milestone management',
-      'Trade coordination across active construction phases',
-      'Site communication tied to decisions, priorities, and constraints',
-      'Quality tracking, closeout planning, and turnover support',
-    ],
-    idealProjects: [
-      'Commercial projects needing tighter schedule and trade control',
-      'Residential builds requiring structured delivery management',
-      'Owners and developers who need one accountable coordination partner',
-    ],
-    whyChoose: [
-      'Practical planning',
-      'Clear communication',
-      'Quality-focused delivery',
+      'Commercial tenant improvement — build-outs, layout changes, system upgrades',
+      'Constructing — remodeling and upgrades for commercial and residential spaces',
+      'Residential renovation — modern upgrades to existing homes',
+      'Home construction — full residential builds from foundation to finish',
     ],
     cta: {
       title: 'Need construction management that stays close to the field?',
-      body: 'JKCE can support project planning, coordination, and delivery from pre-construction through turnover.',
+      body: 'JKCE can support commercial tenant improvements, renovations, and new residential builds from planning through turnover.',
       button: 'Contact Us',
       to: '/contact',
     },
@@ -120,84 +112,38 @@ export const services = [
     name: 'Design Service',
     shortName: 'Design Service',
     icon: 'DS',
-    summary: 'Preliminary design, interior design, concept development, and tenant improvement design with buildability in mind.',
-    description:
-      'Design support that helps clients move from early ideas to buildable scope.',
-    heroBody:
-      'Our design service helps clients shape the project earlier, so design intent, budget expectations, and buildability are better aligned before construction starts.',
-    overview:
-      'We focus on concept development, preliminary planning, and interior or tenant improvement work that supports real delivery.',
-    bullets: [
-      'Preliminary design and early planning',
-      'Concept development and scope alignment',
-      'Interior design coordination',
-      'Tenant improvement design support',
-      'Buildability input before construction',
-      'Material and system planning',
+    summary: 'Residential interior design, tenant improvement design, development concept design, and preliminary design — all with buildability in mind.',
+    description: 'Design support that takes clients from early ideas to buildable, well-coordinated project scope.',
+    heroBody: 'Our design service helps shape projects earlier so design intent, budget expectations, and buildability are aligned before construction starts.',
+    overview: 'We focus on concept development, preliminary planning, and interior or tenant improvement work that supports real delivery.',
+    subcategories: [
+      {
+        name: 'Residential Interior Design',
+        description: 'Designing stylish and functional living spaces that reflect your lifestyle and meet your practical needs.',
+      },
+      {
+        name: 'Tenant Improvement Design',
+        description: 'Optimizing commercial spaces with smart layouts and quality finishes for tenant comfort and operational efficiency.',
+      },
+      {
+        name: 'Development Concept Design',
+        description: 'Transforming ideas into clear visual concepts that define a project\'s vision and guide planning decisions.',
+      },
+      {
+        name: 'Preliminary Design',
+        description: 'Exploring design options and setting the foundation for detailed planning, pricing, and construction.',
+      },
     ],
     scopeOfWork: [
-      'Early concept development tied to project goals and constraints',
-      'Preliminary layouts and design direction for interior or tenant work',
-      'Design coordination that supports later pricing and execution',
-      'Buildability-minded review before construction commitments are finalized',
-    ],
-    idealProjects: [
-      'Commercial interiors and tenant improvements',
-      'Clients who need help turning an idea into a buildable project scope',
-      'Projects that benefit from tighter alignment between design and construction',
-    ],
-    whyChoose: [
-      'Buildability-minded design',
-      'Cleaner path to pricing',
-      'Fewer gaps between design and field work',
+      'Residential interior design — stylish, functional living spaces',
+      'Tenant improvement design — smart layouts and finishes for commercial spaces',
+      'Development concept design — visual concepts that define project vision',
+      'Preliminary design — early options that set the stage for detailed planning',
     ],
     cta: {
       title: 'Need design support before construction begins?',
-      body: 'JKCE can help with preliminary design, interior planning, concept development, and tenant improvement scope.',
+      body: 'JKCE can help with residential interiors, tenant improvement design, concept development, and preliminary planning.',
       button: 'Discuss Your Project',
-      to: '/contact',
-    },
-  },
-  {
-    slug: 'icf',
-    name: 'ICF',
-    shortName: 'ICF',
-    icon: 'ICF',
-    summary: 'Insulated concrete form capability for durable, efficient, and better-coordinated building systems.',
-    description:
-      'Hands-on ICF experience for projects that value durability, thermal performance, and practical field delivery.',
-    heroBody:
-      'ICF is more than a product choice. It affects planning, coordination, envelope performance, and how the job is executed in the field.',
-    overview:
-      'ICF combines structure and insulation in one system. JKCE approaches it as a practical building method, not just a technical feature.',
-    bullets: [
-      'ICF planning and constructability review',
-      'Foundation and wall system coordination',
-      'Thermal performance and envelope-minded execution',
-      'Integration with structural and field teams',
-      'Sequencing support for ICF installation',
-      'Hands-on delivery awareness from site to close-in',
-    ],
-    scopeOfWork: [
-      'ICF system review in relation to structure, schedule, and field conditions',
-      'Coordination of wall and foundation-related planning',
-      'Integration of ICF work with broader construction sequencing',
-      'Execution support shaped by real installation and project-delivery considerations',
-    ],
-    idealProjects: [
-      'Clients evaluating ICF for energy performance and durability',
-      'Projects that need stronger alignment between design intent and field execution',
-      'Owners who want a contractor with practical, hands-on ICF understanding',
-    ],
-    whyChoose: [
-      'Hands-on ICF understanding',
-      'Broader construction context',
-      'Practical delivery support',
-    ],
-    cta: {
-      title: 'Considering ICF for a future project?',
-      body: 'Talk to JKCE about how insulated concrete form construction fits your scope, schedule, and long-term performance goals.',
-      button: 'Contact Us',
       to: '/contact',
     },
   },
@@ -474,12 +420,12 @@ export const aboutContent = {
 }
 
 export const servicesPageContent = {
-  eyebrow: 'Services',
-  title: 'Four core capabilities,',
-  titleItalic: 'one delivery partner.',
-  intro: 'JKCE’s services section is structured around the company’s four core business lines so clients can quickly understand scope, fit, and next steps.',
+  eyebrow: ‘Services’,
+  title: ‘Three service divisions,’,
+  titleItalic: ‘one delivery partner.’,
+  intro: ‘JKCE delivers across three core divisions — each with specialized subcategories to support your project from early planning through completion.’,
   overview:
-    'Four core service lines built to support projects from early planning to active delivery.',
+    ‘Three divisions, twelve specialties — built to support projects at every stage.’,
   cta: {
     title: 'Need help choosing the right service path?',
     body: 'Start with the right conversation for your project.',
@@ -513,7 +459,7 @@ export const contactContent = {
     title: 'Project Inquiry',
     description: 'Send JKCE the basics of your project and we can respond with the right next step.',
     note: 'Frontend-ready form only. Connect this component to your backend, CRM, or email workflow later.',
-    serviceOptions: ['Excavation', 'Construction Management', 'Design Service', 'ICF'],
+    serviceOptions: ['Excavation Division', 'Construction Management', 'Design Service'],
     projectTypeOptions: ['Commercial', 'Residential', 'Tenant Improvement', 'Institutional', 'Cultural / Special Project', 'Mixed-Use'],
   },
   faqs: [

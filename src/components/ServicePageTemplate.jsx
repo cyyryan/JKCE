@@ -8,7 +8,6 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
-  Grid,
   Card,
   CTA,
   CTAButton,
@@ -31,8 +30,41 @@ const ProjectLink = styled(Link)`
   text-transform: uppercase;
 `
 
+const SubcategoryRow = styled.div`
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  gap: 2rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  align-items: start;
+
+  &:first-child {
+    border-top: 1px solid ${({ theme }) => theme.colors.line};
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+`
+
+const SubcategoryName = styled.span`
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-top: 0.1rem;
+`
+
+const SubcategoryDesc = styled.p`
+  font-size: 0.95rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  line-height: 1.7;
+  margin: 0;
+`
+
 export function ServicePageTemplate({ service, relatedProjects }) {
-  const offerings = service.scopeOfWork.slice(0, 3)
   const featuredProject = relatedProjects[0]
 
   return (
@@ -43,7 +75,7 @@ export function ServicePageTemplate({ service, relatedProjects }) {
         </Reveal>
 
         <PageHero
-          eyebrow="Service"
+          eyebrow="Services"
           title={service.name}
           titleItalic={service.shortName}
           body={service.heroBody}
@@ -58,42 +90,47 @@ export function ServicePageTemplate({ service, relatedProjects }) {
           </SectionHeader>
         </Section>
 
-        <Section>
-          <SectionHeader>
-            <Reveal><SectionLabel>Key Offerings</SectionLabel></Reveal>
-            <Reveal delay={0.1}>
-              <SectionLead>Three core ways JKCE supports this service scope.</SectionLead>
-            </Reveal>
-          </SectionHeader>
-          <Grid $columns={3}>
-            {offerings.map((item, index) => (
-              <Reveal key={item} delay={index * 0.06}>
-                <Card>
-                  <h3>Offering</h3>
-                  <p>{item}</p>
-                </Card>
+        {service.subcategories?.length > 0 && (
+          <Section>
+            <SectionHeader>
+              <Reveal><SectionLabel>What We Offer</SectionLabel></Reveal>
+              <Reveal delay={0.1}>
+                <SectionLead>
+                  Four specialized services within this division.
+                </SectionLead>
               </Reveal>
-            ))}
-          </Grid>
-        </Section>
+            </SectionHeader>
+            <div>
+              {service.subcategories.map((sub, i) => (
+                <Reveal key={sub.name} delay={i * 0.06}>
+                  <SubcategoryRow>
+                    <SubcategoryName>{sub.name}</SubcategoryName>
+                    <SubcategoryDesc>{sub.description}</SubcategoryDesc>
+                  </SubcategoryRow>
+                </Reveal>
+              ))}
+            </div>
+          </Section>
+        )}
 
         <Section $border={false}>
-          <SectionHeader>
-            <Reveal><SectionLabel>Related Project</SectionLabel></Reveal>
-            <Reveal delay={0.1}>
-              <SectionLead>A selected project connected to this service line.</SectionLead>
-            </Reveal>
-          </SectionHeader>
-
-          {featuredProject ? (
-            <Reveal delay={0.06}>
-              <Card>
-                <h3>{featuredProject.title}</h3>
-                <p>{featuredProject.summary}</p>
-                <ProjectLink to={`/projects/${featuredProject.slug}`}>View Project</ProjectLink>
-              </Card>
-            </Reveal>
-          ) : null}
+          {featuredProject && (
+            <>
+              <SectionHeader>
+                <Reveal><SectionLabel>Related Project</SectionLabel></Reveal>
+                <Reveal delay={0.1}>
+                  <SectionLead>A selected project connected to this service.</SectionLead>
+                </Reveal>
+              </SectionHeader>
+              <Reveal delay={0.06}>
+                <Card>
+                  <h3>{featuredProject.title}</h3>
+                  <p>{featuredProject.summary}</p>
+                  <ProjectLink to={`/projects/${featuredProject.slug}`}>View Project</ProjectLink>
+                </Card>
+              </Reveal>
+            </>
+          )}
 
           <CTA>
             <div>
