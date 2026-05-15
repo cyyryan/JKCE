@@ -308,7 +308,7 @@ export const projects = [
       { src: '/images/projects/warehouse/07.webp', alt: 'Near completion', caption: 'Space nearing completion.' },
       { src: '/images/projects/warehouse/08.webp', alt: 'Completed renovation', caption: 'Completed interior renovation.' },
     ],
-    videoUrl: 'https://www.youtube.com/embed/V2iqqiCjrBI',
+    videoUrl: 'https://www.youtube.com/embed/nn1BpoFwyOk',
     featuredOnHome: false,
     cta: {
       title: 'Planning a warehouse or commercial renovation?',
