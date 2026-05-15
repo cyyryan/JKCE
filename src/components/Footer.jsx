@@ -92,8 +92,8 @@ const SocialIcon = styled.a`
   }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.textOnDark};
-    color: ${({ theme }) => theme.colors.textOnDark};
+    border-color: ${({ theme }) => theme.colors.accentWarm};
+    color: ${({ theme }) => theme.colors.accentWarm};
   }
 `
 

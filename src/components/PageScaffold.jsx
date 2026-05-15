@@ -34,7 +34,7 @@ export const Eyebrow = styled.span`
   font-size: 0.75rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.accentWarm};
 `
 
 export const HeroTitle = styled.h1`

@@ -139,7 +139,7 @@ const MetricsPanel = styled(motion.div)`
 
   div {
     padding-top: 0.75rem;
-    border-top: 1px solid rgba(255,255,255,0.16);
+    border-top: 1px solid ${({ theme }) => theme.colors.accentWarm};
   }
 
   strong {
@@ -149,6 +149,7 @@ const MetricsPanel = styled(motion.div)`
     font-weight: 300;
     line-height: 1;
     margin-bottom: 0.5rem;
+    color: ${({ theme }) => theme.colors.accentWarm};
   }
 
   span {

@@ -78,7 +78,7 @@ const Input = styled.input`
   --field-border: ${({ theme }) => theme.colors.line};
   --field-bg: ${({ theme }) => theme.colors.bgPrimary};
   --field-text: ${({ theme }) => theme.colors.textPrimary};
-  --field-focus: ${({ theme }) => theme.colors.textPrimary};
+  --field-focus: ${({ theme }) => theme.colors.accentWarm};
   ${inputStyles}
 `
 
@@ -86,7 +86,7 @@ const Select = styled.select`
   --field-border: ${({ theme }) => theme.colors.line};
   --field-bg: ${({ theme }) => theme.colors.bgPrimary};
   --field-text: ${({ theme }) => theme.colors.textPrimary};
-  --field-focus: ${({ theme }) => theme.colors.textPrimary};
+  --field-focus: ${({ theme }) => theme.colors.accentWarm};
   ${inputStyles}
 `
 
@@ -94,7 +94,7 @@ const Textarea = styled.textarea`
   --field-border: ${({ theme }) => theme.colors.line};
   --field-bg: ${({ theme }) => theme.colors.bgPrimary};
   --field-text: ${({ theme }) => theme.colors.textPrimary};
-  --field-focus: ${({ theme }) => theme.colors.textPrimary};
+  --field-focus: ${({ theme }) => theme.colors.accentWarm};
   min-height: 160px;
   ${inputStyles}
 `

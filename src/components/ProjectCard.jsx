@@ -14,7 +14,7 @@ const CardWrapper = styled(Link)`
   transition: border-color 0.25s ease;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.textPrimary};
+    border-color: ${({ theme }) => theme.colors.accentWarm};
   }
 
   h3 {
@@ -71,7 +71,7 @@ const Arrow = styled.span`
 
   ${CardWrapper}:hover & {
     transform: translateX(5px);
-    color: ${({ theme }) => theme.colors.textPrimary};
+    color: ${({ theme }) => theme.colors.accentWarm};
   }
 `
 

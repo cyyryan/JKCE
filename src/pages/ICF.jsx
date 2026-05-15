@@ -125,8 +125,8 @@ const FlowNumber = styled.div`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: ${({ theme }) => theme.colors.textPrimary};
-  color: ${({ theme }) => theme.colors.textOnDark};
+  background: ${({ theme }) => theme.colors.accentWarm};
+  color: ${({ theme }) => theme.colors.bgPrimary};
   display: flex;
   align-items: center;
   justify-content: center;

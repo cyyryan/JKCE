@@ -26,7 +26,9 @@ const StyledLink = styled(Link)`
   }
 
   &:hover {
-    opacity: 0.7;
+    opacity: 1;
+    color: ${({ theme }) => theme.colors.accentWarm};
+    border-bottom-color: ${({ theme }) => theme.colors.accentWarm};
     .arrow {
       transform: translateX(6px);
     }
