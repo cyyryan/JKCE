@@ -147,11 +147,11 @@ export const IconBadge = styled.span`
   border-radius: 999px;
   margin-bottom: 1rem;
   background: ${({ theme }) => theme.colors.bgPrimary};
-  border: 1px solid ${({ theme }) => theme.colors.line};
+  border: 1px solid ${({ theme }) => theme.colors.accentWarm};
   font-family: ${({ theme }) => theme.fonts.sans};
   font-size: 0.85rem;
   letter-spacing: 0.08em;
-  color: ${({ theme }) => theme.colors.textPrimary};
+  color: ${({ theme }) => theme.colors.accentWarm};
 `
 
 export const Meta = styled.div`
@@ -262,13 +262,20 @@ export const CTAButton = styled(Link)`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.9rem 1.2rem;
+  padding: 0.9rem 1.75rem;
   border-radius: 999px;
-  background: ${({ theme }) => theme.colors.bgPrimary};
-  color: ${({ theme }) => theme.colors.textPrimary};
+  background: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.accentWarm};
+  color: ${({ theme }) => theme.colors.accentWarm};
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  transition: background 0.25s ease, color 0.25s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.accentWarm};
+    color: ${({ theme }) => theme.colors.bgPrimary};
+  }
 
   @media (max-width: 640px) {
     width: 100%;
