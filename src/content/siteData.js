@@ -159,9 +159,9 @@ export const projects = [
     location: 'British Columbia',
     year: '2024',
     status: 'In Progress',
-    summary: 'A community-oriented housing project supporting JKCE’s ICF and housing delivery capability.',
+    summary: 'A community-oriented housing project supporting JKCE\'s ICF and housing delivery capability.',
     projectSummary:
-      'Tlowitsis Nation highlights JKCE’s ability to support housing delivery through coordinated planning, field execution, and ICF-related capability where long-term durability and building performance matter.',
+      'Tlowitsis Nation highlights JKCE\'s ability to support housing delivery through coordinated planning, field execution, and ICF-related capability where long-term durability and building performance matter.',
     tags: ['ICF', 'Housing', 'Community'],
     scopeOfWork: [
       'ICF planning and system coordination',
@@ -213,9 +213,9 @@ export const projects = [
     location: 'Greater Vancouver',
     year: '2024',
     status: 'Completed',
-    summary: 'A residential project that supports JKCE’s excavation, foundation, and site-work capability.',
+    summary: 'A residential project that supports JKCE\'s excavation, foundation, and site-work capability.',
     projectSummary:
-      'W63 Mansion demonstrates JKCE’s excavation and groundwork capability on a high-expectation residential site where control, sequencing, and clean site preparation are essential to the broader build.',
+      'W63 Mansion demonstrates JKCE\'s excavation and groundwork capability on a high-expectation residential site where control, sequencing, and clean site preparation are essential to the broader build.',
     tags: ['Excavation', 'Foundation', 'Residential'],
     scopeOfWork: [
       'Site preparation and excavation',
@@ -267,9 +267,9 @@ export const projects = [
     location: 'Greater Vancouver',
     year: '2024',
     status: 'Completed',
-    summary: 'A commercial renovation case that supports JKCE’s renovation and coordinated delivery capability.',
+    summary: 'A commercial renovation case that supports JKCE\'s renovation and coordinated delivery capability.',
     projectSummary:
-      'Showroom Renovation demonstrates JKCE’s ability to manage commercial renovation work with design coordination, schedule control, and attention to active-site conditions where finish quality matters.',
+      'Showroom Renovation demonstrates JKCE\'s ability to manage commercial renovation work with design coordination, schedule control, and attention to active-site conditions where finish quality matters.',
     tags: ['Commercial Renovation', 'Interiors', 'Coordination'],
     scopeOfWork: [
       'Commercial renovation planning and sequencing',
@@ -278,7 +278,7 @@ export const projects = [
       'Quality control and closeout management',
     ],
     highlights: [
-      'Supports JKCE’s commercial renovation capability',
+      'Supports JKCE\'s commercial renovation capability',
       'Connects design service and construction management under one delivery path',
       'Shows detail-oriented coordination in an interior commercial environment',
     ],
@@ -321,9 +321,9 @@ export const projects = [
     location: 'British Columbia',
     year: '2023',
     status: 'Completed',
-    summary: 'A culturally significant project that supports JKCE’s special construction experience.',
+    summary: 'A culturally significant project that supports JKCE\'s special construction experience.',
     projectSummary:
-      'Ling Yen Mountain Temple supports JKCE’s experience with special and culturally significant construction work where coordination, care, and respect for project context are essential.',
+      'Ling Yen Mountain Temple supports JKCE\'s experience with special and culturally significant construction work where coordination, care, and respect for project context are essential.',
     tags: ['Cultural Construction', 'Special Projects', 'Coordination'],
     scopeOfWork: [
       'Project coordination for special construction requirements',
@@ -332,7 +332,7 @@ export const projects = [
       'Quality-focused delivery and closeout',
     ],
     highlights: [
-      'Supports JKCE’s cultural and special construction experience',
+      'Supports JKCE\'s cultural and special construction experience',
       'Demonstrates delivery sensitivity on context-specific projects',
       'Reflects careful coordination, craftsmanship, and schedule control',
     ],
@@ -420,12 +420,12 @@ export const aboutContent = {
 }
 
 export const servicesPageContent = {
-  eyebrow: ‘Services’,
-  title: ‘Three service divisions,’,
-  titleItalic: ‘one delivery partner.’,
-  intro: ‘JKCE delivers across three core divisions — each with specialized subcategories to support your project from early planning through completion.’,
+  eyebrow: 'Services',
+  title: 'Three service divisions,',
+  titleItalic: 'one delivery partner.',
+  intro: 'JKCE delivers across three core divisions — each with specialized subcategories to support your project from early planning through completion.',
   overview:
-    ‘Three divisions, twelve specialties — built to support projects at every stage.’,
+    'Three divisions, twelve specialties — built to support projects at every stage.',
   cta: {
     title: 'Need help choosing the right service path?',
     body: 'Start with the right conversation for your project.',
@@ -445,7 +445,7 @@ export const projectsPageContent = {
 
 export const contactContent = {
   eyebrow: 'Contact',
-  title: 'Let’s discuss',
+  title: 'Let\'s discuss',
   titleItalic: 'your next project.',
   intro: 'Reach JKCE directly or send a structured project inquiry.',
   lead:
