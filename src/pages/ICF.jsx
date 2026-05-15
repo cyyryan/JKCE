@@ -97,49 +97,67 @@ const TwoColDivider = styled.div`
   }
 `
 
-/* ── Step row for How It Works ── */
-const StepRow = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-top: 1px solid ${({ theme }) => theme.colors.line};
+/* ── How It Works flowchart ── */
+const FlowRow = styled.div`
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: 1rem;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex-direction: column;
+    gap: 0.5rem;
   }
 `
 
-const StepItem = styled.div`
-  padding: 1.25rem 1.25rem 1.25rem 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
-  border-right: 1px solid ${({ theme }) => theme.colors.line};
-
-  &:nth-child(3n) {
-    border-right: none;
-  }
-
-  @media (max-width: 768px) {
-    &:nth-child(3n) { border-right: 1px solid ${({ theme }) => theme.colors.line}; }
-    &:nth-child(2n) { border-right: none; }
-  }
+const FlowStep = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.75rem;
+  border: 1px solid ${({ theme }) => theme.colors.line};
+  border-radius: 1.25rem;
+  background: ${({ theme }) => theme.colors.bgPrimary};
 `
 
-const StepNumber = styled.div`
+const FlowNumber = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.textPrimary};
+  color: ${({ theme }) => theme.colors.textOnDark};
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textMuted};
-  margin-bottom: 0.5rem;
-  padding-right: 1.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
 `
 
-const StepTitle = styled.div`
+const FlowTitle = styled.div`
   font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding-right: 1.25rem;
+  line-height: 1.5;
+`
+
+const FlowArrow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5rem;
+  color: ${({ theme }) => theme.colors.textMuted};
+  font-size: 1.25rem;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 /* ── Advantage rows ── */
@@ -331,16 +349,23 @@ export default function ICF() {
               />
             </ImageFrame>
           </Reveal>
-          <Reveal>
-            <StepRow>
-              {HOW_IT_WORKS_STEPS.map((item) => (
-                <StepItem key={item.step}>
-                  <StepNumber>{item.step}</StepNumber>
-                  <StepTitle>{item.title}</StepTitle>
-                </StepItem>
+          {[HOW_IT_WORKS_STEPS.slice(0, 3), HOW_IT_WORKS_STEPS.slice(3)].map((row, ri) => (
+            <FlowRow key={ri}>
+              {row.map((item, i) => (
+                <>
+                  <Reveal key={item.step} delay={i * 0.08}>
+                    <FlowStep>
+                      <FlowNumber>{item.step}</FlowNumber>
+                      <FlowTitle>{item.title}</FlowTitle>
+                    </FlowStep>
+                  </Reveal>
+                  {i < row.length - 1 && (
+                    <FlowArrow key={`arrow-${item.step}`}>→</FlowArrow>
+                  )}
+                </>
               ))}
-            </StepRow>
-          </Reveal>
+            </FlowRow>
+          ))}
         </Section>
 
         {/* Why Choose ICF */}
