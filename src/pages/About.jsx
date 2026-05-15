@@ -6,12 +6,7 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
-  Grid,
-  Card,
-  IconBadge,
   SplitPanel,
-  PlainList,
-  PlainItem,
   CTA,
   CTAButton,
 } from '../components/PageScaffold'
@@ -63,13 +58,35 @@ const ImageFrame = styled.div`
   }
 `
 
-const PanelTitle = styled.h3`
-  font-size: 0.75rem;
-  font-family: ${({ theme }) => theme.fonts.sans};
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textMuted};
-  margin-bottom: 1.5rem;
+const Blockquote = styled.blockquote`
+  margin: 3rem 0 0;
+  padding: 2.5rem 3rem;
+  border-left: 3px solid ${({ theme }) => theme.colors.accent};
+  background: ${({ theme }) => theme.colors.bgSecondary};
+  border-radius: 0 1rem 1rem 0;
+
+  p {
+    font-family: ${({ theme }) => theme.fonts.display};
+    font-style: italic;
+    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    font-weight: 300;
+    line-height: 1.55;
+    color: inherit;
+    margin: 0 0 0.75rem;
+  }
+
+  cite {
+    font-family: ${({ theme }) => theme.fonts.sans};
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.textMuted};
+    font-style: normal;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 1.5rem;
+  }
 `
 
 const DividerList = styled.div`
@@ -89,16 +106,6 @@ const DividerItem = styled.div`
   text-transform: uppercase;
 `
 
-const StrengthBadge = styled.span`
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  color: ${({ theme }) => theme.colors.textMuted};
-  border: 1px solid ${({ theme }) => theme.colors.line};
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  flex-shrink: 0;
-`
-
 export default function About() {
   return (
     <PageWrapper>
@@ -111,7 +118,7 @@ export default function About() {
           body={aboutContent.intro}
         />
 
-        {/* Company Overview — banner image + first paragraph only */}
+        {/* Company Overview — banner image + overview + Tredgold quote */}
         <Section>
           <Reveal>
             <BannerImage>
@@ -136,45 +143,38 @@ export default function About() {
               {aboutContent.overview[0]}
             </p>
           </Reveal>
+          <Reveal delay={0.1}>
+            <Blockquote>
+              <p>"Engineering is the art of directing the great sources of power in nature for the use and convenience of man."</p>
+              <cite>— Thomas Tredgold</cite>
+            </Blockquote>
+          </Reveal>
         </Section>
 
-        {/* Commitments + Core Strengths — merged split panel */}
+        {/* Our Commitments — full width divider list */}
         <Section>
-          <SplitPanel>
-            <Reveal>
-              <div>
-                <PanelTitle>Our Commitments</PanelTitle>
-                <DividerList>
-                  {aboutContent.promises.map((item, i) => (
-                    <DividerItem key={i}>{item}</DividerItem>
-                  ))}
-                </DividerList>
-              </div>
+          <SectionHeader>
+            <Reveal><SectionLabel>Our Commitments</SectionLabel></Reveal>
+            <Reveal delay={0.1}>
+              <SectionLead>{aboutContent.promisesIntro}</SectionLead>
             </Reveal>
-            <Reveal delay={0.08}>
-              <div>
-                <PanelTitle>Core Strengths</PanelTitle>
-                <DividerList>
-                  {aboutContent.strengths.map((s, i) => (
-                    <DividerItem key={s.title}>
-                      <StrengthBadge>0{i + 1}</StrengthBadge>
-                      {s.title}
-                    </DividerItem>
-                  ))}
-                </DividerList>
-              </div>
-            </Reveal>
-          </SplitPanel>
+          </SectionHeader>
+          <Reveal>
+            <DividerList>
+              {aboutContent.promises.map((item, i) => (
+                <DividerItem key={i}>{item}</DividerItem>
+              ))}
+            </DividerList>
+          </Reveal>
         </Section>
 
-        {/* Mission & Vision — unchanged */}
+        {/* Mission & Vision */}
         <Section>
           <SectionHeader>
             <Reveal><SectionLabel>Mission & Vision</SectionLabel></Reveal>
             <Reveal delay={0.1}>
               <SectionLead>
-                JKCE's approach is grounded in quality, integrity, safety, and long-term value
-                for every client and project.
+                Grounded in quality, safety, and sustainability — built to serve Greater Vancouver.
               </SectionLead>
             </Reveal>
           </SectionHeader>
@@ -205,7 +205,7 @@ export default function About() {
           </ImageTextGrid>
         </Section>
 
-        {/* CTA only — Technology & Capability section removed */}
+        {/* CTA */}
         <Section $border={false}>
           <CTA>
             <div>

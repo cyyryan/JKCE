@@ -100,7 +100,7 @@ const TwoColDivider = styled.div`
 /* ── Step row for How It Works ── */
 const StepRow = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 1px solid ${({ theme }) => theme.colors.line};
 
   @media (max-width: 768px) {
@@ -109,17 +109,17 @@ const StepRow = styled.div`
 `
 
 const StepItem = styled.div`
-  padding: 1.25rem 0 1.25rem 0;
+  padding: 1.25rem 1.25rem 1.25rem 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.line};
   border-right: 1px solid ${({ theme }) => theme.colors.line};
 
-  &:last-child {
+  &:nth-child(3n) {
     border-right: none;
   }
 
   @media (max-width: 768px) {
-    &:nth-child(2) { border-right: none; }
-    &:nth-child(3) { border-right: 1px solid ${({ theme }) => theme.colors.line}; }
+    &:nth-child(3n) { border-right: 1px solid ${({ theme }) => theme.colors.line}; }
+    &:nth-child(2n) { border-right: none; }
   }
 `
 
@@ -140,6 +140,46 @@ const StepTitle = styled.div`
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding-right: 1.25rem;
+`
+
+/* ── Advantage rows ── */
+const AdvantageRow = styled.div`
+  display: grid;
+  grid-template-columns: 16rem 1fr;
+  gap: 2rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  align-items: start;
+
+  &:first-child {
+    border-top: 1px solid ${({ theme }) => theme.colors.line};
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+`
+
+const AdvantageLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+`
+
+const AdvantageName = styled.span`
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+`
+
+const AdvantageDesc = styled.p`
+  font-size: 0.95rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  line-height: 1.7;
+  margin: 0;
 `
 
 /* ── Case study panel title ── */
@@ -182,19 +222,45 @@ const MetaValue = styled.span`
 `
 
 const ICF_ADVANTAGES = [
-  { num: '01', title: 'Superior Energy Efficiency' },
-  { num: '02', title: 'Exceptional Structural Strength' },
-  { num: '03', title: 'Sound Attenuation' },
-  { num: '04', title: 'Faster Construction Timeline' },
-  { num: '05', title: 'Pest & Mould Resistant' },
-  { num: '06', title: 'Long-Term Sustainability' },
+  {
+    num: '01',
+    title: 'Excellent Insulation',
+    description: 'Easily reaches R-24, meeting or exceeding Step Code 4 standards.',
+  },
+  {
+    num: '02',
+    title: 'Fast Construction',
+    description: 'Modular design allows the structural frame to be completed in as little as one week.',
+  },
+  {
+    num: '03',
+    title: 'Cost-Saving',
+    description: 'No building wrap needed, saving on materials and labour costs.',
+  },
+  {
+    num: '04',
+    title: 'High Structural Strength',
+    description: 'Reinforced with concrete and steel for better wind and seismic resistance.',
+  },
+  {
+    num: '05',
+    title: 'Outstanding Soundproofing & Airtightness',
+    description: 'Reduces noise and air infiltration, improving indoor comfort significantly.',
+  },
+  {
+    num: '06',
+    title: 'Fire-Resistant',
+    description: 'Foam is fire-rated, and concrete is naturally non-combustible.',
+  },
 ]
 
 const HOW_IT_WORKS_STEPS = [
-  { step: 'Step 01', title: 'Form Assembly' },
-  { step: 'Step 02', title: 'Steel Reinforcement' },
-  { step: 'Step 03', title: 'Concrete Pour' },
-  { step: 'Step 04', title: 'Integrated Finishing' },
+  { step: '01', title: 'Rebars inside core for strength & quake safety' },
+  { step: '02', title: 'Openings for doors & windows left during forming' },
+  { step: '03', title: 'Stacking builds wall height quickly' },
+  { step: '04', title: 'Two rigid insulation panels form each block' },
+  { step: '05', title: 'Metal ties connect panels for stability' },
+  { step: '06', title: 'Concrete poured in ≤1.2m layers to prevent damage' },
 ]
 
 export default function ICF() {
@@ -209,7 +275,7 @@ export default function ICF() {
           eyebrow="ICF Construction"
           title="Insulated Concrete"
           titleItalic="Form Building."
-          body="ICF combines the thermal performance of rigid foam insulation with the structural integrity of reinforced concrete — delivering buildings that are stronger, quieter, and more energy-efficient than conventional wood-frame construction."
+          body="ICF is setting the standard for the future of sustainable building — combining insulation, soundproofing, and structural strength in one system. JKCE Probuild is one of the teams in the Greater Vancouver area with hands-on experience using this technology."
         />
 
         {/* What is ICF */}
@@ -218,9 +284,8 @@ export default function ICF() {
             <Reveal><SectionLabel>What is ICF</SectionLabel></Reveal>
             <Reveal delay={0.1}>
               <SectionLead>
-                Insulated Concrete Form (ICF) is a cast-in-place construction system using
-                interlocking expanded polystyrene (EPS) foam panels as permanent formwork for
-                reinforced concrete walls.
+                ICF consists of two layers of high-density foam with a gap in between.
+                During construction, this gap is filled with concrete.
               </SectionLead>
             </Reveal>
           </SectionHeader>
@@ -236,12 +301,11 @@ export default function ICF() {
             </Reveal>
             <Reveal delay={0.08}>
               <p style={{ lineHeight: 1.8, color: 'inherit' }}>
-                Unlike traditional wood framing, ICF walls are built by stacking hollow foam
-                blocks or panels, placing rebar inside the cavity, and filling the core with
-                poured concrete. Once cured, the foam stays in place — providing continuous
-                insulation on both sides of a solid concrete wall. The result is a monolithic,
-                thermally efficient assembly that outperforms standard framing in strength,
-                insulation, sound control, and resilience.
+                This forms walls that provide insulation, soundproofing, and structural strength.
+                Beyond energy efficiency, ICF is setting the standard for the future of sustainable
+                building. Unlike traditional wood framing, the foam forms stay in place permanently —
+                providing continuous insulation on both sides of a solid concrete wall while
+                eliminating the need for a building wrap.
               </p>
             </Reveal>
           </ImageTextGrid>
@@ -253,8 +317,7 @@ export default function ICF() {
             <Reveal><SectionLabel>How It Works</SectionLabel></Reveal>
             <Reveal delay={0.1}>
               <SectionLead>
-                Four straightforward phases take a project from bare ground to a fully insulated,
-                structural concrete envelope.
+                Six key construction steps that make ICF walls strong, efficient, and fast to build.
               </SectionLead>
             </Reveal>
           </SectionHeader>
@@ -286,25 +349,24 @@ export default function ICF() {
             <Reveal><SectionLabel>Why Choose ICF</SectionLabel></Reveal>
             <Reveal delay={0.1}>
               <SectionLead>
-                Six performance advantages that make ICF the right choice for projects where
-                durability, efficiency, and long-term value matter most.
+                Six performance advantages — from R-24 insulation to fire resistance — that make
+                ICF the right choice for durable, efficient, and sustainable building.
               </SectionLead>
             </Reveal>
           </SectionHeader>
-          <Reveal>
-            <TwoColDivider>
-              {[ICF_ADVANTAGES.slice(0, 3), ICF_ADVANTAGES.slice(3)].map((col, ci) => (
-                <DividerList key={ci}>
-                  {col.map((item) => (
-                    <DividerItem key={item.num}>
-                      <Badge>{item.num}</Badge>
-                      {item.title}
-                    </DividerItem>
-                  ))}
-                </DividerList>
-              ))}
-            </TwoColDivider>
-          </Reveal>
+          <div>
+            {ICF_ADVANTAGES.map((item, i) => (
+              <Reveal key={item.num} delay={i * 0.05}>
+                <AdvantageRow>
+                  <AdvantageLeft>
+                    <Badge>{item.num}</Badge>
+                    <AdvantageName>{item.title}</AdvantageName>
+                  </AdvantageLeft>
+                  <AdvantageDesc>{item.description}</AdvantageDesc>
+                </AdvantageRow>
+              </Reveal>
+            ))}
+          </div>
         </Section>
 
         {/* Case Study: Tlowitsis Nation */}

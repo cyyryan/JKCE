@@ -366,6 +366,172 @@ export const projects = [
       to: '/contact',
     },
   },
+  {
+    slug: 'warehouse-renovation',
+    title: 'Warehouse Renovation',
+    projectType: 'Commercial Renovation',
+    category: 'Construction Management',
+    serviceSlugs: ['construction-management', 'design-service'],
+    location: 'Richmond, BC',
+    year: '2024',
+    status: 'Completed',
+    summary: 'Full interior renovation of a warehouse in Richmond, BC — from demolition through finishing, electrical, and plumbing.',
+    projectSummary:
+      'A client requested a complete warehouse renovation in Richmond, BC. JKCE managed the project end-to-end, covering interior demolition, structural construction, wall painting, flooring, and all mechanical and electrical installations.',
+    tags: ['Commercial Renovation', 'Richmond', 'Interior'],
+    scopeOfWork: [
+      'Interior demolition of existing structures',
+      'Structural construction and wall framing',
+      'Wall painting and flooring installation',
+      'Installation of interior fixtures and furnishings',
+      'Electrical and plumbing installations',
+    ],
+    highlights: [
+      'Full-scope commercial renovation managed by a professional JKCE team',
+      'Interior designer provided consultation and planning throughout',
+      'Delivered on time with high-quality workmanship from start to finish',
+    ],
+    gallery: [
+      {
+        src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Warehouse renovation site',
+        caption: 'Placeholder — replace with actual warehouse renovation photos.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Renovation planning and coordination',
+        caption: 'Placeholder — replace with actual project photos.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Interior renovation progress',
+        caption: 'Placeholder — replace with actual interior renovation photos.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Completed commercial space',
+        caption: 'Placeholder — replace with completed project photos.',
+      },
+    ],
+    featuredOnHome: false,
+    cta: {
+      title: 'Planning a warehouse or commercial renovation?',
+      body: 'JKCE can manage your renovation from demolition through finishing — on time, on budget, and to specification.',
+      button: 'Contact Us',
+      to: '/contact',
+    },
+  },
+  {
+    slug: 'commercial-renovation',
+    title: 'Commercial Renovation',
+    projectType: 'Commercial Renovation',
+    category: 'Construction Management',
+    serviceSlugs: ['construction-management', 'design-service'],
+    location: 'Greater Vancouver',
+    year: '2024',
+    status: 'Completed',
+    summary: 'Design and renovation of a billiards hall — from concept discussions through full fit-out and installation.',
+    projectSummary:
+      'A client planning to open a billiards hall engaged JKCE to design and renovate the space. Detailed pre-construction discussions ensured every aspect of the renovation was planned and agreed upon before work began, resulting in a smooth and successful delivery.',
+    tags: ['Commercial Renovation', 'Interiors', 'Design'],
+    scopeOfWork: [
+      'Pre-construction client consultations and design planning',
+      'Interior demolition of existing structures',
+      'Wall painting and flooring installation',
+      'Installation of interior fixtures and furnishings',
+      'Electrical and plumbing installations',
+    ],
+    highlights: [
+      'Thorough pre-construction planning ensured seamless execution',
+      'Client-focused design process from concept to completion',
+      'Professional team managed all trades from demolition through finishing',
+    ],
+    gallery: [
+      {
+        src: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Commercial renovation interior',
+        caption: 'Placeholder — replace with actual billiards hall renovation photos.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Interior fit-out progress',
+        caption: 'Placeholder — replace with actual project photos.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Project coordination and planning',
+        caption: 'Placeholder — replace with actual coordination photos.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Completed commercial space',
+        caption: 'Placeholder — replace with completed project photos.',
+      },
+    ],
+    featuredOnHome: false,
+    cta: {
+      title: 'Planning a commercial fit-out or renovation?',
+      body: 'JKCE handles design coordination, trade management, and full renovation delivery for commercial spaces of all types.',
+      button: 'Contact Us',
+      to: '/contact',
+    },
+  },
+  {
+    slug: 'po-lam-buddhist-association',
+    title: 'Po Lam Buddhist Association',
+    projectType: 'Residential Construction',
+    category: 'Construction Management',
+    serviceSlugs: ['construction-management', 'excavation'],
+    location: 'Chilliwack, BC',
+    year: '2023',
+    status: 'Completed',
+    summary: 'Full construction of a low-rise residential apartment in Chilliwack, BC — from site excavation through interior finishing.',
+    projectSummary:
+      'JKCE constructed a low-rise apartment building for Po Lam Buddhist Association in Chilliwack, BC. The project covered the complete construction lifecycle — from site excavation and foundation work through structural framing, exterior envelope, and full interior finishing.',
+    tags: ['Residential Construction', 'Chilliwack', 'Full Build'],
+    scopeOfWork: [
+      'Site excavation and grading',
+      'Foundation and concrete work',
+      'Structural framing and roofing',
+      'Exterior cladding and insulation',
+      'Interior drywall, flooring, and finishing',
+      'Mechanical, electrical, and plumbing installations',
+    ],
+    highlights: [
+      'Full-lifecycle construction from ground excavation to finished interior',
+      'Modern residential standards met across all mechanical and electrical systems',
+      'Delivered with precision and care for the community the building serves',
+    ],
+    gallery: [
+      {
+        src: 'https://images.unsplash.com/photo-1448630360428-65456885c650?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Residential building exterior',
+        caption: 'Placeholder — replace with actual Po Lam project photos.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Excavation and site work',
+        caption: 'Placeholder — replace with actual excavation photos.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Structural construction progress',
+        caption: 'Placeholder — replace with actual construction photos.',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=80',
+        alt: 'Completed residential building',
+        caption: 'Placeholder — replace with completed building photos.',
+      },
+    ],
+    featuredOnHome: false,
+    cta: {
+      title: 'Need a full-build contractor for a residential or community project?',
+      body: 'JKCE delivers complete construction from site preparation through interior finishing for residential and community projects.',
+      button: 'Contact Us',
+      to: '/contact',
+    },
+  },
 ]
 
 export const aboutContent = {
@@ -387,9 +553,9 @@ export const aboutContent = {
     'Long-term value through durable materials and safety-first execution',
   ],
   mission:
-    'Deliver construction work with precision, integrity, safety, and accountability.',
+    'To be the partner our clients trust for quality, efficiency, and lasting value.',
   vision:
-    'Be a trusted Greater Vancouver construction partner known for quality and control.',
+    'We want to be the most trusted and innovative construction partner in the Greater Vancouver area. We are known for our commitment to quality, safety, and sustainability. Our goal is to shape communities through exceptional craftsmanship and modern design. We create spaces that meet today\'s needs and inspire future generations.',
   strengths: [
     { title: '20+ Years', description: 'Practical construction knowledge across varied project types and delivery environments.' },
     { title: 'Quality', description: 'Detail-oriented execution from planning through closeout, backed by modern tools.' },
