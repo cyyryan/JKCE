@@ -26,7 +26,7 @@ export const theme = {
     // Fraunces 是带细节的现代 serif,作为显示字体
     // Cormorant Garamond 更经典优雅,作为备选
     // Archivo 是几何感的 sans-serif,做正文/导航
-    display: `'Fraunces', 'Cormorant Garamond', Georgia, serif`,
+    display: `'Playfair Display', 'Cormorant Garamond', Georgia, serif`,
     serif: `'Cormorant Garamond', Georgia, serif`,
     sans: `'Archivo', -apple-system, BlinkMacSystemFont, sans-serif`,
   },
