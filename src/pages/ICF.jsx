@@ -311,8 +311,8 @@ export default function ICF() {
             <Reveal>
               <ImageFrame>
                 <img
-                  src="https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?auto=format&fit=crop&w=900&q=80"
-                  alt="ICF concrete wall construction"
+                  src="/images/icf/block-diagram.webp"
+                  alt="ICF block structure — two foam panels with gap for concrete"
                   loading="lazy"
                 />
               </ImageFrame>
@@ -342,8 +342,8 @@ export default function ICF() {
           <Reveal>
             <ImageFrame style={{ marginBottom: '2.5rem', aspectRatio: '16/5', borderRadius: '1.5rem' }}>
               <img
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1400&q=80"
-                alt="ICF construction site"
+                src="/images/icf/how-it-works-banner.webp"
+                alt="ICF construction site — multiple homes under construction"
                 loading="lazy"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
@@ -407,8 +407,8 @@ export default function ICF() {
           <Reveal>
             <CaseStudyImage>
               <img
-                src="https://images.unsplash.com/photo-1448630360428-65456885c650?auto=format&fit=crop&w=1600&q=80"
-                alt="Tlowitsis Nation housing development"
+                src="/images/icf/case-study-banner.webp"
+                alt="Tlowitsis Nation ICF housing construction"
                 loading="lazy"
               />
             </CaseStudyImage>
