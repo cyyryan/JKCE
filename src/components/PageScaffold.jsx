@@ -81,7 +81,7 @@ export const SectionLabel = styled.h2`
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.accentWarm};
   margin: 0;
 `
 

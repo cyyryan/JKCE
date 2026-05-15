@@ -100,7 +100,7 @@ const navLinkStyle = css`
     left: 0;
     width: 100%;
     height: 1px;
-    background: currentColor;
+    background: ${({ theme }) => theme.colors.accentWarm};
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
