@@ -38,8 +38,8 @@ export const Eyebrow = styled.span`
 `
 
 export const HeroTitle = styled.h1`
-  font-size: clamp(3rem, 7vw, 6.5rem);
-  line-height: 0.98;
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  line-height: 1.05;
   font-weight: 300;
 
   em {
