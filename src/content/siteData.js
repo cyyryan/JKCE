@@ -184,6 +184,7 @@ export const projects = [
       { src: '/images/projects/tlowitsis/05.webp', alt: 'Aerial site view', caption: 'Aerial overview of the Tlowitsis Nation build site.' },
       { src: '/images/projects/tlowitsis/07.webp', alt: 'Interior construction', caption: 'Interior framing and mechanical rough-in.' },
     ],
+    videoUrl: 'https://www.youtube.com/embed/ATPvTt592GI',
     featuredOnHome: true,
     cta: {
       title: 'Looking for a contractor with ICF and housing capability?',
@@ -307,6 +308,7 @@ export const projects = [
       { src: '/images/projects/warehouse/07.webp', alt: 'Near completion', caption: 'Space nearing completion.' },
       { src: '/images/projects/warehouse/08.webp', alt: 'Completed renovation', caption: 'Completed interior renovation.' },
     ],
+    videoUrl: 'https://www.youtube.com/embed/V2iqqiCjrBI',
     featuredOnHome: false,
     cta: {
       title: 'Planning a warehouse or commercial renovation?',
@@ -385,6 +387,7 @@ export const projects = [
       { src: '/images/projects/dajue-2699/03.webp', alt: 'Dajue Collection fit-out', caption: 'Fit-out nearing completion.' },
       { src: '/images/projects/dajue-2699/04.webp', alt: 'Dajue Collection completed showroom', caption: 'Completed showroom — custom display systems and premium finishes.' },
     ],
+    videoUrl: 'https://www.youtube.com/embed/TGQyPVPck8o',
     featuredOnHome: false,
     cta: {
       title: 'Planning a high-end commercial showroom or retail fit-out?',
@@ -463,6 +466,7 @@ export const projects = [
       { src: '/images/projects/dajue-2121/04.webp', alt: '2121 Dajue fit-out', caption: 'Interior fit-out in progress.' },
       { src: '/images/projects/dajue-2121/05.webp', alt: '2121 Dajue finishing', caption: 'Final finishing stages.' },
     ],
+    videoUrl: 'https://www.youtube.com/embed/34QsFQThPrE',
     featuredOnHome: false,
     cta: {
       title: 'Planning a commercial interior renovation?',

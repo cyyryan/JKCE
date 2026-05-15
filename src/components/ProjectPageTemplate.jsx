@@ -20,6 +20,24 @@ import {
 } from './PageScaffold'
 import { Reveal } from './Reveal'
 
+const VideoWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: ${({ theme }) => theme.colors.bgSecondary};
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+`
+
 const BackLink = styled(Link)`
   display: inline-flex;
   margin-bottom: 2rem;
@@ -111,6 +129,24 @@ export function ProjectPageTemplate({ project, relatedServices }) {
               <img src={heroImage.src} alt={heroImage.alt} loading="lazy" />
             </HeroBanner>
           </Reveal>
+        )}
+
+        {project.videoUrl && (
+          <Section>
+            <SectionHeader>
+              <Reveal><SectionLabel>Project Video</SectionLabel></Reveal>
+            </SectionHeader>
+            <Reveal>
+              <VideoWrapper>
+                <iframe
+                  src={project.videoUrl}
+                  title={`${project.title} project video`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </VideoWrapper>
+            </Reveal>
+          </Section>
         )}
 
         <Section>
