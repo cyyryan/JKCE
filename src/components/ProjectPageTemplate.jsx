@@ -20,11 +20,22 @@ import {
 } from './PageScaffold'
 import { Reveal } from './Reveal'
 
+const SnapshotGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`
+
 const VideoWrapper = styled.div`
   position: relative;
   width: 100%;
   padding-bottom: 56.25%;
-  border-radius: 1.5rem;
+  border-radius: 1.25rem;
   overflow: hidden;
   background: ${({ theme }) => theme.colors.bgSecondary};
 
@@ -131,24 +142,6 @@ export function ProjectPageTemplate({ project, relatedServices }) {
           </Reveal>
         )}
 
-        {project.videoUrl && (
-          <Section>
-            <SectionHeader>
-              <Reveal><SectionLabel>Project Video</SectionLabel></Reveal>
-            </SectionHeader>
-            <Reveal>
-              <VideoWrapper>
-                <iframe
-                  src={project.videoUrl}
-                  title={`${project.title} project video`}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </VideoWrapper>
-            </Reveal>
-          </Section>
-        )}
-
         <Section>
           <SectionHeader>
             <Reveal><SectionLabel>Project Snapshot</SectionLabel></Reveal>
@@ -156,28 +149,62 @@ export function ProjectPageTemplate({ project, relatedServices }) {
               <SectionLead>{project.summary}</SectionLead>
             </Reveal>
           </SectionHeader>
-          <SplitPanel>
-            <Reveal>
-              <div>
-                <h3>Project Type</h3>
-                <p>{project.projectType}</p>
-                <div style={{ marginTop: '1.5rem' }}>
-                  <h3>Location</h3>
-                  <p>{project.location}</p>
+
+          {project.videoUrl ? (
+            <SnapshotGrid>
+              <Reveal>
+                <VideoWrapper>
+                  <iframe
+                    src={project.videoUrl}
+                    title={`${project.title} project video`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </VideoWrapper>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <div>
+                  <h3>Project Type</h3>
+                  <p>{project.projectType}</p>
+                  <div style={{ marginTop: '1.5rem' }}>
+                    <h3>Location</h3>
+                    <p>{project.location}</p>
+                  </div>
+                  <div style={{ marginTop: '1.5rem' }}>
+                    <h3>Services</h3>
+                    <TagRow>
+                      {relatedServices.map((service) => (
+                        <Tag key={service.slug}>{service.name}</Tag>
+                      ))}
+                    </TagRow>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <div>
-                <h3>Services</h3>
-                <TagRow>
-                  {relatedServices.map((service) => (
-                    <Tag key={service.slug}>{service.name}</Tag>
-                  ))}
-                </TagRow>
-              </div>
-            </Reveal>
-          </SplitPanel>
+              </Reveal>
+            </SnapshotGrid>
+          ) : (
+            <SplitPanel>
+              <Reveal>
+                <div>
+                  <h3>Project Type</h3>
+                  <p>{project.projectType}</p>
+                  <div style={{ marginTop: '1.5rem' }}>
+                    <h3>Location</h3>
+                    <p>{project.location}</p>
+                  </div>
+                </div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <div>
+                  <h3>Services</h3>
+                  <TagRow>
+                    {relatedServices.map((service) => (
+                      <Tag key={service.slug}>{service.name}</Tag>
+                    ))}
+                  </TagRow>
+                </div>
+              </Reveal>
+            </SplitPanel>
+          )}
         </Section>
 
         <Section>
