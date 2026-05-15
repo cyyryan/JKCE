@@ -29,7 +29,7 @@ export const homeContent = {
   services: {
     eyebrow: { en: 'Core Services' },
     headingLines: {
-      en: ['Four core', 'service', 'lines.'],
+      en: ['Three service', 'divisions', '+ ICF.'],
     },
     body: {
       en: 'A focused overview of JKCE core capabilities.',

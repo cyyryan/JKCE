@@ -20,7 +20,7 @@ const Wrapper = styled(motion.nav)`
   left: 0;
   right: 0;
   z-index: 100;
-  padding: ${({ $scrolled }) => ($scrolled ? '1rem 2.5rem' : '1.75rem 2.5rem')};
+  padding: ${({ $scrolled }) => ($scrolled ? '0.875rem 2.5rem' : '1.25rem 2.5rem')};
   background: ${({ $transparent, $scrolled, theme }) =>
     $transparent && !$scrolled
       ? 'transparent'
@@ -59,7 +59,7 @@ const LogoWrap = styled.div`
 
 /* Base image — logo-w (white), controls layout height */
 const LogoBase = styled.img`
-  height: ${({ $big }) => ($big ? '101px' : '56px')};
+  height: ${({ $big }) => ($big ? '84px' : '52px')};
   width: auto;
   display: block;
   transition: height 0.65s cubic-bezier(0.22, 1, 0.36, 1),

@@ -207,9 +207,13 @@ export function Hero() {
           loop
           playsInline
           aria-hidden="true"
+          preload="metadata"
           poster="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80"
         >
-          <source src="/videos/banner-video-v2.mp4" type="video/mp4" />
+          <source
+            src="https://res.cloudinary.com/dqtbxjgsv/video/upload/f_mp4,q_auto:eco/banner-video-v2_qq8a1i.mp4"
+            type="video/mp4"
+          />
         </video>
       </VideoLayer>
 

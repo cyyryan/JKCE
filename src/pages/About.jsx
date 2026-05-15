@@ -182,8 +182,8 @@ export default function About() {
             <Reveal>
               <ImageFrame>
                 <img
-                  src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=900&q=80"
-                  alt="JKCE team planning session"
+                  src="/images/about/mission-vision-team.jpg"
+                  alt="JKCE team reviewing material samples during a planning meeting"
                   loading="lazy"
                 />
               </ImageFrame>

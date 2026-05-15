@@ -83,7 +83,7 @@ export const services = [
         description: 'Upgrading and customizing commercial spaces to meet tenant needs — interior build-outs, layout changes, and system upgrades to improve both functionality and appearance.',
       },
       {
-        name: 'Constructing',
+        name: 'General Construction',
         description: 'Transforming existing spaces through remodeling and upgrades that improve living and working environments with modern designs, materials, and functionality.',
       },
       {
@@ -97,7 +97,7 @@ export const services = [
     ],
     scopeOfWork: [
       'Commercial tenant improvement — build-outs, layout changes, system upgrades',
-      'Constructing — remodeling and upgrades for commercial and residential spaces',
+      'General construction — remodeling and upgrades for commercial and residential spaces',
       'Residential renovation — modern upgrades to existing homes',
       'Home construction — full residential builds from foundation to finish',
     ],
@@ -610,10 +610,10 @@ export const aboutContent = {
 export const servicesPageContent = {
   eyebrow: 'Services',
   title: 'Three service divisions,',
-  titleItalic: 'one delivery partner.',
-  intro: 'JKCE delivers across three core divisions — each with specialized subcategories to support your project from early planning through completion.',
+  titleItalic: 'plus ICF capability.',
+  intro: 'JKCE delivers across three core service divisions, with dedicated ICF capability to support durable, efficient builds from early planning through completion.',
   overview:
-    'Three divisions, twelve specialties — built to support projects at every stage.',
+    'Three divisions, twelve specialties, and ICF expertise — built to support projects at every stage.',
   cta: {
     title: 'Need help choosing the right service path?',
     body: 'Start with the right conversation for your project.',

@@ -13,6 +13,7 @@ import {
 import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
 import styled from 'styled-components'
+import { Fragment } from 'react'
 
 const ImageTextGrid = styled.div`
   display: grid;
@@ -352,7 +353,7 @@ export default function ICF() {
           {[HOW_IT_WORKS_STEPS.slice(0, 3), HOW_IT_WORKS_STEPS.slice(3)].map((row, ri) => (
             <FlowRow key={ri}>
               {row.map((item, i) => (
-                <>
+                <Fragment key={item.step}>
                   <Reveal key={item.step} delay={i * 0.08}>
                     <FlowStep>
                       <FlowNumber>{item.step}</FlowNumber>
@@ -362,7 +363,7 @@ export default function ICF() {
                   {i < row.length - 1 && (
                     <FlowArrow key={`arrow-${item.step}`}>→</FlowArrow>
                   )}
-                </>
+                </Fragment>
               ))}
             </FlowRow>
           ))}
