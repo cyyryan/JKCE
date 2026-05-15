@@ -236,60 +236,6 @@ export const projects = [
     },
   },
   {
-    slug: 'showroom-renovation',
-    title: 'Showroom Renovation',
-    projectType: 'Commercial Renovation',
-    category: 'Construction Management',
-    serviceSlugs: ['construction-management', 'design-service'],
-    location: 'Greater Vancouver',
-    year: '2024',
-    status: 'Completed',
-    summary: 'A commercial renovation case that supports JKCE\'s renovation and coordinated delivery capability.',
-    projectSummary:
-      'Showroom Renovation demonstrates JKCE\'s ability to manage commercial renovation work with design coordination, schedule control, and attention to active-site conditions where finish quality matters.',
-    tags: ['Commercial Renovation', 'Interiors', 'Coordination'],
-    scopeOfWork: [
-      'Commercial renovation planning and sequencing',
-      'Interior and tenant-improvement design support',
-      'Trade coordination during active work phases',
-      'Quality control and closeout management',
-    ],
-    highlights: [
-      'Supports JKCE\'s commercial renovation capability',
-      'Connects design service and construction management under one delivery path',
-      'Shows detail-oriented coordination in an interior commercial environment',
-    ],
-    gallery: [
-      {
-        src: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Modern showroom interior',
-        caption: 'Placeholder visual for commercial interior and showroom renovation work.',
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Commercial fit-out detail',
-        caption: 'Placeholder visual for coordinated tenant improvement and fit-out delivery.',
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Construction management and planning',
-        caption: 'Placeholder visual for project planning, scheduling, and trade coordination.',
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Commercial building exterior',
-        caption: 'Placeholder visual for commercial construction and building envelope work.',
-      },
-    ],
-    featuredOnHome: true,
-    cta: {
-      title: 'Planning a commercial renovation or showroom upgrade?',
-      body: 'JKCE can support renovation planning, design coordination, and execution for interior commercial spaces.',
-      button: 'Contact Us',
-      to: '/contact',
-    },
-  },
-  {
     slug: 'ling-yen-mountain-temple',
     title: 'Ling Yen Mountain Temple',
     projectType: 'Cultural / Special Construction',
@@ -367,61 +313,6 @@ export const projects = [
     cta: {
       title: 'Planning a warehouse or commercial renovation?',
       body: 'JKCE can manage your renovation from demolition through finishing — on time, on budget, and to specification.',
-      button: 'Contact Us',
-      to: '/contact',
-    },
-  },
-  {
-    slug: 'commercial-renovation',
-    title: 'Commercial Renovation',
-    projectType: 'Commercial Renovation',
-    category: 'Construction Management',
-    serviceSlugs: ['construction-management', 'design-service'],
-    location: 'Greater Vancouver',
-    year: '2024',
-    status: 'Completed',
-    summary: 'Design and renovation of a billiards hall — from concept discussions through full fit-out and installation.',
-    projectSummary:
-      'A client planning to open a billiards hall engaged JKCE to design and renovate the space. Detailed pre-construction discussions ensured every aspect of the renovation was planned and agreed upon before work began, resulting in a smooth and successful delivery.',
-    tags: ['Commercial Renovation', 'Interiors', 'Design'],
-    scopeOfWork: [
-      'Pre-construction client consultations and design planning',
-      'Interior demolition of existing structures',
-      'Wall painting and flooring installation',
-      'Installation of interior fixtures and furnishings',
-      'Electrical and plumbing installations',
-    ],
-    highlights: [
-      'Thorough pre-construction planning ensured seamless execution',
-      'Client-focused design process from concept to completion',
-      'Professional team managed all trades from demolition through finishing',
-    ],
-    gallery: [
-      {
-        src: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Commercial renovation interior',
-        caption: 'Placeholder — replace with actual billiards hall renovation photos.',
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Interior fit-out progress',
-        caption: 'Placeholder — replace with actual project photos.',
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Project coordination and planning',
-        caption: 'Placeholder — replace with actual coordination photos.',
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=80',
-        alt: 'Completed commercial space',
-        caption: 'Placeholder — replace with completed project photos.',
-      },
-    ],
-    featuredOnHome: false,
-    cta: {
-      title: 'Planning a commercial fit-out or renovation?',
-      body: 'JKCE handles design coordination, trade management, and full renovation delivery for commercial spaces of all types.',
       button: 'Contact Us',
       to: '/contact',
     },
