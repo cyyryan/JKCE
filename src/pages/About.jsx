@@ -182,7 +182,7 @@ export default function About() {
             <Reveal>
               <ImageFrame>
                 <img
-                  src="/images/about/mission-vision-team.jpg"
+                  src="/images/about/mission-vision-team.webp"
                   alt="JKCE team reviewing material samples during a planning meeting"
                   loading="lazy"
                 />
