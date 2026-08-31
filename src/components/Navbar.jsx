@@ -9,8 +9,13 @@ import { primaryNav, companyInfo } from '../content/siteData'
  * ------
  * 桌面:首页首屏透明,滚动后切换实体背景;Logo 尺寸变化控制在很小范围内,
  * 避免布局跳动。当前页(含服务/项目详情页的父级)始终高亮。
- * 移动:全视口覆盖菜单,锁定背景滚动,支持 Escape / 点击遮罩关闭,
- * 关闭后焦点归还到菜单按钮。
+ * 移动:全视口覆盖菜单,锁定背景滚动,完整 focus trap(Tab/Shift+Tab
+ * 只在菜单内循环,背景内容通过 inert 禁止获得焦点),支持 Escape 或
+ * 顶部关闭按钮关闭,关闭后焦点归还到菜单按钮。
+ *
+ * 注:早期版本尝试过"点击遮罩关闭",但 Overlay 内容已铺满整个视口,
+ * 用户几乎点不到 Overlay 自身(event.currentTarget)——因此该交互已移除,
+ * 关闭菜单只能通过 Escape 或关闭按钮。
  */
 
 function isActive(pathname, to) {
@@ -249,12 +254,16 @@ const MenuPrimaryCta = styled(Link)`
   text-transform: uppercase;
 `
 
+const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
   const burgerRef = useRef(null)
   const closeRef = useRef(null)
+  const overlayRef = useRef(null)
+  const navWrapperRef = useRef(null)
 
   const transparent = location.pathname === '/'
 
@@ -269,33 +278,74 @@ export function Navbar() {
     setOpen(false)
   }, [location])
 
+  // 背景内容(桌面态 nav 本身 + <main> + <footer>)在移动菜单打开时设为
+  // inert —— 既不可获得焦点,也不响应点击,是 focus trap 的第一道防线
+  const setBackgroundInert = useCallback((isInert) => {
+    const main = document.getElementById('main-content')
+    const footer = document.querySelector('footer')
+    ;[navWrapperRef.current, main, footer].forEach((el) => {
+      if (!el) return
+      if (isInert) {
+        el.setAttribute('inert', '')
+      } else {
+        el.removeAttribute('inert')
+      }
+    })
+  }, [])
+
   const closeMenu = useCallback(() => {
     setOpen(false)
+    // 显式移除 inert(不依赖 effect 清理的时序),确保 focus() 生效
+    setBackgroundInert(false)
     burgerRef.current?.focus()
-  }, [])
+  }, [setBackgroundInert])
 
   useEffect(() => {
     if (!open) return undefined
 
     document.body.classList.add('no-scroll')
     window.lenis?.stop()
+    setBackgroundInert(true)
     closeRef.current?.focus()
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') closeMenu()
+      if (event.key === 'Escape') {
+        closeMenu()
+        return
+      }
+
+      if (event.key !== 'Tab' || !overlayRef.current) return
+
+      // Tab / Shift+Tab 只在菜单内部循环(focus trap 第二道防线,
+      // 对不支持 inert 的浏览器仍然有效)
+      const focusables = Array.from(overlayRef.current.querySelectorAll(FOCUSABLE_SELECTOR))
+      if (focusables.length === 0) return
+
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
     }
     document.addEventListener('keydown', handleKeyDown)
 
     return () => {
       document.body.classList.remove('no-scroll')
       window.lenis?.start()
+      setBackgroundInert(false)
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [open, closeMenu])
+  }, [open, closeMenu, setBackgroundInert])
 
   return (
     <>
       <Wrapper
+        ref={navWrapperRef}
         $scrolled={scrolled}
         $transparent={transparent}
         initial={{ y: -30, opacity: 0 }}
@@ -353,6 +403,7 @@ export function Navbar() {
       <AnimatePresence>
         {open && (
           <Overlay
+            ref={overlayRef}
             id="mobile-navigation"
             role="dialog"
             aria-modal="true"
@@ -361,9 +412,6 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            onClick={(event) => {
-              if (event.target === event.currentTarget) closeMenu()
-            }}
           >
             <OverlayTop>
               <Logo to="/" aria-label="JKCE Probuild homepage">

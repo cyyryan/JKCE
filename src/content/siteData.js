@@ -650,7 +650,7 @@ export const contactContent = {
     title: 'Project Inquiry',
     description: 'Send JKCE the basics of your project and we can respond with the right next step.',
     note: 'Submitting this form sends your inquiry directly to the JKCE team.',
-    serviceOptions: ['Excavation Division', 'Construction Management', 'Design Service'],
+    serviceOptions: ['Excavation Division', 'Construction Management', 'Design Service', 'ICF Construction'],
     projectTypeOptions: ['Commercial', 'Residential', 'Tenant Improvement', 'Institutional', 'Cultural / Special Project', 'Mixed-Use'],
   },
   faqs: [

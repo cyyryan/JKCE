@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 import {
@@ -64,9 +64,20 @@ const PROJECT_FILTERS = [
   { key: 'icf', label: 'ICF' },
 ]
 
+const VALID_FILTER_KEYS = new Set(PROJECT_FILTERS.map((filter) => filter.key))
+
 export default function Projects() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const activeFilter = searchParams.get('service') || 'all'
+  const rawFilter = searchParams.get('service')
+  // 非法/未知的 ?service= 值一律按 all 处理,避免把垃圾参数当成合法筛选
+  // 从而展示一个"看起来正常"的空结果页
+  const activeFilter = rawFilter && VALID_FILTER_KEYS.has(rawFilter) ? rawFilter : 'all'
+
+  useEffect(() => {
+    if (rawFilter && !VALID_FILTER_KEYS.has(rawFilter)) {
+      setSearchParams({}, { replace: true })
+    }
+  }, [rawFilter, setSearchParams])
 
   const visibleProjects = useMemo(() => {
     if (activeFilter === 'all') return projects

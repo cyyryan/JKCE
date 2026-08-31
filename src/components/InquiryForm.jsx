@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import styled from 'styled-components'
 import { Reveal } from './Reveal'
@@ -179,24 +179,69 @@ const emailjsConfigured = Boolean(
   EMAILJS.SERVICE_ID && EMAILJS.TEMPLATE_ID && EMAILJS.PUBLIC_KEY
 )
 
+// 与表单字段一一对应的 DOM 顺序,用于校验失败后定位"第一个错误字段"
+const FIELD_ORDER = ['name', 'email', 'serviceNeeded', 'projectType', 'message']
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+/**
+ * EmailJS 模板变量清单(template_pngskco 必须包含以下变量才能正确渲染邮件):
+ *   from_name    — 姓名
+ *   company      — 公司(可为空)
+ *   from_email   — 邮箱
+ *   phone        — 电话(可为空)
+ *   service      — 所需服务
+ *   project_type — 项目类型
+ *   message      — 项目描述
+ *   to_email     — 收件邮箱(固定为 EMAILJS.TO_EMAIL)
+ * 上线前必须用真实 EmailJS 账号完成一次实际发送验收,确认模板变量与
+ * EmailJS 后台模板一致、邮件能送达 —— 本次改动只完成了代码实现,
+ * 尚未做真实发送验证。
+ */
+
 export function InquiryForm({ formConfig }) {
   const [formState, setFormState] = useState(EMPTY_FORM)
   const [status, setStatus] = useState('idle') // idle | submitting | success | error
   const [errors, setErrors] = useState({})
 
+  const fieldRefs = {
+    name: useRef(null),
+    email: useRef(null),
+    serviceNeeded: useRef(null),
+    projectType: useRef(null),
+    message: useRef(null),
+  }
+
   const handleChange = (event) => {
     const { name, value } = event.target
     setFormState((current) => ({ ...current, [name]: value }))
+
+    // 用户修改字段后,立即清除该字段的旧错误提示
+    setErrors((current) => {
+      if (!current[name]) return current
+      const next = { ...current }
+      delete next[name]
+      return next
+    })
   }
 
   const validate = () => {
     const nextErrors = {}
     if (!formState.name.trim()) nextErrors.name = 'Please enter your name.'
-    if (!formState.email.trim()) nextErrors.email = 'Please enter your email.'
+    if (!formState.email.trim()) {
+      nextErrors.email = 'Please enter your email.'
+    } else if (!EMAIL_PATTERN.test(formState.email.trim())) {
+      nextErrors.email = 'Please enter a valid email address.'
+    }
     if (!formState.serviceNeeded) nextErrors.serviceNeeded = 'Please select a service.'
     if (!formState.projectType) nextErrors.projectType = 'Please select a project type.'
     if (!formState.message.trim()) nextErrors.message = 'Please tell us about your project.'
     return nextErrors
+  }
+
+  const focusFirstError = (nextErrors) => {
+    const firstField = FIELD_ORDER.find((field) => nextErrors[field])
+    if (firstField) fieldRefs[firstField].current?.focus()
   }
 
   const handleSubmit = async (event) => {
@@ -210,7 +255,10 @@ export function InquiryForm({ formConfig }) {
 
     const nextErrors = validate()
     setErrors(nextErrors)
-    if (Object.keys(nextErrors).length > 0) return
+    if (Object.keys(nextErrors).length > 0) {
+      focusFirstError(nextErrors)
+      return
+    }
 
     if (!emailjsConfigured) {
       setStatus('error')
@@ -220,6 +268,8 @@ export function InquiryForm({ formConfig }) {
     setStatus('submitting')
 
     try {
+      // 变量名必须与 EmailJS 模板(template_pngskco)中的占位符一致,
+      // 见上方 EMAILJS_TEMPLATE_PARAMS 清单。发送前尚未做真实验收。
       await emailjs.send(
         EMAILJS.SERVICE_ID,
         EMAILJS.TEMPLATE_ID,
@@ -272,6 +322,7 @@ export function InquiryForm({ formConfig }) {
               <span>Name</span>
               <Input
                 id="inquiry-name"
+                ref={fieldRefs.name}
                 name="name"
                 value={formState.name}
                 onChange={handleChange}
@@ -302,6 +353,7 @@ export function InquiryForm({ formConfig }) {
               <span>Email</span>
               <Input
                 id="inquiry-email"
+                ref={fieldRefs.email}
                 type="email"
                 name="email"
                 value={formState.email}
@@ -333,6 +385,7 @@ export function InquiryForm({ formConfig }) {
               <span>Service Needed</span>
               <Select
                 id="inquiry-service-needed"
+                ref={fieldRefs.serviceNeeded}
                 name="serviceNeeded"
                 value={formState.serviceNeeded}
                 onChange={handleChange}
@@ -352,6 +405,7 @@ export function InquiryForm({ formConfig }) {
               <span>Project Type</span>
               <Select
                 id="inquiry-project-type"
+                ref={fieldRefs.projectType}
                 name="projectType"
                 value={formState.projectType}
                 onChange={handleChange}
@@ -373,6 +427,7 @@ export function InquiryForm({ formConfig }) {
             <span>Message</span>
             <Textarea
               id="inquiry-message"
+              ref={fieldRefs.message}
               name="message"
               value={formState.message}
               onChange={handleChange}
