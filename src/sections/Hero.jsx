@@ -1,16 +1,19 @@
 import styled from 'styled-components'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLink } from '../components/ArrowLink'
 import { homeContent } from '../content/home'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 const { hero } = homeContent
 
+const POSTER = '/images/icf/concrete-pump-pour.jpg'
+
 const Section = styled.section`
   position: relative;
-  height: 100vh;
-  min-height: 640px;
+  height: 100svh;
+  min-height: 560px;
   overflow: hidden;
   background: #000;
 `
@@ -19,7 +22,7 @@ const VideoLayer = styled(motion.div)`
   position: absolute;
   inset: 0;
 
-  video {
+  img, video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -31,9 +34,9 @@ const VideoLayer = styled(motion.div)`
     inset: 0;
     background: linear-gradient(
       180deg,
-      rgba(0,0,0,0.3) 0%,
-      rgba(0,0,0,0.15) 40%,
-      rgba(0,0,0,0.5) 100%
+      rgba(10,12,10,0.4) 0%,
+      rgba(10,12,10,0.2) 40%,
+      rgba(10,12,10,0.6) 100%
     );
   }
 `
@@ -50,7 +53,7 @@ const Content = styled.div`
   color: ${({ theme }) => theme.colors.textOnDark};
 
   @media (max-width: 768px) {
-    padding: 6rem 1.5rem 4rem;
+    padding: 6rem 1.5rem 3.5rem;
   }
 `
 
@@ -58,59 +61,65 @@ const Spacer = styled.div`
   flex: 1;
 `
 
-const Eyebrow = styled(motion.span)`
+const ServiceArea = styled(motion.span)`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: ${({ theme }) => theme.fonts.sans};
   font-size: 0.8125rem;
-  letter-spacing: 0.2em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  display: block;
-  margin-bottom: 2rem;
-  opacity: 0.85;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+
+  &::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.colors.bronzeOnDark};
+  }
 `
 
 const Title = styled.h1`
   font-family: ${({ theme }) => theme.fonts.display};
-  font-weight: 300;
-  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 500;
+  font-size: ${({ theme }) => theme.fontSize.hero};
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   max-width: 12ch;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 
   em {
     font-style: italic;
-    font-weight: 300;
+    color: ${({ theme }) => theme.colors.bronzeOnDark};
   }
 `
 
 const BottomRow = styled.div`
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 420px);
-  gap: 3rem;
-  align-items: end;
-
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
 `
 
 const Summary = styled.div`
   max-width: 44rem;
 
   p {
-    font-family: ${({ theme }) => theme.fonts.serif};
-    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-    line-height: 1.6;
-    color: rgba(255,255,255,0.82);
-    margin-bottom: 1.75rem;
+    font-family: ${({ theme }) => theme.fonts.sans};
+    font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+    line-height: 1.55;
+    color: rgba(242,240,234,0.86);
   }
 `
 
 const Actions = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
 `
 
 const PrimaryButton = styled(Link)`
@@ -118,61 +127,31 @@ const PrimaryButton = styled(Link)`
   align-items: center;
   justify-content: center;
   min-width: 170px;
-  padding: 1rem 1.25rem;
-  border-radius: 999px;
-  background: ${({ theme }) => theme.colors.bgPrimary};
-  color: ${({ theme }) => theme.colors.textPrimary};
+  padding: 1rem 1.5rem;
+  border-radius: ${({ theme }) => theme.radius.sm};
+  background: ${({ theme }) => theme.colors.canvas};
+  color: ${({ theme }) => theme.colors.ink};
   font-family: ${({ theme }) => theme.fonts.sans};
   font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-`
+  border: 1px solid ${({ theme }) => theme.colors.canvas};
+  transition: background 0.2s ease, color 0.2s ease;
 
-const MetricsPanel = styled(motion.div)`
-  backdrop-filter: blur(16px);
-  background: rgba(9, 12, 15, 0.52);
-  border: 1px solid rgba(255,255,255,0.14);
-  padding: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-
-  div {
-    padding-top: 0.75rem;
-    border-top: 1px solid ${({ theme }) => theme.colors.accentWarm};
-  }
-
-  strong {
-    display: block;
-    font-family: ${({ theme }) => theme.fonts.display};
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 300;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-    color: ${({ theme }) => theme.colors.accentWarm};
-  }
-
-  span {
-    display: block;
-    font-size: 0.75rem;
-    line-height: 1.5;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.72);
-  }
-
-  @media (max-width: 560px) {
-    grid-template-columns: 1fr;
+  &:hover {
+    background: transparent;
+    color: ${({ theme }) => theme.colors.canvas};
   }
 `
 
 const ScrollIndicator = styled(motion.div)`
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.5rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textOnDark};
@@ -180,68 +159,89 @@ const ScrollIndicator = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
 
   .line {
     width: 1px;
-    height: 32px;
+    height: 26px;
     background: currentColor;
+  }
+
+  @media (max-width: 640px) {
+    display: none;
   }
 `
 
 export function Hero() {
   const ref = useRef(null)
+  const reduceMotion = usePrefersReducedMotion()
+  const [showVideo, setShowVideo] = useState(false)
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
   })
-  const videoY = useTransform(scrollYProgress, [0, 1], [0, 150])
-  const videoOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.4])
+  const videoY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 90])
+  const videoOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.5])
+
+  useEffect(() => {
+    // 移动端不加载视频,降低加载压力,只展示 poster
+    setShowVideo(window.innerWidth >= 768)
+  }, [])
 
   return (
     <Section ref={ref}>
       <VideoLayer style={{ y: videoY, opacity: videoOpacity }}>
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
-          preload="metadata"
-          poster="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80"
-        >
-          <source
-            src="https://res.cloudinary.com/dqtbxjgsv/video/upload/f_mp4,q_auto:eco/banner-video-v2_qq8a1i.mp4"
-            type="video/mp4"
-          />
-        </video>
+        {showVideo ? (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden="true"
+            preload="metadata"
+            poster={POSTER}
+          >
+            <source
+              src="https://res.cloudinary.com/dqtbxjgsv/video/upload/f_mp4,q_auto:eco/banner-video-v2_qq8a1i.mp4"
+              type="video/mp4"
+            />
+          </video>
+        ) : (
+          <img src={POSTER} alt="" role="presentation" fetchpriority="high" />
+        )}
       </VideoLayer>
 
       <Content>
         <Spacer />
 
+        <ServiceArea
+          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          {hero.serviceArea.en}
+        </ServiceArea>
+
         <Title>
-          {[
-            hero.titleLines.en[0],
-            hero.titleLines.en[1],
-          ].map((line, i) => (
-            <span key={i} style={{ display: 'block', overflow: 'hidden', lineHeight: 1.05 }}>
+          {hero.titleLines.en.slice(0, 2).map((line, i) => (
+            <span key={i} style={{ display: 'block', overflow: 'hidden', lineHeight: 1 }}>
               <motion.span
                 style={{ display: 'inline-block' }}
-                initial={{ y: '105%' }}
+                initial={reduceMotion ? false : { y: '100%' }}
                 animate={{ y: 0 }}
-                transition={{ duration: 1, delay: 1 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.6, delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
               >
                 {line}
               </motion.span>
             </span>
           ))}
-          <span style={{ display: 'block', overflow: 'hidden', lineHeight: 1.05 }}>
+          <span style={{ display: 'block', overflow: 'hidden', lineHeight: 1 }}>
             <motion.span
               style={{ display: 'inline-block' }}
-              initial={{ y: '105%' }}
+              initial={reduceMotion ? false : { y: '100%' }}
               animate={{ y: 0 }}
-              transition={{ duration: 1, delay: 1.3, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
               <em>{hero.titleLines.en[2]}</em>
             </motion.span>
@@ -251,16 +251,16 @@ export function Hero() {
         <BottomRow>
           <Summary>
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.45 }}
+              transition={{ duration: 0.5, delay: 0.42 }}
             >
               {hero.body.en}
             </motion.p>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.6 }}
+              transition={{ duration: 0.5, delay: 0.52 }}
             >
               <Actions>
                 <PrimaryButton to={hero.primaryCta.to}>{hero.primaryCta.en}</PrimaryButton>
@@ -268,33 +268,22 @@ export function Hero() {
               </Actions>
             </motion.div>
           </Summary>
-
-          <MetricsPanel
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.8 }}
-          >
-            {hero.metrics.map((metric) => (
-              <div key={metric.value}>
-                <strong>{metric.value}</strong>
-                <span>{metric.label.en}</span>
-              </div>
-            ))}
-          </MetricsPanel>
         </BottomRow>
       </Content>
 
       <ScrollIndicator
-        initial={{ opacity: 0 }}
+        initial={reduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 0.85 }}
-        transition={{ duration: 1, delay: 2 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
       >
         <span>Scroll</span>
-        <motion.span
-          className="line"
-          animate={{ scaleY: [1, 0.3, 1], originY: 0 }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        />
+        {!reduceMotion && (
+          <motion.span
+            className="line"
+            animate={{ scaleY: [1, 0.3, 1], originY: 0 }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        )}
       </ScrollIndicator>
     </Section>
   )

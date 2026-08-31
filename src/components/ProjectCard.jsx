@@ -4,35 +4,37 @@ import { Meta, TagRow, Tag } from './PageScaffold'
 
 const CardWrapper = styled(Link)`
   display: block;
-  padding: 1.5rem;
-  background: ${({ theme }) => theme.colors.bgPrimary};
-  border: 1px solid ${({ theme }) => theme.colors.line};
-  border-radius: 1.5rem;
+  padding: 1.25rem;
+  background: ${({ theme }) => theme.colors.canvas};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.radius.md};
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-  transition: border-color 0.25s ease;
+  transition: border-color 0.2s ease;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.accentWarm};
+    border-color: ${({ theme }) => theme.colors.bronze};
   }
 
   h3 {
-    font-size: 1.55rem;
-    margin-bottom: 0.9rem;
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-weight: 500;
+    margin-bottom: 0.6rem;
   }
 
   p {
-    color: ${({ theme }) => theme.colors.textSecondary};
-    line-height: 1.65;
+    color: ${({ theme }) => theme.colors.inkSecondary};
+    line-height: 1.6;
+    font-size: 0.92rem;
   }
 `
 
 const ImageWrap = styled.div`
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 1rem;
-  background: ${({ theme }) => theme.colors.bgSecondary};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  background: ${({ theme }) => theme.colors.surface};
   margin-bottom: 1rem;
 
   img {
@@ -40,7 +42,7 @@ const ImageWrap = styled.div`
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
   }
 
   ${CardWrapper}:hover & img {
@@ -52,26 +54,27 @@ const CardFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.line};
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
 `
 
 const ViewLabel = styled.span`
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.inkMuted};
 `
 
 const Arrow = styled.span`
   font-size: 1rem;
-  color: ${({ theme }) => theme.colors.textMuted};
-  transition: transform 0.2s ease;
+  color: ${({ theme }) => theme.colors.inkMuted};
+  transition: transform 0.2s ease, color 0.2s ease;
 
   ${CardWrapper}:hover & {
     transform: translateX(5px);
-    color: ${({ theme }) => theme.colors.accentWarm};
+    color: ${({ theme }) => theme.colors.bronzeText};
   }
 `
 

@@ -19,10 +19,11 @@ const SecondaryLink = styled(Link)`
   display: inline-flex;
   align-items: center;
   padding: 0.9rem 1.2rem;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.line};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 `
 

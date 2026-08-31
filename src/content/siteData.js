@@ -22,8 +22,7 @@ export const siteMeta = {
   defaultTitle: 'JKCE Probuild | Construction Company in Greater Vancouver',
   defaultDescription:
     'JKCE Probuild is a full-service construction company in Greater Vancouver specializing in excavation, construction management, design service, and ICF construction.',
-  defaultOgImage:
-    'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600&q=80',
+  defaultOgImage: 'https://jkce-new-web-dzs5.vercel.app/images/icf/case-study-banner.webp',
   locale: 'en_CA',
 }
 
@@ -33,6 +32,7 @@ export const services = [
     name: 'Excavation Division',
     shortName: 'Excavation',
     icon: 'EX',
+    image: { src: '/images/projects/west-vancouver/06.webp', alt: 'Concrete retaining wall construction during a JKCE excavation project' },
     summary: 'Civil work, pipe laying, building excavation, and shoring — complete ground-up site preparation for any project scale.',
     description: 'Field-led excavation services for commercial, residential, and mixed-use projects across Greater Vancouver.',
     heroBody: 'From civil infrastructure to deep building excavation, our division provides the groundwork every successful construction project depends on.',
@@ -73,6 +73,7 @@ export const services = [
     name: 'Construction Management',
     shortName: 'Construction Mgmt',
     icon: 'CM',
+    image: { src: '/images/projects/warehouse/07.webp', alt: 'Interior fit-out nearing completion on a JKCE construction management project' },
     summary: 'Commercial tenant improvement, new construction, residential renovation, and home builds — delivered with full project control.',
     description: 'End-to-end construction management with clear coordination, schedule discipline, and accountable execution.',
     heroBody: 'From commercial tenant improvements to full home builds, we manage every phase with a practical approach that keeps quality, schedule, and budget in view.',
@@ -113,6 +114,7 @@ export const services = [
     name: 'Design Service',
     shortName: 'Design Service',
     icon: 'DS',
+    image: { src: '/images/projects/dajue-2699/04.webp', alt: 'Completed showroom interior delivered through JKCE design service' },
     summary: 'Residential interior design, tenant improvement design, development concept design, and preliminary design — all with buildability in mind.',
     description: 'Design support that takes clients from early ideas to buildable, well-coordinated project scope.',
     heroBody: 'Our design service helps shape projects earlier so design intent, budget expectations, and buildability are aligned before construction starts.',
@@ -638,6 +640,7 @@ export const contactContent = {
   intro: 'Reach JKCE directly or send a structured project inquiry.',
   lead:
     'For pricing, early planning, or active project support, contact JKCE directly.',
+  responseNote: 'Every inquiry is reviewed directly by JKCE — no call centre, no automated queue.',
   details: [
     { label: 'Email', value: companyInfo.email, href: companyInfo.emailHref, icon: '@' },
     { label: 'Phone', value: companyInfo.phone, href: companyInfo.phoneHref, icon: '+' },
@@ -646,7 +649,7 @@ export const contactContent = {
   form: {
     title: 'Project Inquiry',
     description: 'Send JKCE the basics of your project and we can respond with the right next step.',
-    note: 'Frontend-ready form only. Connect this component to your backend, CRM, or email workflow later.',
+    note: 'Submitting this form sends your inquiry directly to the JKCE team.',
     serviceOptions: ['Excavation Division', 'Construction Management', 'Design Service'],
     projectTypeOptions: ['Commercial', 'Residential', 'Tenant Improvement', 'Institutional', 'Cultural / Special Project', 'Mixed-Use'],
   },
@@ -712,14 +715,17 @@ export function getServiceMeta(service) {
     title: `${service.name} | JKCE Probuild Construction Services`,
     description: `${service.name} services by JKCE Probuild in Greater Vancouver. ${service.summary}`,
     path: `/services/${service.slug}`,
+    image: service.image ? `${siteMeta.siteUrl}${service.image.src}` : undefined,
   }
 }
 
 export function getProjectMeta(project) {
+  const cover = project.gallery?.[0]?.src
   return {
     title: `${project.title} | JKCE Probuild Projects`,
     description: `${project.title} is a JKCE Probuild ${project.projectType.toLowerCase()} project in ${project.location}. ${project.summary}`,
     path: `/projects/${project.slug}`,
+    image: cover ? `${siteMeta.siteUrl}${cover}` : undefined,
   }
 }
 

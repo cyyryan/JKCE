@@ -7,7 +7,6 @@ import {
   SectionLabel,
   SectionLead,
   CTA,
-  CTAButton,
 } from '../components/PageScaffold'
 import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
@@ -24,17 +23,18 @@ const PositionGrid = styled.div`
 `
 
 const PositionCard = styled.div`
-  padding: 2rem;
-  border: 1px solid ${({ theme }) => theme.colors.line};
-  border-radius: 1.5rem;
+  padding: 1.75rem;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.radius.md};
 
   h3 {
-    font-size: 1.35rem;
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-weight: 500;
     margin-bottom: 0.5rem;
   }
 
   p {
-    color: ${({ theme }) => theme.colors.textSecondary};
+    color: ${({ theme }) => theme.colors.inkSecondary};
     line-height: 1.65;
     margin-bottom: 1.5rem;
   }
@@ -44,18 +44,20 @@ const ApplyButton = styled.a`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  min-height: 44px;
   padding: 0.7rem 1.4rem;
-  border-radius: 999px;
-  border: 1px solid ${({ theme }) => theme.colors.textPrimary};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  border: 1px solid ${({ theme }) => theme.colors.ink};
   font-family: ${({ theme }) => theme.fonts.sans};
   font-size: 0.75rem;
-  letter-spacing: 0.16em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  transition: background 0.25s, color 0.25s;
+  transition: background 0.2s, color 0.2s;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.textPrimary};
-    color: ${({ theme }) => theme.colors.bgPrimary};
+    background: ${({ theme }) => theme.colors.ink};
+    color: ${({ theme }) => theme.colors.canvas};
   }
 `
 
@@ -123,7 +125,7 @@ export default function Careers() {
                 — we keep strong candidates on file for future openings.
               </p>
             </div>
-            <CTAButton to="/contact">Get in Touch</CTAButton>
+            <ApplyButton href="mailto:careers@jkceprobuild.com">Email Careers</ApplyButton>
           </CTA>
         </Section>
       </PageInner>

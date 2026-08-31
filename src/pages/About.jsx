@@ -6,7 +6,11 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
-  SplitPanel,
+  MediaFrame,
+  Grid,
+  Card,
+  DividerList,
+  DividerItem,
   CTA,
   CTAButton,
 } from '../components/PageScaffold'
@@ -14,25 +18,6 @@ import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
 import { aboutContent, pageMeta } from '../content/siteData'
 import styled from 'styled-components'
-
-const BannerImage = styled.div`
-  width: 100%;
-  height: 480px;
-  overflow: hidden;
-  border-radius: 1.5rem;
-  margin-bottom: 1rem;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  @media (max-width: 768px) {
-    height: 260px;
-  }
-`
 
 const ImageTextGrid = styled.div`
   display: grid;
@@ -42,35 +27,23 @@ const ImageTextGrid = styled.div`
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
-  }
-`
-
-const ImageFrame = styled.div`
-  overflow: hidden;
-  border-radius: 1.5rem;
-  aspect-ratio: 4 / 3;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    gap: 1.75rem;
   }
 `
 
 const Blockquote = styled.blockquote`
   margin: 3rem 0 0;
-  padding: 2.5rem 3rem;
-  border-left: 3px solid ${({ theme }) => theme.colors.accent};
-  background: ${({ theme }) => theme.colors.bgSecondary};
-  border-radius: 0 1rem 1rem 0;
+  padding: 2rem 2.5rem;
+  border-left: 3px solid ${({ theme }) => theme.colors.bronze};
+  background: ${({ theme }) => theme.colors.surface};
+  border-radius: 0 ${({ theme }) => theme.radius.md} ${({ theme }) => theme.radius.md} 0;
 
   p {
     font-family: ${({ theme }) => theme.fonts.display};
     font-style: italic;
-    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-    font-weight: 300;
-    line-height: 1.55;
+    font-size: clamp(1.1rem, 1rem + 0.8vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.5;
     color: inherit;
     margin: 0 0 0.75rem;
   }
@@ -78,32 +51,16 @@ const Blockquote = styled.blockquote`
   cite {
     font-family: ${({ theme }) => theme.fonts.sans};
     font-size: 0.75rem;
+    font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: ${({ theme }) => theme.colors.textMuted};
+    color: ${({ theme }) => theme.colors.inkMuted};
     font-style: normal;
   }
 
   @media (max-width: 768px) {
-    padding: 1.5rem 1.5rem;
+    padding: 1.5rem;
   }
-`
-
-const DividerList = styled.div`
-  border-top: 1px solid ${({ theme }) => theme.colors.line};
-`
-
-const DividerItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
-  font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 `
 
 export default function About() {
@@ -118,40 +75,82 @@ export default function About() {
           body={aboutContent.intro}
         />
 
-        {/* Company Overview — banner image + overview + Tredgold quote */}
+        {/* Company Overview — real site photo + overview + Tredgold quote */}
         <Section>
           <Reveal>
-            <BannerImage>
+            <MediaFrame $ratio="21 / 9">
               <img
-                src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1600&q=80"
-                alt="JKCE construction site overview"
+                src="/images/icf/site-overview-crane.jpg"
+                alt="JKCE job site overview with crane, excavation equipment, and framed structure"
                 loading="lazy"
               />
-            </BannerImage>
+            </MediaFrame>
           </Reveal>
+          <div style={{ marginTop: '2rem' }}>
+            <SectionHeader>
+              <Reveal><SectionLabel>Company Overview</SectionLabel></Reveal>
+              <Reveal delay={0.1}>
+                <SectionLead>
+                  JKCE is a full-service construction company built on over 20 years of experience,
+                  professionalism, quality, and integrity.
+                </SectionLead>
+              </Reveal>
+            </SectionHeader>
+            <Reveal>
+              <p style={{ lineHeight: 1.8, maxWidth: '72ch', color: 'inherit' }}>
+                {aboutContent.overview[0]}
+              </p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <Blockquote>
+                <p>"Engineering is the art of directing the great sources of power in nature for the use and convenience of man."</p>
+                <cite>— Thomas Tredgold</cite>
+              </Blockquote>
+            </Reveal>
+          </div>
+        </Section>
+
+        {/* Strengths */}
+        <Section>
           <SectionHeader>
-            <Reveal><SectionLabel>Company Overview</SectionLabel></Reveal>
+            <Reveal><SectionLabel>Why It Matters</SectionLabel></Reveal>
+            <Reveal delay={0.1}>
+              <SectionLead>What two decades of field experience gives every JKCE project.</SectionLead>
+            </Reveal>
+          </SectionHeader>
+          <Grid $columns={3}>
+            {aboutContent.strengths.map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.06}>
+                <Card>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </Card>
+              </Reveal>
+            ))}
+          </Grid>
+        </Section>
+
+        {/* Technical Capabilities */}
+        <Section>
+          <SectionHeader>
+            <Reveal><SectionLabel>Technology-Assisted Delivery</SectionLabel></Reveal>
             <Reveal delay={0.1}>
               <SectionLead>
-                JKCE is a full-service construction company built on over 20 years of experience,
-                professionalism, quality, and integrity.
+                Design coordination and site work backed by modern tools — not a replacement
+                for field experience, but a way to make it more accurate.
               </SectionLead>
             </Reveal>
           </SectionHeader>
           <Reveal>
-            <p style={{ lineHeight: 1.8, maxWidth: '72ch', color: 'inherit' }}>
-              {aboutContent.overview[0]}
-            </p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <Blockquote>
-              <p>"Engineering is the art of directing the great sources of power in nature for the use and convenience of man."</p>
-              <cite>— Thomas Tredgold</cite>
-            </Blockquote>
+            <DividerList>
+              {aboutContent.capabilities.map((item) => (
+                <DividerItem key={item}>{item}</DividerItem>
+              ))}
+            </DividerList>
           </Reveal>
         </Section>
 
-        {/* Our Commitments — full width divider list */}
+        {/* Our Commitments */}
         <Section>
           <SectionHeader>
             <Reveal><SectionLabel>Our Commitments</SectionLabel></Reveal>
@@ -169,7 +168,7 @@ export default function About() {
         </Section>
 
         {/* Mission & Vision */}
-        <Section>
+        <Section $border={false}>
           <SectionHeader>
             <Reveal><SectionLabel>Mission & Vision</SectionLabel></Reveal>
             <Reveal delay={0.1}>
@@ -180,13 +179,13 @@ export default function About() {
           </SectionHeader>
           <ImageTextGrid>
             <Reveal>
-              <ImageFrame>
+              <MediaFrame $ratio="4 / 3">
                 <img
                   src="/images/about/mission-vision-team.webp"
                   alt="JKCE team reviewing material samples during a planning meeting"
                   loading="lazy"
                 />
-              </ImageFrame>
+              </MediaFrame>
             </Reveal>
             <div>
               <Reveal>
@@ -203,10 +202,7 @@ export default function About() {
               </Reveal>
             </div>
           </ImageTextGrid>
-        </Section>
 
-        {/* CTA */}
-        <Section $border={false}>
           <CTA>
             <div>
               <h3>{aboutContent.cta.title}</h3>

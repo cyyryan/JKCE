@@ -19,7 +19,7 @@
     <loc>https://jkce-new-web-dzs5.vercel.app/services/design-service</loc>
   </url>
   <url>
-    <loc>https://jkce-new-web-dzs5.vercel.app/services/icf</loc>
+    <loc>https://jkce-new-web-dzs5.vercel.app/icf</loc>
   </url>
   <url>
     <loc>https://jkce-new-web-dzs5.vercel.app/projects</loc>
@@ -31,12 +31,36 @@
     <loc>https://jkce-new-web-dzs5.vercel.app/projects/w63-mansion</loc>
   </url>
   <url>
-    <loc>https://jkce-new-web-dzs5.vercel.app/projects/showroom-renovation</loc>
-  </url>
-  <url>
     <loc>https://jkce-new-web-dzs5.vercel.app/projects/ling-yen-mountain-temple</loc>
   </url>
   <url>
+    <loc>https://jkce-new-web-dzs5.vercel.app/projects/warehouse-renovation</loc>
+  </url>
+  <url>
+    <loc>https://jkce-new-web-dzs5.vercel.app/projects/po-lam-buddhist-association</loc>
+  </url>
+  <url>
+    <loc>https://jkce-new-web-dzs5.vercel.app/projects/dajue-2699</loc>
+  </url>
+  <url>
+    <loc>https://jkce-new-web-dzs5.vercel.app/projects/dajue-farm</loc>
+  </url>
+  <url>
+    <loc>https://jkce-new-web-dzs5.vercel.app/projects/dajue-2121</loc>
+  </url>
+  <url>
+    <loc>https://jkce-new-web-dzs5.vercel.app/projects/alexander-road</loc>
+  </url>
+  <url>
+    <loc>https://jkce-new-web-dzs5.vercel.app/projects/west-vancouver</loc>
+  </url>
+  <url>
     <loc>https://jkce-new-web-dzs5.vercel.app/contact</loc>
+  </url>
+  <url>
+    <loc>https://jkce-new-web-dzs5.vercel.app/careers</loc>
+  </url>
+  <url>
+    <loc>https://jkce-new-web-dzs5.vercel.app/privacy-policy</loc>
   </url>
 </urlset>

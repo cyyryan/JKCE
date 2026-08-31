@@ -14,7 +14,11 @@ export default function ServiceDetail() {
   return (
     <>
       <Seo {...getServiceMeta(service)} />
-      <ServicePageTemplate service={service} relatedProjects={getProjectsByServiceSlug(service.slug)} />
+      <ServicePageTemplate
+        service={service}
+        heroImage={service.image}
+        relatedProjects={getProjectsByServiceSlug(service.slug)}
+      />
     </>
   )
 }

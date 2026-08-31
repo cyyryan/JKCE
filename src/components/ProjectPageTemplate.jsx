@@ -8,36 +8,30 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
-  Grid,
-  Card,
-  SplitPanel,
+  MediaFrame,
   PlainList,
   PlainItem,
   CTA,
   CTAButton,
-  TagRow,
-  Tag,
 } from './PageScaffold'
 import { Reveal } from './Reveal'
 
-const SnapshotGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: start;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+const BackLink = styled(Link)`
+  display: inline-flex;
+  margin-bottom: 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 `
 
 const VideoWrapper = styled.div`
   position: relative;
   width: 100%;
   padding-bottom: 56.25%;
-  border-radius: 1.25rem;
+  border-radius: ${({ theme }) => theme.radius.md};
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.bgSecondary};
+  background: ${({ theme }) => theme.colors.surface};
 
   iframe {
     position: absolute;
@@ -49,30 +43,39 @@ const VideoWrapper = styled.div`
   }
 `
 
-const BackLink = styled(Link)`
-  display: inline-flex;
-  margin-bottom: 2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+const FactsBar = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  background: ${({ theme }) => theme.colors.border};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.radius.md};
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 `
 
-const HeroBanner = styled.div`
-  width: 100%;
-  height: 520px;
-  overflow: hidden;
-  border-radius: 1.5rem;
-  margin-bottom: 1rem;
+const Fact = styled.div`
+  padding: 1.25rem 1.5rem;
+  background: ${({ theme }) => theme.colors.canvas};
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  span {
     display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.colors.inkMuted};
+    margin-bottom: 0.4rem;
   }
 
-  @media (max-width: 768px) {
-    height: 280px;
+  strong {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.ink};
   }
 `
 
@@ -93,27 +96,47 @@ const GalleryGrid = styled.div`
 const GalleryItem = styled.figure`
   margin: 0;
   overflow: hidden;
-  border-radius: 1.25rem;
-  background: ${({ theme }) => theme.colors.bgSecondary};
-  border: 1px solid ${({ theme }) => theme.colors.line};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  background: ${({ theme }) => theme.colors.surface};
 
   img {
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
   }
 
   &:hover img {
-    transform: scale(1.04);
+    transform: scale(1.03);
   }
 
   figcaption {
-    padding: 0.85rem 1rem 1rem;
-    font-size: 0.85rem;
-    color: ${({ theme }) => theme.colors.textSecondary};
-    line-height: 1.55;
+    padding: 0.7rem 0.1rem 0;
+    font-size: 0.82rem;
+    color: ${({ theme }) => theme.colors.inkSecondary};
+    line-height: 1.5;
+  }
+`
+
+const ServiceLinkRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+`
+
+const ServiceLinkTag = styled(Link)`
+  padding: 0.45rem 0.8rem;
+  border-radius: ${({ theme }) => theme.radius.sm};
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.ink};
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.bronze};
   }
 `
 
@@ -135,14 +158,29 @@ export function ProjectPageTemplate({ project, relatedServices }) {
         />
 
         {heroImage && (
-          <Reveal>
-            <HeroBanner>
-              <img src={heroImage.src} alt={heroImage.alt} loading="lazy" />
-            </HeroBanner>
-          </Reveal>
+          <Section $border={false} style={{ paddingTop: '2.5rem', paddingBottom: 0 }}>
+            <Reveal>
+              <MediaFrame $ratio="16 / 8">
+                <img src={heroImage.src} alt={heroImage.alt} loading="lazy" fetchpriority="high" />
+              </MediaFrame>
+            </Reveal>
+          </Section>
         )}
 
         <Section>
+          <Reveal>
+            <FactsBar>
+              <Fact><span>Location</span><strong>{project.location}</strong></Fact>
+              <Fact><span>Year</span><strong>{project.year}</strong></Fact>
+              <Fact><span>Status</span><strong>{project.status}</strong></Fact>
+              <Fact><span>Project Type</span><strong>{project.projectType}</strong></Fact>
+              <Fact>
+                <span>Services</span>
+                <strong>{relatedServices.map((s) => s.shortName || s.name).join(', ')}</strong>
+              </Fact>
+            </FactsBar>
+          </Reveal>
+
           <SectionHeader>
             <Reveal><SectionLabel>Project Snapshot</SectionLabel></Reveal>
             <Reveal delay={0.1}>
@@ -150,60 +188,18 @@ export function ProjectPageTemplate({ project, relatedServices }) {
             </Reveal>
           </SectionHeader>
 
-          {project.videoUrl ? (
-            <SnapshotGrid>
-              <Reveal>
-                <VideoWrapper>
-                  <iframe
-                    src={project.videoUrl}
-                    title={`${project.title} project video`}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </VideoWrapper>
-              </Reveal>
-              <Reveal delay={0.08}>
-                <div>
-                  <h3>Project Type</h3>
-                  <p>{project.projectType}</p>
-                  <div style={{ marginTop: '1.5rem' }}>
-                    <h3>Location</h3>
-                    <p>{project.location}</p>
-                  </div>
-                  <div style={{ marginTop: '1.5rem' }}>
-                    <h3>Services</h3>
-                    <TagRow>
-                      {relatedServices.map((service) => (
-                        <Tag key={service.slug}>{service.name}</Tag>
-                      ))}
-                    </TagRow>
-                  </div>
-                </div>
-              </Reveal>
-            </SnapshotGrid>
-          ) : (
-            <SplitPanel>
-              <Reveal>
-                <div>
-                  <h3>Project Type</h3>
-                  <p>{project.projectType}</p>
-                  <div style={{ marginTop: '1.5rem' }}>
-                    <h3>Location</h3>
-                    <p>{project.location}</p>
-                  </div>
-                </div>
-              </Reveal>
-              <Reveal delay={0.08}>
-                <div>
-                  <h3>Services</h3>
-                  <TagRow>
-                    {relatedServices.map((service) => (
-                      <Tag key={service.slug}>{service.name}</Tag>
-                    ))}
-                  </TagRow>
-                </div>
-              </Reveal>
-            </SplitPanel>
+          {project.videoUrl && (
+            <Reveal>
+              <VideoWrapper>
+                <iframe
+                  src={project.videoUrl}
+                  title={`${project.title} project video`}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </VideoWrapper>
+            </Reveal>
           )}
         </Section>
 
@@ -235,7 +231,7 @@ export function ProjectPageTemplate({ project, relatedServices }) {
             </SectionHeader>
             <GalleryGrid>
               {galleryImages.map((item, index) => (
-                <Reveal key={item.src} delay={index * 0.07}>
+                <Reveal key={item.src} delay={index * 0.06}>
                   <GalleryItem>
                     <img src={item.src} alt={item.alt} loading="lazy" />
                     <figcaption>{item.caption}</figcaption>
@@ -262,6 +258,19 @@ export function ProjectPageTemplate({ project, relatedServices }) {
               </Reveal>
             ))}
           </PlainList>
+
+          {relatedServices.length > 0 && (
+            <div style={{ marginTop: '2.5rem' }}>
+              <SectionLabel style={{ marginBottom: '1rem', display: 'block' }}>Related Services</SectionLabel>
+              <ServiceLinkRow>
+                {relatedServices.map((service) => (
+                  <ServiceLinkTag key={service.slug} to={service.slug === 'icf' ? '/icf' : `/services/${service.slug}`}>
+                    {service.name}
+                  </ServiceLinkTag>
+                ))}
+              </ServiceLinkRow>
+            </div>
+          )}
 
           <CTA>
             <div>

@@ -15,6 +15,13 @@ import Lenis from 'lenis'
  */
 export function useSmoothScroll() {
   useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    // 尊重 prefers-reduced-motion:退化为浏览器原生滚动,不接管惯性滚动
+    if (reduceMotion) {
+      return undefined
+    }
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

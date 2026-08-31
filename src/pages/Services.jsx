@@ -6,9 +6,6 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
-  Grid,
-  Card,
-  IconBadge,
   CTA,
   CTAButton,
 } from '../components/PageScaffold'
@@ -16,36 +13,46 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
-import { pageMeta, services, servicesPageContent } from '../content/siteData'
+import { pageMeta, services, servicesPageContent, getProjectsByServiceSlug } from '../content/siteData'
 
-const ServiceLink = styled(Link)`
+const ServiceLink = styled.span`
   display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-top: 1.25rem;
   font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.ink};
 `
 
-const ServiceCard = styled.article`
-  border: 1px solid ${({ theme }) => theme.colors.line};
-  border-radius: 1.5rem;
-  overflow: hidden;
-  background: ${({ theme }) => theme.colors.bgPrimary};
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
 
-  h3 {
-    font-size: 1.55rem;
-    margin-bottom: 0.9rem;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
   }
+`
 
-  p {
-    color: ${({ theme }) => theme.colors.textSecondary};
-    line-height: 1.65;
+const ServiceCard = styled(Link)`
+  display: block;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.radius.md};
+  overflow: hidden;
+  background: ${({ theme }) => theme.colors.canvas};
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.bronze};
   }
 `
 
 const ServiceCardImage = styled.div`
   width: 100%;
-  height: 240px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
 
   img {
@@ -53,39 +60,79 @@ const ServiceCardImage = styled.div`
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
   }
 
-  &:hover img {
+  ${ServiceCard}:hover & img {
     transform: scale(1.04);
   }
 `
 
 const ServiceCardBody = styled.div`
-  padding: 1.5rem;
+  padding: 1.75rem;
+
+  h3 {
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.inkSecondary};
+    line-height: 1.65;
+  }
+`
+
+const CardTop = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+`
+
+const Index = styled.span`
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.bronzeText};
 `
 
 const SubList = styled.div`
   margin-top: 1.25rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.line};
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
 `
 
 const SubItem = styled.div`
   padding: 0.6rem 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   font-family: ${({ theme }) => theme.fonts.sans};
   font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.inkSecondary};
 `
 
-const SERVICE_IMAGES = {
-  excavation: 'https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?auto=format&fit=crop&w=900&q=80',
-  'construction-management': 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80',
-  'design-service': 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80',
-}
+const SERVICE_CARDS = [
+  ...services.map((service) => ({
+    slug: service.slug,
+    to: `/services/${service.slug}`,
+    name: service.name,
+    description: service.description,
+    subcategories: service.subcategories,
+    projectCount: getProjectsByServiceSlug(service.slug).length,
+    image: service.image,
+  })),
+  {
+    slug: 'icf',
+    to: '/icf',
+    name: 'ICF Construction',
+    description: 'Insulated Concrete Form expertise delivering superior structural performance, thermal efficiency, and long-term durability — a dedicated JKCE capability across residential and community projects.',
+    subcategories: null,
+    projectCount: getProjectsByServiceSlug('icf').length,
+    image: { src: '/images/icf/case-study-banner.webp', alt: 'ICF exterior wall construction with scaffolding and bracing' },
+  },
+]
 
 export default function Services() {
   return (
@@ -99,27 +146,25 @@ export default function Services() {
           body={servicesPageContent.intro}
         />
 
-        <Section>
+        <Section $border={false}>
           <SectionHeader>
             <Reveal><SectionLabel>Capabilities</SectionLabel></Reveal>
             <Reveal delay={0.1}>
               <SectionLead>{servicesPageContent.overview}</SectionLead>
             </Reveal>
           </SectionHeader>
-          <Grid $columns={3}>
-            {services.map((service, index) => (
+          <Grid>
+            {SERVICE_CARDS.map((service, index) => (
               <Reveal key={service.slug} delay={index * 0.08}>
-                <ServiceCard>
+                <ServiceCard to={service.to} aria-label={`View ${service.name}`}>
                   <ServiceCardImage>
-                    <img
-                      src={SERVICE_IMAGES[service.slug]}
-                      alt={service.name}
-                      loading="lazy"
-                    />
+                    <img src={service.image.src} alt={service.image.alt} loading="lazy" />
                   </ServiceCardImage>
                   <ServiceCardBody>
-                    <IconBadge>{service.icon}</IconBadge>
-                    <h3>{service.name}</h3>
+                    <CardTop>
+                      <Index>{String(index + 1).padStart(2, '0')}</Index>
+                      <h3>{service.name}</h3>
+                    </CardTop>
                     <p>{service.description}</p>
                     {service.subcategories?.length > 0 && (
                       <SubList>
@@ -128,7 +173,11 @@ export default function Services() {
                         ))}
                       </SubList>
                     )}
-                    <ServiceLink to={`/services/${service.slug}`} style={{ marginTop: '1.25rem' }}>View Service</ServiceLink>
+                    <ServiceLink>
+                      {service.projectCount > 0
+                        ? `View Service — ${service.projectCount} related project${service.projectCount === 1 ? '' : 's'}`
+                        : 'View Service'} →
+                    </ServiceLink>
                   </ServiceCardBody>
                 </ServiceCard>
               </Reveal>

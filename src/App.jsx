@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { theme } from './styles/theme'
 import { GlobalStyle } from './styles/GlobalStyle'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
+import { OrganizationSchema } from './components/OrganizationSchema'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
@@ -27,11 +28,21 @@ import NotFound from './pages/NotFound'
  */
 function ScrollToTop() {
   const { pathname } = useLocation()
+  const isFirstRender = useRef(true)
+
   useEffect(() => {
     if (window.lenis) {
       window.lenis.scrollTo(0, { immediate: true })
     } else {
       window.scrollTo(0, 0)
+    }
+
+    // 路由切换后将焦点移到主内容,便于屏幕阅读器用户感知页面已更新
+    // 首次加载跳过,避免抢走浏览器默认的初始焦点
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+    } else {
+      document.getElementById('main-content')?.focus()
     }
   }, [pathname])
   return null
@@ -48,28 +59,12 @@ function AppShell() {
   return (
     <>
       <ScrollToTop />
-      <a
-        href="#main-content"
-        style={{
-          position: 'absolute',
-          left: '-9999px',
-          top: '1rem',
-          zIndex: 1000,
-          padding: '0.75rem 1rem',
-          background: '#f5f1e8',
-          color: '#111',
-        }}
-        onFocus={(event) => {
-          event.currentTarget.style.left = '1rem'
-        }}
-        onBlur={(event) => {
-          event.currentTarget.style.left = '-9999px'
-        }}
-      >
+      <a href="#main-content" className="skip-link">
         Skip to content
       </a>
+      <OrganizationSchema />
       <Navbar />
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

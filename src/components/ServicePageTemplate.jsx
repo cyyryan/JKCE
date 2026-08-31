@@ -8,25 +8,21 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
-  Card,
+  MediaFrame,
+  Grid,
   CTA,
   CTAButton,
+  Tag,
 } from './PageScaffold'
+import { ProjectCard } from './ProjectCard'
 import { Reveal } from './Reveal'
 
 const BackLink = styled(Link)`
   display: inline-flex;
   margin-bottom: 2rem;
   font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-`
-
-const ProjectLink = styled(Link)`
-  display: inline-flex;
-  margin-top: 1rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 `
 
@@ -35,11 +31,11 @@ const SubcategoryRow = styled.div`
   grid-template-columns: 14rem 1fr;
   gap: 2rem;
   padding: 1.25rem 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   align-items: start;
 
   &:first-child {
-    border-top: 1px solid ${({ theme }) => theme.colors.line};
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
   }
 
   @media (max-width: 640px) {
@@ -59,13 +55,49 @@ const SubcategoryName = styled.span`
 
 const SubcategoryDesc = styled.p`
   font-size: 0.95rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.inkSecondary};
   line-height: 1.7;
   margin: 0;
 `
 
-export function ServicePageTemplate({ service, relatedProjects }) {
-  const featuredProject = relatedProjects[0]
+const ScopeGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const ScopeRow = styled.div`
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+
+  span:first-child {
+    font-family: ${({ theme }) => theme.fonts.sans};
+    font-size: 0.75rem;
+    color: ${({ theme }) => theme.colors.bronzeText};
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.inkSecondary};
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+`
+
+const ProjectTypeRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+`
+
+export function ServicePageTemplate({ service, heroImage, relatedProjects }) {
+  const projectTypes = [...new Set(relatedProjects.map((project) => project.projectType))]
 
   return (
     <PageWrapper>
@@ -81,6 +113,16 @@ export function ServicePageTemplate({ service, relatedProjects }) {
           body={service.heroBody}
         />
 
+        {heroImage && (
+          <Section $border={false} style={{ paddingTop: '2.5rem', paddingBottom: 0 }}>
+            <Reveal>
+              <MediaFrame $ratio="21 / 9">
+                <img src={heroImage.src} alt={heroImage.alt} loading="lazy" />
+              </MediaFrame>
+            </Reveal>
+          </Section>
+        )}
+
         <Section>
           <SectionHeader>
             <Reveal><SectionLabel>Overview</SectionLabel></Reveal>
@@ -88,6 +130,15 @@ export function ServicePageTemplate({ service, relatedProjects }) {
               <SectionLead>{service.overview}</SectionLead>
             </Reveal>
           </SectionHeader>
+          {projectTypes.length > 0 && (
+            <Reveal delay={0.15}>
+              <ProjectTypeRow>
+                {projectTypes.map((type) => (
+                  <Tag key={type}>{type}</Tag>
+                ))}
+              </ProjectTypeRow>
+            </Reveal>
+          )}
         </Section>
 
         {service.subcategories?.length > 0 && (
@@ -96,7 +147,7 @@ export function ServicePageTemplate({ service, relatedProjects }) {
               <Reveal><SectionLabel>What We Offer</SectionLabel></Reveal>
               <Reveal delay={0.1}>
                 <SectionLead>
-                  Four specialized services within this division.
+                  {service.subcategories.length} specialized services within this division.
                 </SectionLead>
               </Reveal>
             </SectionHeader>
@@ -113,22 +164,43 @@ export function ServicePageTemplate({ service, relatedProjects }) {
           </Section>
         )}
 
+        {service.scopeOfWork?.length > 0 && (
+          <Section>
+            <SectionHeader>
+              <Reveal><SectionLabel>Scope of Work</SectionLabel></Reveal>
+              <Reveal delay={0.1}>
+                <SectionLead>What JKCE delivers within this division.</SectionLead>
+              </Reveal>
+            </SectionHeader>
+            <ScopeGrid>
+              {service.scopeOfWork.map((item, i) => (
+                <Reveal key={item} delay={i * 0.05}>
+                  <ScopeRow>
+                    <span>{String(i + 1).padStart(2, '0')}</span>
+                    <p>{item}</p>
+                  </ScopeRow>
+                </Reveal>
+              ))}
+            </ScopeGrid>
+          </Section>
+        )}
+
         <Section $border={false}>
-          {featuredProject && (
+          {relatedProjects.length > 0 && (
             <>
               <SectionHeader>
-                <Reveal><SectionLabel>Related Project</SectionLabel></Reveal>
+                <Reveal><SectionLabel>Related Projects</SectionLabel></Reveal>
                 <Reveal delay={0.1}>
-                  <SectionLead>A selected project connected to this service.</SectionLead>
+                  <SectionLead>Selected projects delivered through this service.</SectionLead>
                 </Reveal>
               </SectionHeader>
-              <Reveal delay={0.06}>
-                <Card>
-                  <h3>{featuredProject.title}</h3>
-                  <p>{featuredProject.summary}</p>
-                  <ProjectLink to={`/projects/${featuredProject.slug}`}>View Project</ProjectLink>
-                </Card>
-              </Reveal>
+              <Grid $columns={3} style={{ marginBottom: '3rem' }}>
+                {relatedProjects.slice(0, 3).map((project, i) => (
+                  <Reveal key={project.slug} delay={i * 0.06}>
+                    <ProjectCard project={project} />
+                  </Reveal>
+                ))}
+              </Grid>
             </>
           )}
 

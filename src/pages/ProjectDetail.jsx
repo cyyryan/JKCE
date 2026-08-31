@@ -11,7 +11,10 @@ export default function ProjectDetail() {
     return <Navigate to="/projects" replace />
   }
 
-  const relatedServices = services.filter((service) => project.serviceSlugs.includes(service.slug))
+  const ICF_SERVICE = { slug: 'icf', name: 'ICF Construction', shortName: 'ICF' }
+  const relatedServices = project.serviceSlugs
+    .map((slug) => (slug === 'icf' ? ICF_SERVICE : services.find((service) => service.slug === slug)))
+    .filter(Boolean)
 
   return (
     <>

@@ -1,3 +1,4 @@
+import styled from 'styled-components'
 import {
   PageWrapper,
   PageInner,
@@ -17,6 +18,13 @@ import { InquiryForm } from '../components/InquiryForm'
 import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
 import { contactContent, pageMeta } from '../content/siteData'
+
+const ResponseNote = styled.p`
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.ink};
+`
 
 export default function Contact() {
   return (
@@ -38,6 +46,9 @@ export default function Contact() {
             </Reveal>
           </SectionHeader>
           <ContactInfoCards items={contactContent.details} />
+          <Reveal delay={0.15}>
+            <ResponseNote>{contactContent.responseNote}</ResponseNote>
+          </Reveal>
         </Section>
 
         <Section>

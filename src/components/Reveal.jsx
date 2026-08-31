@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
 /**
  * Reveal 组件
@@ -20,13 +21,23 @@ import { motion } from 'framer-motion'
 export function Reveal({
   children,
   delay = 0,
-  y = 40,
-  duration = 0.9,
+  y = 24,
+  duration = 0.6,
   as = 'div',
   className,
   ...rest
 }) {
   const MotionTag = motion[as] || motion.div
+  const reduceMotion = usePrefersReducedMotion()
+
+  if (reduceMotion) {
+    const Tag = as
+    return (
+      <Tag className={className} {...rest}>
+        {children}
+      </Tag>
+    )
+  }
 
   return (
     <MotionTag

@@ -9,8 +9,8 @@ const LegalLinks = styled.div`
 
   a {
     font-size: 0.8125rem;
-    color: ${({ theme }) => theme.colors.textMuted};
-    transition: color 0.25s;
+    color: ${({ theme }) => theme.colors.textOnDarkSecondary};
+    transition: color 0.2s;
 
     &:hover {
       color: ${({ theme }) => theme.colors.textOnDark};
@@ -19,13 +19,13 @@ const LegalLinks = styled.div`
 `
 
 const Wrapper = styled.footer`
-  background: ${({ theme }) => theme.colors.bgDark};
+  background: ${({ theme }) => theme.colors.industrialDark};
   color: ${({ theme }) => theme.colors.textOnDark};
-  padding: 8rem 2.5rem 3rem;
+  padding: ${({ theme }) => theme.section.paddingY} 2.5rem 3rem;
   position: relative;
 
   @media (max-width: 768px) {
-    padding: 5rem 1.5rem 2rem;
+    padding: ${({ theme }) => theme.section.paddingYTight} 1.5rem 2rem;
   }
 `
 
@@ -37,17 +37,18 @@ const Inner = styled.div`
 const Top = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 4rem;
-  padding-bottom: 6rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.lineDark};
+  gap: 3rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderDark};
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
   }
 
   @media (max-width: 560px) {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2.25rem;
     padding-bottom: 3rem;
   }
 `
@@ -55,22 +56,21 @@ const Top = styled.div`
 const Brand = styled.div`
   h3 {
     font-family: ${({ theme }) => theme.fonts.display};
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1;
-    margin-bottom: 2rem;
+    font-weight: 500;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
   }
   p {
-    max-width: 360px;
-    color: ${({ theme }) => theme.colors.line};
+    max-width: 340px;
+    color: ${({ theme }) => theme.colors.textOnDarkSecondary};
     line-height: 1.7;
   }
 `
 
 const SocialRow = styled.div`
   display: flex;
-  gap: 1.25rem;
+  gap: 1rem;
   margin-top: 1.75rem;
 `
 
@@ -78,12 +78,12 @@ const SocialIcon = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border: 1px solid ${({ theme }) => theme.colors.lineDark};
-  border-radius: 50%;
-  color: ${({ theme }) => theme.colors.textMuted};
-  transition: border-color 0.25s, color 0.25s;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid ${({ theme }) => theme.colors.borderDark};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  color: ${({ theme }) => theme.colors.textOnDarkSecondary};
+  transition: border-color 0.2s, color 0.2s;
 
   svg {
     width: 1rem;
@@ -92,8 +92,8 @@ const SocialIcon = styled.a`
   }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.accentWarm};
-    color: ${({ theme }) => theme.colors.accentWarm};
+    border-color: ${({ theme }) => theme.colors.bronzeOnDark};
+    color: ${({ theme }) => theme.colors.bronzeOnDark};
   }
 `
 
@@ -106,7 +106,7 @@ const BbbSeal = styled.a`
     width: auto;
     display: block;
     opacity: 0.85;
-    transition: opacity 0.25s;
+    transition: opacity 0.2s;
   }
 
   &:hover img {
@@ -118,10 +118,10 @@ const Col = styled.div`
   h4 {
     font-family: ${({ theme }) => theme.fonts.sans};
     font-size: 0.75rem;
-    font-weight: 400;
-    letter-spacing: 0.2em;
+    font-weight: 600;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: ${({ theme }) => theme.colors.textMuted};
+    color: ${({ theme }) => theme.colors.textOnDarkSecondary};
     margin-bottom: 1.5rem;
   }
 
@@ -133,9 +133,9 @@ const Col = styled.div`
   }
 
   a, p {
-    color: ${({ theme }) => theme.colors.line};
+    color: ${({ theme }) => theme.colors.textOnDarkSecondary};
     font-size: 0.9375rem;
-    transition: color 0.3s;
+    transition: color 0.2s;
     line-height: 1.5;
   }
 
@@ -144,50 +144,26 @@ const Col = styled.div`
   }
 `
 
-const Newsletter = styled.form`
-  margin-top: 0.5rem;
-  display: flex;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.lineDark};
+const GetInTouchCta = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: ${({ theme }) => theme.radius.sm};
+  border: 1px solid ${({ theme }) => theme.colors.borderDark};
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textOnDark};
+  transition: border-color 0.2s, color 0.2s;
 
-  input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    padding: 0.75rem 0;
-    color: ${({ theme }) => theme.colors.textOnDark};
-    font-family: inherit;
-    font-size: 0.9375rem;
-
-    &::placeholder {
-      color: ${({ theme }) => theme.colors.textMuted};
-    }
-    &:focus {
-      outline: none;
-    }
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.bronzeOnDark};
+    color: ${({ theme }) => theme.colors.bronzeOnDark};
   }
-
-  button {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: ${({ theme }) => theme.colors.textOnDark};
-    padding: 0 0.5rem;
-    transition: opacity 0.3s;
-
-    &:hover { opacity: 0.6; }
-  }
-`
-
-const SrOnly = styled.label`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 `
 
 const Bottom = styled.div`
@@ -196,7 +172,7 @@ const Bottom = styled.div`
   align-items: center;
   padding-top: 2rem;
   font-size: 0.8125rem;
-  color: ${({ theme }) => theme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.textOnDarkSecondary};
 
   @media (max-width: 600px) {
     flex-direction: column;
@@ -242,7 +218,7 @@ export function Footer() {
             </Brand>
           </Reveal>
 
-          <Reveal delay={0.1}>
+          <Reveal delay={0.08}>
             <Col>
               <h4>Explore</h4>
               <ul>
@@ -255,7 +231,7 @@ export function Footer() {
             </Col>
           </Reveal>
 
-          <Reveal delay={0.2}>
+          <Reveal delay={0.14}>
             <Col>
               <h4>Visit</h4>
               <ul>
@@ -266,17 +242,13 @@ export function Footer() {
             </Col>
           </Reveal>
 
-          <Reveal delay={0.3}>
+          <Reveal delay={0.2}>
             <Col>
-              <h4>Newsletter</h4>
-              <p style={{ marginBottom: '1rem' }}>
-                Updates on projects and initiatives.
+              <h4>Start a Project</h4>
+              <p style={{ marginBottom: '0.25rem' }}>
+                Tell us what you're building — we respond directly, no middlemen.
               </p>
-              <Newsletter onSubmit={(e) => e.preventDefault()}>
-                <SrOnly htmlFor="newsletter-email">Email address</SrOnly>
-                <input id="newsletter-email" type="email" placeholder="your@email.com" aria-label="Email address" />
-                <button type="submit" aria-label="Subscribe to the newsletter">Subscribe →</button>
-              </Newsletter>
+              <GetInTouchCta to="/contact">Get in Touch →</GetInTouchCta>
             </Col>
           </Reveal>
         </Top>

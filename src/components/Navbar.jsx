@@ -1,18 +1,22 @@
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { primaryNav } from '../content/siteData'
+import { primaryNav, companyInfo } from '../content/siteData'
 
 /**
  * Navbar
  * ------
- * 功能:
- * 1. 滚动超过 80px 时背景变实色 + 收缩高度
- * 2. 进入首屏(scroll=0)时背景透明,文字白色(视频 hero 上方)
- * 3. 非首页时默认深色文字 + 米色背景
- * 4. 移动端抽屉菜单
+ * 桌面:首页首屏透明,滚动后切换实体背景;Logo 尺寸变化控制在很小范围内,
+ * 避免布局跳动。当前页(含服务/项目详情页的父级)始终高亮。
+ * 移动:全视口覆盖菜单,锁定背景滚动,支持 Escape / 点击遮罩关闭,
+ * 关闭后焦点归还到菜单按钮。
  */
+
+function isActive(pathname, to) {
+  if (to === '/') return pathname === '/'
+  return pathname === to || pathname.startsWith(`${to}/`)
+}
 
 const Wrapper = styled(motion.nav)`
   position: fixed;
@@ -20,18 +24,14 @@ const Wrapper = styled(motion.nav)`
   left: 0;
   right: 0;
   z-index: 100;
-  padding: ${({ $scrolled }) => ($scrolled ? '0.875rem 2.5rem' : '1.25rem 2.5rem')};
+  padding: ${({ $scrolled }) => ($scrolled ? '0.9rem 2.5rem' : '1.15rem 2.5rem')};
   background: ${({ $transparent, $scrolled, theme }) =>
-    $transparent && !$scrolled
-      ? 'transparent'
-      : theme.colors.bgPrimary};
+    $transparent && !$scrolled ? 'transparent' : theme.colors.canvas};
   color: ${({ $transparent, $scrolled, theme }) =>
-    $transparent && !$scrolled ? theme.colors.textOnDark : theme.colors.textPrimary};
-  transition: padding 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-              background 0.4s ease,
-              color 0.4s ease;
+    $transparent && !$scrolled ? theme.colors.textOnDark : theme.colors.ink};
+  transition: padding 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   border-bottom: 1px solid ${({ $transparent, $scrolled, theme }) =>
-    $transparent && !$scrolled ? 'transparent' : theme.colors.line};
+    $transparent && !$scrolled ? 'transparent' : theme.colors.border};
 
   @media (max-width: 768px) {
     padding: 1rem 1.25rem;
@@ -57,16 +57,14 @@ const LogoWrap = styled.div`
   align-items: center;
 `
 
-/* Base image — logo-w (white), controls layout height */
+/* 透明态与滚动态高度差控制在 8px 内,避免明显跳动 */
 const LogoBase = styled.img`
-  height: ${({ $big }) => ($big ? '84px' : '52px')};
+  height: ${({ $big }) => ($big ? '46px' : '38px')};
   width: auto;
   display: block;
-  transition: height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.35s ease;
+  transition: height 0.3s ease, opacity 0.25s ease;
 `
 
-/* Overlay image — logo-g (dark), absolutely on top */
 const LogoOver = styled(LogoBase)`
   position: absolute;
   top: 0;
@@ -75,7 +73,8 @@ const LogoOver = styled(LogoBase)`
 
 const NavLinks = styled.ul`
   display: flex;
-  gap: 2rem;
+  align-items: center;
+  gap: 1.75rem;
   list-style: none;
 
   @media (max-width: 900px) {
@@ -85,13 +84,13 @@ const NavLinks = styled.ul`
 
 const navLinkStyle = css`
   font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.8125rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 0.25rem 0;
+  padding: 0.3rem 0;
   position: relative;
-  transition: opacity 0.3s;
+  transition: opacity 0.2s;
 
   &::after {
     content: '';
@@ -100,10 +99,10 @@ const navLinkStyle = css`
     left: 0;
     width: 100%;
     height: 1px;
-    background: ${({ theme }) => theme.colors.accentWarm};
+    background: ${({ $dark, theme }) => ($dark ? theme.colors.bronzeOnDark : theme.colors.bronzeText)};
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.25s ease;
   }
 
   &:hover::after, &.active::after {
@@ -116,11 +115,42 @@ const NavLink = styled(Link)`
   ${navLinkStyle}
 `
 
+const NavCta = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.6rem 1.1rem;
+  border-radius: ${({ theme }) => theme.radius.sm};
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: currentColor;
+  }
+
+  &:hover {
+    color: ${({ $transparent, $scrolled, theme }) =>
+      $transparent && !$scrolled ? theme.colors.industrialDark : theme.colors.canvas};
+  }
+
+  @media (max-width: 900px) {
+    display: none;
+  }
+`
+
 const Burger = styled.button`
   display: none;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 5px;
-  padding: 0.5rem;
+  width: 44px;
+  height: 44px;
 
   @media (max-width: 900px) {
     display: flex;
@@ -128,51 +158,104 @@ const Burger = styled.button`
 
   span {
     display: block;
-    width: 24px;
-    height: 1px;
+    width: 22px;
+    height: 1.5px;
     background: currentColor;
-    transition: transform 0.3s, opacity 0.3s;
-  }
-
-  &[data-open='true'] {
-    span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    span:nth-child(2) { opacity: 0; }
-    span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    transition: transform 0.25s ease, opacity 0.2s ease;
   }
 `
 
-const MobileMenu = styled(motion.div)`
+const Overlay = styled(motion.div)`
   position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  max-width: 420px;
-  height: 100vh;
-  background: ${({ theme }) => theme.colors.bgDark};
+  inset: 0;
+  height: 100dvh;
+  background: ${({ theme }) => theme.colors.industrialDark};
   color: ${({ theme }) => theme.colors.textOnDark};
-  padding: 6rem 2rem 2rem;
-  z-index: 99;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+`
+
+const OverlayTop = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+`
+
+const CloseButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: ${({ theme }) => theme.colors.textOnDark};
+`
+
+const MenuBody = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 1.75rem 3rem;
+  overflow-y: auto;
 
   ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 0.5rem;
   }
 
   a {
+    display: block;
+    padding: 0.6rem 0;
     font-family: ${({ theme }) => theme.fonts.display};
-    font-size: 2rem;
-    font-weight: 300;
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    font-weight: 500;
   }
+
+  a.active {
+    color: ${({ theme }) => theme.colors.bronzeOnDark};
+  }
+`
+
+const MenuFooter = styled.div`
+  padding: 1.5rem 1.75rem 2.5rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.borderDark};
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  a {
+    font-size: 0.95rem;
+    color: ${({ theme }) => theme.colors.textOnDarkSecondary};
+  }
+`
+
+const MenuPrimaryCta = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  border-radius: ${({ theme }) => theme.radius.sm};
+  background: ${({ theme }) => theme.colors.canvas};
+  color: ${({ theme }) => theme.colors.ink};
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 `
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const location = useLocation()
+  const burgerRef = useRef(null)
+  const closeRef = useRef(null)
 
-  // 首页才使用透明 hero 风格
   const transparent = location.pathname === '/'
 
   useEffect(() => {
@@ -182,31 +265,52 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  // 路由切换时关闭菜单
   useEffect(() => {
     setOpen(false)
   }, [location])
+
+  const closeMenu = useCallback(() => {
+    setOpen(false)
+    burgerRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    if (!open) return undefined
+
+    document.body.classList.add('no-scroll')
+    window.lenis?.stop()
+    closeRef.current?.focus()
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') closeMenu()
+    }
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.classList.remove('no-scroll')
+      window.lenis?.start()
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [open, closeMenu])
 
   return (
     <>
       <Wrapper
         $scrolled={scrolled}
         $transparent={transparent}
-        initial={{ y: -40, opacity: 0 }}
+        initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
       >
         <Inner>
-          <Logo to="/" aria-label="JKCE homepage">
+          <Logo to="/" aria-label="JKCE Probuild homepage">
             <LogoWrap>
-              {/* White logo — hero state */}
               <LogoBase
                 src="/logo/logo-w.PNG"
                 alt="JKCE Probuild"
                 $big={transparent && !scrolled}
                 style={{ opacity: transparent && !scrolled ? 1 : 0 }}
               />
-              {/* Dark logo — scrolled / inner pages */}
               <LogoOver
                 src="/logo/logo-g.png"
                 alt=""
@@ -221,18 +325,22 @@ export function Navbar() {
               <li key={l.to}>
                 <NavLink
                   to={l.to}
-                  className={location.pathname === l.to ? 'active' : ''}
-                  aria-current={location.pathname === l.to ? 'page' : undefined}
+                  $dark={transparent && !scrolled}
+                  className={isActive(location.pathname, l.to) ? 'active' : ''}
+                  aria-current={isActive(location.pathname, l.to) ? 'page' : undefined}
                 >
                   {l.label}
                 </NavLink>
               </li>
             ))}
           </NavLinks>
+          <NavCta to="/contact" $transparent={transparent} $scrolled={scrolled}>
+            Request a Quote
+          </NavCta>
           <Burger
-            data-open={open}
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? 'Close site navigation' : 'Open site navigation'}
+            ref={burgerRef}
+            onClick={() => setOpen(true)}
+            aria-label="Open site navigation"
             aria-expanded={open}
             aria-controls="mobile-navigation"
             type="button"
@@ -244,26 +352,50 @@ export function Navbar() {
 
       <AnimatePresence>
         {open && (
-          <MobileMenu
+          <Overlay
             id="mobile-navigation"
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            onClick={(event) => {
+              if (event.target === event.currentTarget) closeMenu()
+            }}
           >
-            <ul>
-              {primaryNav.map((l) => (
-                <li key={l.to}>
-                  <Link
-                    to={l.to}
-                    aria-current={location.pathname === l.to ? 'page' : undefined}
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </MobileMenu>
+            <OverlayTop>
+              <Logo to="/" aria-label="JKCE Probuild homepage">
+                <img src="/logo/logo-w.PNG" alt="JKCE Probuild" style={{ height: '32px' }} />
+              </Logo>
+              <CloseButton ref={closeRef} onClick={closeMenu} aria-label="Close site navigation" type="button">
+                ×
+              </CloseButton>
+            </OverlayTop>
+
+            <MenuBody>
+              <ul>
+                {primaryNav.map((l) => (
+                  <li key={l.to}>
+                    <Link
+                      to={l.to}
+                      className={isActive(location.pathname, l.to) ? 'active' : ''}
+                      aria-current={isActive(location.pathname, l.to) ? 'page' : undefined}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </MenuBody>
+
+            <MenuFooter>
+              <MenuPrimaryCta to="/contact">Start a Project</MenuPrimaryCta>
+              <a href={companyInfo.phoneHref}>{companyInfo.phone}</a>
+              <a href={companyInfo.emailHref}>{companyInfo.email}</a>
+            </MenuFooter>
+          </Overlay>
         )}
       </AnimatePresence>
     </>

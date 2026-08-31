@@ -4,18 +4,23 @@ import { RevealText } from '../components/RevealText'
 import { ArrowLink } from '../components/ArrowLink'
 import { ProjectCard } from '../components/ProjectCard'
 import { homeContent } from '../content/home'
-import { getFeaturedProjects } from '../content/siteData'
+import { projects } from '../content/siteData'
 
 const { projects: projectsContent } = homeContent
 
-const featuredProjects = getFeaturedProjects(3)
+// 首页旗舰案例(Tlowitsis Nation)已在 FeaturedCase 中展示,这里展示其余项目
+const otherProjects = projects.filter((project) => project.slug !== 'tlowitsis-nation')
+const homeProjects = [
+  ...otherProjects.filter((project) => project.featuredOnHome),
+  ...otherProjects.filter((project) => !project.featuredOnHome),
+].slice(0, 4)
 
 const Section = styled.section`
-  padding: 8rem 2.5rem;
-  background: ${({ theme }) => theme.colors.bgPrimary};
+  padding: 0 2.5rem ${({ theme }) => theme.section.paddingY};
+  background: ${({ theme }) => theme.colors.canvas};
 
   @media (max-width: 768px) {
-    padding: 4rem 1.5rem;
+    padding: 0 1.5rem ${({ theme }) => theme.section.paddingYTight};
   }
 `
 
@@ -26,19 +31,21 @@ const Inner = styled.div`
 
 const Eyebrow = styled.span`
   display: block;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
   font-family: ${({ theme }) => theme.fonts.sans};
   font-size: 0.75rem;
-  letter-spacing: 0.24em;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.bronzeText};
 `
 
 const Head = styled.div`
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
   gap: 3rem;
-  margin-bottom: 2.25rem;
+  margin-bottom: 2.5rem;
+  align-items: end;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -46,23 +53,21 @@ const Head = styled.div`
 `
 
 const Title = styled.h2`
-  font-size: clamp(2.25rem, 5vw, 4rem);
-  line-height: 1.02;
-  font-weight: 300;
+  font-family: ${({ theme }) => theme.fonts.display};
+  font-weight: 500;
+  font-size: clamp(2rem, 1.5rem + 3vw, 3.5rem);
+  line-height: 1.05;
 `
 
 const Body = styled.p`
-  align-self: end;
-  max-width: 28rem;
-  font-family: ${({ theme }) => theme.fonts.serif};
-  font-size: 1.05rem;
+  font-size: ${({ theme }) => theme.fontSize.md};
   line-height: 1.6;
-  color: ${({ theme }) => theme.colors.textSecondary};
+  color: ${({ theme }) => theme.colors.inkSecondary};
 `
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.25rem;
   margin-bottom: 2rem;
 
@@ -70,12 +75,12 @@ const Grid = styled.div`
     grid-template-columns: 1fr 1fr;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 560px) {
     grid-template-columns: 1fr;
   }
 `
 
-export function FeaturedProjectsHome() {
+export function MoreProjects() {
   return (
     <Section>
       <Inner>
@@ -92,20 +97,20 @@ export function FeaturedProjectsHome() {
               ]}
             />
           </Title>
-          <Reveal delay={0.15}>
+          <Reveal delay={0.12}>
             <Body>{projectsContent.body.en}</Body>
           </Reveal>
         </Head>
 
         <Grid>
-          {featuredProjects.map((project, index) => (
-            <Reveal key={project.slug} delay={index * 0.06}>
+          {homeProjects.map((project, index) => (
+            <Reveal key={project.slug} delay={index * 0.05}>
               <ProjectCard project={project} />
             </Reveal>
           ))}
         </Grid>
 
-        <Reveal delay={0.24}>
+        <Reveal delay={0.2}>
           <ArrowLink to={projectsContent.cta.to}>{projectsContent.cta.en}</ArrowLink>
         </Reveal>
       </Inner>

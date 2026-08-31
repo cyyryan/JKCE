@@ -14,23 +14,22 @@ const StyledLink = styled(Link)`
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: ${({ $dark, theme }) => ($dark ? theme.colors.textOnDark : theme.colors.textPrimary)};
-  padding: 1rem 0;
+  color: ${({ $dark, theme }) => ($dark ? theme.colors.textOnDark : theme.colors.ink)};
+  padding: 0.9rem 0;
   border-bottom: 1px solid currentColor;
-  transition: opacity 0.3s ease;
+  transition: color 0.2s ease, border-color 0.2s ease;
   position: relative;
 
   .arrow {
     display: inline-block;
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   &:hover {
-    opacity: 1;
-    color: ${({ theme }) => theme.colors.accentWarm};
-    border-bottom-color: ${({ theme }) => theme.colors.accentWarm};
+    color: ${({ $dark, theme }) => ($dark ? theme.colors.bronzeOnDark : theme.colors.bronzeText)};
+    border-bottom-color: ${({ $dark, theme }) => ($dark ? theme.colors.bronzeOnDark : theme.colors.bronzeText)};
     .arrow {
-      transform: translateX(6px);
+      transform: translateX(5px);
     }
   }
 `

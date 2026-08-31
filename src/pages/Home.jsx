@@ -1,8 +1,11 @@
 import { Hero } from '../sections/Hero'
+import { TrustStrip } from '../sections/TrustStrip'
 import { Intro } from '../sections/Intro'
 import { CoreServices } from '../sections/CoreServices'
-import { TechAndPromises } from '../sections/TechAndPromises'
-import { FeaturedProjectsHome } from '../sections/FeaturedProjectsHome'
+import { FeaturedCase } from '../sections/FeaturedCase'
+import { TechCapability } from '../sections/TechCapability'
+import { DeliveryProcess } from '../sections/DeliveryProcess'
+import { MoreProjects } from '../sections/MoreProjects'
 import { FinalCTA } from '../sections/FinalCTA'
 import { Seo } from '../components/Seo'
 import { pageMeta } from '../content/siteData'
@@ -12,10 +15,13 @@ export default function Home() {
     <>
       <Seo {...pageMeta.home} />
       <Hero />
+      <TrustStrip />
       <Intro />
       <CoreServices />
-      <TechAndPromises />
-      <FeaturedProjectsHome />
+      <FeaturedCase />
+      <TechCapability />
+      <DeliveryProcess />
+      <MoreProjects />
       <FinalCTA />
     </>
   )
