@@ -134,11 +134,10 @@ const NavCta = styled(Link)`
   border: 1px solid currentColor;
   transition: background 0.2s ease, color 0.2s ease;
 
-  &:hover {
-    background: currentColor;
-  }
-
-  &:hover {
+  &:hover,
+  &:focus-visible {
+    background: ${({ $transparent, $scrolled, theme }) =>
+      $transparent && !$scrolled ? theme.colors.textOnDark : theme.colors.ink};
     color: ${({ $transparent, $scrolled, theme }) =>
       $transparent && !$scrolled ? theme.colors.industrialDark : theme.colors.canvas};
   }
