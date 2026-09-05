@@ -79,8 +79,8 @@ export const theme = {
 
   // 统一 section 上下留白(不再各文件各自硬编码)
   section: {
-    paddingY: 'clamp(3.5rem, 2.6rem + 4vw, 6rem)',
-    paddingYTight: 'clamp(2.5rem, 2rem + 2.5vw, 4rem)',
+    paddingY: 'clamp(3.25rem, 2.5rem + 3vw, 5rem)',
+    paddingYTight: 'clamp(2.25rem, 1.8rem + 2vw, 3.5rem)',
   },
 
   breakpoints: {

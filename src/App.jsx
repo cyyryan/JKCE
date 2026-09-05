@@ -1,23 +1,40 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
-import { useEffect, useRef } from 'react'
+import styled, { ThemeProvider } from 'styled-components'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import { theme } from './styles/theme'
 import { GlobalStyle } from './styles/GlobalStyle'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
 import { OrganizationSchema } from './components/OrganizationSchema'
-import Home from './pages/Home'
-import About from './pages/About'
-import Services from './pages/Services'
-import ServiceDetail from './pages/ServiceDetail'
-import Projects from './pages/Projects'
-import ProjectDetail from './pages/ProjectDetail'
-import Contact from './pages/Contact'
-import ICF from './pages/ICF'
-import Careers from './pages/Careers'
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import NotFound from './pages/NotFound'
+
+const Home = lazy(() => import('./pages/Home'))
+const About = lazy(() => import('./pages/About'))
+const Services = lazy(() => import('./pages/Services'))
+const ServiceDetail = lazy(() => import('./pages/ServiceDetail'))
+const Projects = lazy(() => import('./pages/Projects'))
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
+const Contact = lazy(() => import('./pages/Contact'))
+const ICF = lazy(() => import('./pages/ICF'))
+const Careers = lazy(() => import('./pages/Careers'))
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+
+const LoadingShell = styled.div`
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  padding: 8rem 1.5rem 4rem;
+  color: ${({ theme }) => theme.colors.inkMuted};
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+`
+
+function RouteLoading() {
+  return <LoadingShell role="status" aria-live="polite">Loading page…</LoadingShell>
+}
 
 /**
  * ScrollToTop
@@ -65,20 +82,22 @@ function AppShell() {
       <OrganizationSchema />
       <Navbar />
       <main id="main-content" tabIndex={-1}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/:slug" element={<ServiceDetail />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:slug" element={<ProjectDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/icf" element={<ICF />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Suspense fallback={<RouteLoading />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/icf" element={<ICF />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </>

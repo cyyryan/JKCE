@@ -17,8 +17,9 @@ const Inner = styled.div`
   margin: 0 auto;
   padding: ${({ theme }) => theme.section.paddingY} 2.5rem;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr);
-  gap: 3rem;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.75fr);
+  gap: clamp(2.5rem, 7vw, 7rem);
+  align-items: center;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -28,11 +29,11 @@ const Inner = styled.div`
 
 const Eyebrow = styled.span`
   display: block;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.bronzeOnDark};
 `
@@ -83,15 +84,16 @@ const PrimaryButton = styled(Link)`
 `
 
 const ContactBlock = styled.div`
-  align-self: end;
-  padding-top: 2rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.borderDark};
+  padding: 2rem;
+  border: 1px solid ${({ theme }) => theme.colors.borderDark};
+  border-radius: ${({ theme }) => theme.radius.md};
+  background: ${({ theme }) => theme.colors.industrialDarkAlt};
 
   h3 {
     font-family: ${({ theme }) => theme.fonts.sans};
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: ${({ theme }) => theme.colors.textOnDarkSecondary};
     margin-bottom: 1rem;
@@ -109,13 +111,13 @@ const ContactBlock = styled.div`
   }
 
   @media (max-width: 900px) {
-    padding-top: 1.5rem;
+    padding: 1.5rem;
   }
 `
 
 export function FinalCTA() {
   return (
-    <Section>
+    <Section id="contact-cta">
       <Inner>
         <div>
           <Reveal>

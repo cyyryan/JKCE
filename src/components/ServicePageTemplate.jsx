@@ -26,6 +26,27 @@ const BackLink = styled(Link)`
   text-transform: uppercase;
 `
 
+const OverviewRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 1.5rem 0 2.5rem;
+
+  p {
+    color: ${({ theme }) => theme.colors.inkSecondary};
+    line-height: 1.6;
+    max-width: 42ch;
+    font-size: 0.95rem;
+  }
+`
+
+const ProjectTypeRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+`
+
 const SubcategoryRow = styled.div`
   display: grid;
   grid-template-columns: 14rem 1fr;
@@ -60,10 +81,12 @@ const SubcategoryDesc = styled.p`
   margin: 0;
 `
 
+/* Scope of Work 是 Level 2 事实清单(已是短句),用低视觉权重的编号行呈现,
+   和上方 What We Offer 的说明性文字区分开,不需要再折叠 */
 const ScopeGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem 2rem;
+  gap: 0.75rem 2rem;
 
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
@@ -72,28 +95,23 @@ const ScopeGrid = styled.div`
 
 const ScopeRow = styled.div`
   display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 0.75rem;
-  padding: 1rem 0;
+  grid-template-columns: 1.75rem 1fr;
+  gap: 0.6rem;
+  padding: 0.85rem 0;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 
-  span:first-child {
+  span {
     font-family: ${({ theme }) => theme.fonts.sans};
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: ${({ theme }) => theme.colors.bronzeText};
   }
 
   p {
-    color: ${({ theme }) => theme.colors.inkSecondary};
-    line-height: 1.6;
-    font-size: 0.95rem;
+    color: ${({ theme }) => theme.colors.inkMuted};
+    line-height: 1.55;
+    font-size: 0.85rem;
+    margin: 0;
   }
-`
-
-const ProjectTypeRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
 `
 
 export function ServicePageTemplate({ service, heroImage, relatedProjects }) {
@@ -113,25 +131,13 @@ export function ServicePageTemplate({ service, heroImage, relatedProjects }) {
           body={service.heroBody}
         />
 
-        {heroImage && (
-          <Section $border={false} style={{ paddingTop: '2.5rem', paddingBottom: 0 }}>
-            <Reveal>
-              <MediaFrame $ratio="21 / 9">
-                <img src={heroImage.src} alt={heroImage.alt} loading="lazy" />
-              </MediaFrame>
-            </Reveal>
-          </Section>
-        )}
-
-        <Section>
-          <SectionHeader>
-            <Reveal><SectionLabel>Overview</SectionLabel></Reveal>
-            <Reveal delay={0.1}>
-              <SectionLead>{service.overview}</SectionLead>
-            </Reveal>
-          </SectionHeader>
+        {/* Overview 降为支撑说明(Level 3),不与 heroBody 争夺权重 */}
+        <OverviewRow>
+          <Reveal>
+            <p>{service.overview}</p>
+          </Reveal>
           {projectTypes.length > 0 && (
-            <Reveal delay={0.15}>
+            <Reveal delay={0.08}>
               <ProjectTypeRow>
                 {projectTypes.map((type) => (
                   <Tag key={type}>{type}</Tag>
@@ -139,10 +145,23 @@ export function ServicePageTemplate({ service, heroImage, relatedProjects }) {
               </ProjectTypeRow>
             </Reveal>
           )}
-        </Section>
+        </OverviewRow>
 
-        {service.subcategories?.length > 0 && (
-          <Section>
+        {heroImage && (
+          <Section $border={false} style={{ paddingTop: 0, paddingBottom: '2.5rem' }}>
+            <Reveal variant="side">
+              <MediaFrame $ratio="21 / 9">
+                <img src={heroImage.src} alt={heroImage.alt} loading="lazy" />
+              </MediaFrame>
+            </Reveal>
+          </Section>
+        )}
+      </PageInner>
+
+      {/* What We Offer — Surface 通栏,页面中段的背景转换 */}
+      {service.subcategories?.length > 0 && (
+        <Section $tone="surface">
+          <PageInner>
             <SectionHeader>
               <Reveal><SectionLabel>What We Offer</SectionLabel></Reveal>
               <Reveal delay={0.1}>
@@ -161,9 +180,11 @@ export function ServicePageTemplate({ service, heroImage, relatedProjects }) {
                 </Reveal>
               ))}
             </div>
-          </Section>
-        )}
+          </PageInner>
+        </Section>
+      )}
 
+      <PageInner>
         {service.scopeOfWork?.length > 0 && (
           <Section>
             <SectionHeader>

@@ -31,14 +31,14 @@ function upsertLink(selector, attributes) {
 export function Seo({
   title = siteMeta.defaultTitle,
   description = siteMeta.defaultDescription,
-  path = '/',
+  path,
   image = siteMeta.defaultOgImage,
   noIndex = false,
 }) {
   const location = useLocation()
 
   useEffect(() => {
-    const resolvedPath = path || location.pathname
+    const resolvedPath = path ?? location.pathname
     const canonicalUrl = new URL(resolvedPath, siteMeta.siteUrl).toString()
 
     document.title = title

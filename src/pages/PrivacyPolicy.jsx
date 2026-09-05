@@ -44,6 +44,7 @@ export default function PrivacyPolicy() {
       <Seo
         title="Privacy Policy | JKCE Probuild"
         description="Privacy notice and social media policy for JKCE Probuild Contracting Corp."
+        path="/privacy-policy"
       />
       <PageInner>
         <PageHero

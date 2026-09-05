@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Reveal } from '../components/Reveal'
 import { RevealText } from '../components/RevealText'
 import { ArrowLink } from '../components/ArrowLink'
+import { StatementBlock } from '../components/PageScaffold'
 import { homeContent } from '../content/home'
 
 const { intro } = homeContent
@@ -10,7 +11,7 @@ const Section = styled.section`
   background: ${({ theme }) => theme.colors.canvas};
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -88,16 +89,6 @@ const Body = styled.p`
   margin-bottom: 1.25rem;
 `
 
-const Differentiator = styled.p`
-  font-size: 0.95rem;
-  font-weight: 500;
-  line-height: 1.6;
-  color: ${({ theme }) => theme.colors.ink};
-  max-width: 48ch;
-  margin-bottom: 1.75rem;
-  padding-left: 1rem;
-  border-left: 2px solid ${({ theme }) => theme.colors.bronze};
-`
 
 export function Intro() {
   return (
@@ -122,8 +113,8 @@ export function Intro() {
           <Body>{intro.body.en}</Body>
         </Reveal>
 
-        <Reveal delay={0.2}>
-          <Differentiator>{intro.differentiator.en}</Differentiator>
+        <Reveal delay={0.2} variant="side" style={{ marginBottom: '1.75rem' }}>
+          <StatementBlock>{intro.differentiator.en}</StatementBlock>
         </Reveal>
 
         <Reveal delay={0.25}>

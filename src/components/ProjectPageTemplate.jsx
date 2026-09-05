@@ -8,9 +8,10 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
+  SectionLabelOnDark,
+  SectionLeadOnDark,
   MediaFrame,
-  PlainList,
-  PlainItem,
+  FactStrip,
   CTA,
   CTAButton,
 } from './PageScaffold'
@@ -32,6 +33,7 @@ const VideoWrapper = styled.div`
   border-radius: ${({ theme }) => theme.radius.md};
   overflow: hidden;
   background: ${({ theme }) => theme.colors.surface};
+  margin-top: 2rem;
 
   iframe {
     position: absolute;
@@ -43,40 +45,52 @@ const VideoWrapper = styled.div`
   }
 `
 
-const FactsBar = styled.div`
+/* Scope of Work 是 Level 4 细节 —— 视觉权重低于 Key Highlights */
+const ScopeList = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1px;
-  background: ${({ theme }) => theme.colors.border};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.radius.md};
-  overflow: hidden;
-  margin-bottom: 2.5rem;
+  gap: 0.6rem;
+`
 
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+const ScopeRow = styled.div`
+  padding-top: 0.85rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+
+  p {
+    color: ${({ theme }) => theme.colors.inkMuted};
+    font-size: 0.88rem;
+    line-height: 1.6;
   }
 `
 
-const Fact = styled.div`
-  padding: 1.25rem 1.5rem;
-  background: ${({ theme }) => theme.colors.canvas};
+/* Key Highlights —— Level 1/2,大号编号 + 短结论,深色区块提升权重 */
+const HighlightGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 3rem;
 
-  span {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: ${({ theme }) => theme.colors.inkMuted};
-    margin-bottom: 0.4rem;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
   }
+`
 
-  strong {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: ${({ theme }) => theme.colors.ink};
-  }
+const HighlightItem = styled.div`
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1rem;
+`
+
+const HighlightNum = styled.span`
+  font-family: ${({ theme }) => theme.fonts.display};
+  font-size: 1.75rem;
+  color: ${({ theme }) => theme.colors.bronzeOnDark};
+  line-height: 1;
+`
+
+const HighlightText = styled.p`
+  font-size: 1rem;
+  line-height: 1.5;
+  padding-top: 0.2rem;
 `
 
 const GalleryGrid = styled.div`
@@ -169,24 +183,25 @@ export function ProjectPageTemplate({ project, relatedServices }) {
 
         <Section>
           <Reveal>
-            <FactsBar>
-              <Fact><span>Location</span><strong>{project.location}</strong></Fact>
-              <Fact><span>Year</span><strong>{project.year}</strong></Fact>
-              <Fact><span>Status</span><strong>{project.status}</strong></Fact>
-              <Fact><span>Project Type</span><strong>{project.projectType}</strong></Fact>
-              <Fact>
-                <span>Services</span>
-                <strong>{relatedServices.map((s) => s.shortName || s.name).join(', ')}</strong>
-              </Fact>
-            </FactsBar>
+            <FactStrip
+              items={[
+                { label: 'Location', value: project.location },
+                { label: 'Year', value: project.year },
+                { label: 'Status', value: project.status },
+                { label: 'Project Type', value: project.projectType },
+                { label: 'Services', value: relatedServices.map((s) => s.shortName || s.name).join(', ') },
+              ]}
+            />
           </Reveal>
 
-          <SectionHeader>
-            <Reveal><SectionLabel>Project Snapshot</SectionLabel></Reveal>
-            <Reveal delay={0.1}>
-              <SectionLead>{project.summary}</SectionLead>
-            </Reveal>
-          </SectionHeader>
+          <div style={{ marginTop: '2rem' }}>
+            <SectionHeader>
+              <Reveal><SectionLabel>Project Snapshot</SectionLabel></Reveal>
+              <Reveal delay={0.1}>
+                <SectionLead>{project.summary}</SectionLead>
+              </Reveal>
+            </SectionHeader>
+          </div>
 
           {project.videoUrl && (
             <Reveal>
@@ -210,19 +225,19 @@ export function ProjectPageTemplate({ project, relatedServices }) {
               <SectionLead>Core delivery scope.</SectionLead>
             </Reveal>
           </SectionHeader>
-          <PlainList>
+          <ScopeList>
             {project.scopeOfWork.map((item) => (
               <Reveal key={item}>
-                <PlainItem>
+                <ScopeRow>
                   <p>{item}</p>
-                </PlainItem>
+                </ScopeRow>
               </Reveal>
             ))}
-          </PlainList>
+          </ScopeList>
         </Section>
 
         {galleryImages.length > 0 && (
-          <Section>
+          <Section $border={false}>
             <SectionHeader>
               <Reveal><SectionLabel>Project Gallery</SectionLabel></Reveal>
               <Reveal delay={0.1}>
@@ -231,7 +246,7 @@ export function ProjectPageTemplate({ project, relatedServices }) {
             </SectionHeader>
             <GalleryGrid>
               {galleryImages.map((item, index) => (
-                <Reveal key={item.src} delay={index * 0.06}>
+                <Reveal key={item.src} delay={(index % 3) * 0.06}>
                   <GalleryItem>
                     <img src={item.src} alt={item.alt} loading="lazy" />
                     <figcaption>{item.caption}</figcaption>
@@ -241,26 +256,34 @@ export function ProjectPageTemplate({ project, relatedServices }) {
             </GalleryGrid>
           </Section>
         )}
+      </PageInner>
 
-        <Section $border={false}>
+      {/* Key Highlights —— Dark Section,全站唯一强调区,提升项目成果的视觉权重 */}
+      <Section $tone="dark" $border={false}>
+        <PageInner>
           <SectionHeader>
-            <Reveal><SectionLabel>Key Highlights</SectionLabel></Reveal>
+            <Reveal><SectionLabelOnDark>Key Highlights</SectionLabelOnDark></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>Why this project matters.</SectionLead>
+              <SectionLeadOnDark>Why this project matters.</SectionLeadOnDark>
             </Reveal>
           </SectionHeader>
-          <PlainList>
+          <HighlightGrid>
             {project.highlights.map((item, index) => (
-              <Reveal key={item} delay={index * 0.06}>
-                <PlainItem>
-                  <p>{item}</p>
-                </PlainItem>
+              <Reveal key={item} variant="side" delay={index * 0.08}>
+                <HighlightItem>
+                  <HighlightNum>{String(index + 1).padStart(2, '0')}</HighlightNum>
+                  <HighlightText>{item}</HighlightText>
+                </HighlightItem>
               </Reveal>
             ))}
-          </PlainList>
+          </HighlightGrid>
+        </PageInner>
+      </Section>
 
+      <PageInner>
+        <Section $border={false}>
           {relatedServices.length > 0 && (
-            <div style={{ marginTop: '2.5rem' }}>
+            <div style={{ marginBottom: '2.5rem' }}>
               <SectionLabel style={{ marginBottom: '1rem', display: 'block' }}>Related Services</SectionLabel>
               <ServiceLinkRow>
                 {relatedServices.map((service) => (

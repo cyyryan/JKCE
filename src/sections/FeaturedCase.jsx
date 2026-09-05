@@ -2,15 +2,17 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Reveal } from '../components/Reveal'
 import { RevealText } from '../components/RevealText'
+import { FactStrip } from '../components/PageScaffold'
 import { getProjectBySlug, getServiceBySlug } from '../content/siteData'
 import { homeContent } from '../content/home'
 
 const { featuredCase } = homeContent
 const project = getProjectBySlug('tlowitsis-nation')
 
+/* Surface 通栏 + 深色文字面板,和相邻的 CoreServices(canvas)/TechCapability(dark)都形成区隔 */
 const Section = styled.section`
   padding: 0 2.5rem ${({ theme }) => theme.section.paddingY};
-  background: ${({ theme }) => theme.colors.canvas};
+  background: ${({ theme }) => theme.colors.surface};
 
   @media (max-width: 768px) {
     padding: 0 1.5rem ${({ theme }) => theme.section.paddingYTight};
@@ -44,15 +46,9 @@ const SectionHeading = styled.h2`
 
 const Panel = styled(Link)`
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
   border-radius: ${({ theme }) => theme.radius.md};
   overflow: hidden;
-  transition: border-color 0.2s ease;
-
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.bronze};
-  }
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -85,23 +81,12 @@ const TextCol = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ theme }) => theme.colors.industrialDark};
+  color: ${({ theme }) => theme.colors.textOnDark};
 
   @media (max-width: 768px) {
     padding: 1.75rem;
   }
-`
-
-const MetaRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 1.25rem;
-  margin-bottom: 1.25rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.inkMuted};
 `
 
 const StatusTag = styled.span`
@@ -119,24 +104,13 @@ const Title = styled.h3`
 const Summary = styled.p`
   font-size: ${({ theme }) => theme.fontSize.md};
   line-height: 1.6;
-  color: ${({ theme }) => theme.colors.inkSecondary};
+  color: ${({ theme }) => theme.colors.textOnDarkSecondary};
   margin-bottom: 1.5rem;
 `
 
-const ScopeList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+const StyledFactStrip = styled(FactStrip)`
   margin-bottom: 1.75rem;
-`
-
-const ScopePill = styled.span`
-  padding: 0.4rem 0.75rem;
-  border-radius: ${({ theme }) => theme.radius.sm};
-  background: ${({ theme }) => theme.colors.canvas};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.inkSecondary};
+  padding: 1.25rem 0;
 `
 
 const CtaRow = styled.div`
@@ -147,7 +121,7 @@ const CtaRow = styled.div`
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.ink};
+  color: ${({ theme }) => theme.colors.textOnDark};
 
   .arrow {
     transition: transform 0.2s ease;
@@ -188,18 +162,16 @@ export function FeaturedCase() {
               <img src={project.gallery[0].src} alt={project.gallery[0].alt} loading="lazy" />
             </ImageCol>
             <TextCol>
-              <MetaRow>
-                <span>{project.location}</span>
-                <span>{project.projectType}</span>
-                <StatusTag>{project.status}</StatusTag>
-              </MetaRow>
               <Title>{project.title}</Title>
               <Summary>{featuredCase.body.en}</Summary>
-              <ScopeList>
-                {relatedServices.map((service) => (
-                  <ScopePill key={service.slug}>{service.shortName}</ScopePill>
-                ))}
-              </ScopeList>
+              <StyledFactStrip
+                dark
+                items={[
+                  { label: 'Location', value: project.location },
+                  { label: 'Status', value: <StatusTag>{project.status}</StatusTag> },
+                  { label: 'Services', value: relatedServices.map((s) => s.shortName).join(', ') },
+                ]}
+              />
               <CtaRow>
                 <span>{featuredCase.cta.en}</span>
                 <span className="arrow" aria-hidden="true">→</span>

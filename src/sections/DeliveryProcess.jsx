@@ -5,9 +5,10 @@ import { homeContent } from '../content/home'
 
 const { process } = homeContent
 
+/* Surface 通栏 —— 流程/事实类内容,与前后 canvas 区块形成柔和区隔 */
 const Section = styled.section`
   padding: ${({ theme }) => theme.section.paddingY} 2.5rem;
-  background: ${({ theme }) => theme.colors.canvas};
+  background: ${({ theme }) => theme.colors.surface};
 
   @media (max-width: 768px) {
     padding: ${({ theme }) => theme.section.paddingYTight} 1.5rem;

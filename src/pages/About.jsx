@@ -6,17 +6,21 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
+  SectionLabelOnDark,
+  SectionLeadOnDark,
   MediaFrame,
   Grid,
   Card,
   DividerList,
   DividerItem,
+  StatementBlock,
   CTA,
   CTAButton,
 } from '../components/PageScaffold'
 import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
 import { aboutContent, pageMeta } from '../content/siteData'
+import { homeContent } from '../content/home'
 import styled from 'styled-components'
 
 const ImageTextGrid = styled.div`
@@ -32,7 +36,7 @@ const ImageTextGrid = styled.div`
 `
 
 const Blockquote = styled.blockquote`
-  margin: 3rem 0 0;
+  margin: 2.5rem 0 0;
   padding: 2rem 2.5rem;
   border-left: 3px solid ${({ theme }) => theme.colors.bronze};
   background: ${({ theme }) => theme.colors.surface};
@@ -63,6 +67,31 @@ const Blockquote = styled.blockquote`
   }
 `
 
+const CommitmentList = styled.div`
+  border-top: 1px solid ${({ theme }) => theme.colors.borderDark};
+  margin-top: 2rem;
+`
+
+const CommitmentItem = styled.div`
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 1rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderDark};
+
+  span:first-child {
+    font-family: ${({ theme }) => theme.fonts.display};
+    font-size: 1rem;
+    color: ${({ theme }) => theme.colors.bronzeOnDark};
+  }
+
+  p {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+`
+
 export default function About() {
   return (
     <PageWrapper>
@@ -75,7 +104,7 @@ export default function About() {
           body={aboutContent.intro}
         />
 
-        {/* Company Overview — real site photo + overview + Tredgold quote */}
+        {/* Company Overview — 核心声明 + 真实图片 + 支撑说明 */}
         <Section>
           <Reveal>
             <MediaFrame $ratio="21 / 9">
@@ -97,9 +126,15 @@ export default function About() {
               </Reveal>
             </SectionHeader>
             <Reveal>
-              <p style={{ lineHeight: 1.8, maxWidth: '72ch', color: 'inherit' }}>
+              <p style={{ lineHeight: 1.8, maxWidth: '68ch', color: 'inherit', marginBottom: '2rem' }}>
                 {aboutContent.overview[0]}
               </p>
+            </Reveal>
+            <Reveal variant="side">
+              <StatementBlock>
+                From site planning and design to on-site management and quality control — one
+                accountable team, every stage, to specification.
+              </StatementBlock>
             </Reveal>
             <Reveal delay={0.1}>
               <Blockquote>
@@ -131,7 +166,7 @@ export default function About() {
         </Section>
 
         {/* Technical Capabilities */}
-        <Section>
+        <Section $border={false}>
           <SectionHeader>
             <Reveal><SectionLabel>Technology-Assisted Delivery</SectionLabel></Reveal>
             <Reveal delay={0.1}>
@@ -149,24 +184,36 @@ export default function About() {
             </DividerList>
           </Reveal>
         </Section>
+      </PageInner>
 
-        {/* Our Commitments */}
-        <Section>
+      {/* Our Commitments — Dark Section,突出 accountable delivery */}
+      <Section $tone="dark" $border={false}>
+        <PageInner>
           <SectionHeader>
-            <Reveal><SectionLabel>Our Commitments</SectionLabel></Reveal>
+            <Reveal><SectionLabelOnDark>Our Commitments</SectionLabelOnDark></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>{aboutContent.promisesIntro}</SectionLead>
+              <SectionLeadOnDark>{aboutContent.promisesIntro}</SectionLeadOnDark>
             </Reveal>
           </SectionHeader>
-          <Reveal>
-            <DividerList>
-              {aboutContent.promises.map((item, i) => (
-                <DividerItem key={i}>{item}</DividerItem>
-              ))}
-            </DividerList>
+          <Reveal variant="mask" as="div">
+            <StatementBlock dark>
+              {homeContent.whyChoose.advantages[0].body}
+            </StatementBlock>
           </Reveal>
-        </Section>
+          <CommitmentList>
+            {aboutContent.promises.map((item, i) => (
+              <Reveal key={item} variant="side" delay={i * 0.05}>
+                <CommitmentItem>
+                  <span>{String(i + 1).padStart(2, '0')}</span>
+                  <p>{item}</p>
+                </CommitmentItem>
+              </Reveal>
+            ))}
+          </CommitmentList>
+        </PageInner>
+      </Section>
 
+      <PageInner>
         {/* Mission & Vision */}
         <Section $border={false}>
           <SectionHeader>
@@ -178,7 +225,7 @@ export default function About() {
             </Reveal>
           </SectionHeader>
           <ImageTextGrid>
-            <Reveal>
+            <Reveal variant="side">
               <MediaFrame $ratio="4 / 3">
                 <img
                   src="/images/about/mission-vision-team.webp"

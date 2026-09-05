@@ -13,14 +13,14 @@ const otherProjects = projects.filter((project) => project.slug !== 'tlowitsis-n
 const homeProjects = [
   ...otherProjects.filter((project) => project.featuredOnHome),
   ...otherProjects.filter((project) => !project.featuredOnHome),
-].slice(0, 4)
+].slice(0, 3)
 
 const Section = styled.section`
-  padding: 0 2.5rem ${({ theme }) => theme.section.paddingY};
+  padding: ${({ theme }) => theme.section.paddingYTight} 2.5rem;
   background: ${({ theme }) => theme.colors.canvas};
 
   @media (max-width: 768px) {
-    padding: 0 1.5rem ${({ theme }) => theme.section.paddingYTight};
+    padding: ${({ theme }) => theme.section.paddingYTight} 1.5rem;
   }
 `
 
@@ -31,20 +31,20 @@ const Inner = styled.div`
 
 const Eyebrow = styled.span`
   display: block;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.25rem;
   font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.bronzeText};
 `
 
 const Head = styled.div`
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.9fr);
-  gap: 3rem;
-  margin-bottom: 2.5rem;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-bottom: 2rem;
   align-items: end;
 
   @media (max-width: 900px) {
@@ -60,6 +60,7 @@ const Title = styled.h2`
 `
 
 const Body = styled.p`
+  max-width: 34rem;
   font-size: ${({ theme }) => theme.fontSize.md};
   line-height: 1.6;
   color: ${({ theme }) => theme.colors.inkSecondary};
@@ -67,9 +68,9 @@ const Body = styled.p`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr 1fr;
@@ -82,7 +83,7 @@ const Grid = styled.div`
 
 export function MoreProjects() {
   return (
-    <Section>
+    <Section id="recent-projects">
       <Inner>
         <Reveal>
           <Eyebrow>{projectsContent.eyebrow.en}</Eyebrow>

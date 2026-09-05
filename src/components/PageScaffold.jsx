@@ -49,9 +49,9 @@ export const Eyebrow = styled.span`
   display: block;
   margin-bottom: 1.5rem;
   font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.bronzeText};
 `
@@ -78,10 +78,32 @@ export const HeroBody = styled.p`
   color: ${({ theme }) => theme.colors.inkSecondary};
 `
 
+/* ────────────────────────────────────────────────────────────
+ * Section 色块系统 —— 四种视觉模式,通过 $tone 复用同一组件:
+ *   canvas(默认)— 暖白,主叙述;嵌套在 PageInner/Container 内使用
+ *   surface     — 暖灰,流程/事实/辅助信息;需要通栏时外面套 <Container>
+ *   dark        — industrialDark,关键能力/成果/强 CTA;每页通常 ≤1–2 个
+ * 通栏用法: <Section $tone="dark"><Container>...</Container></Section>
+ * ──────────────────────────────────────────────────────────── */
+
+const sectionTone = {
+  canvas: { bg: 'transparent', color: null, border: 'border' },
+  surface: { bg: 'surface', color: null, border: 'border' },
+  dark: { bg: 'industrialDark', color: 'textOnDark', border: 'borderDark' },
+}
+
 export const Section = styled.section`
   padding: ${({ theme }) => theme.section.paddingY} 0;
-  border-bottom: ${({ $border = true, theme }) =>
-    $border ? `1px solid ${theme.colors.border}` : 'none'};
+  background: ${({ $tone = 'canvas', theme }) => {
+    const key = sectionTone[$tone].bg
+    return key === 'transparent' ? 'transparent' : theme.colors[key]
+  }};
+  color: ${({ $tone = 'canvas', theme }) => {
+    const key = sectionTone[$tone].color
+    return key ? theme.colors[key] : 'inherit'
+  }};
+  border-bottom: ${({ $border = true, $tone = 'canvas', theme }) =>
+    $border ? `1px solid ${theme.colors[sectionTone[$tone].border]}` : 'none'};
 
   @media (max-width: 768px) {
     padding: ${({ theme }) => theme.section.paddingYTight} 0;
@@ -92,7 +114,7 @@ export const SectionHeader = styled.div`
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
   gap: 2rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -102,9 +124,9 @@ export const SectionHeader = styled.div`
 
 export const SectionLabel = styled.h2`
   font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.bronzeText};
   margin: 0;
@@ -115,6 +137,15 @@ export const SectionLead = styled.p`
   font-size: ${({ theme }) => theme.fontSize.md};
   line-height: 1.65;
   color: ${({ theme }) => theme.colors.inkSecondary};
+`
+
+/* 深色 Section 内使用的标题/说明变体(bronzeText/inkSecondary 在深底对比度不足) */
+export const SectionLabelOnDark = styled(SectionLabel)`
+  color: ${({ theme }) => theme.colors.bronzeOnDark};
+`
+
+export const SectionLeadOnDark = styled(SectionLead)`
+  color: ${({ theme }) => theme.colors.textOnDarkSecondary};
 `
 
 export const TwoColumnText = styled.div`
@@ -188,11 +219,11 @@ export const IconBadge = styled.span`
 export const Meta = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  font-size: 0.75rem;
+  gap: 0.65rem 1rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.inkMuted};
 `
@@ -437,6 +468,177 @@ export const CTAButton = styled(Link)`
     width: 100%;
   }
 `
+
+/* ────────────────────────────────────────────────────────────
+ * StatementBlock —— 单句核心结论(Level 1),字号大于正文、小于 H1
+ * ──────────────────────────────────────────────────────────── */
+
+const StatementEyebrow = styled.span`
+  display: block;
+  margin-bottom: 1rem;
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: ${({ $dark, theme }) => ($dark ? theme.colors.bronzeOnDark : theme.colors.bronzeText)};
+`
+
+const StatementText = styled.p`
+  font-family: ${({ theme }) => theme.fonts.display};
+  font-weight: 500;
+  font-size: clamp(1.35rem, 1.1rem + 1.4vw, 2.1rem);
+  line-height: 1.3;
+  max-width: 34ch;
+  color: ${({ $dark, theme }) => ($dark ? theme.colors.textOnDark : theme.colors.ink)};
+
+  em {
+    font-style: italic;
+    color: ${({ $dark, theme }) => ($dark ? theme.colors.bronzeOnDark : theme.colors.bronzeText)};
+  }
+`
+
+export function StatementBlock({ eyebrow, children, dark = false, className }) {
+  return (
+    <div className={className}>
+      {eyebrow && <StatementEyebrow $dark={dark}>{eyebrow}</StatementEyebrow>}
+      <StatementText $dark={dark}>{children}</StatementText>
+    </div>
+  )
+}
+
+/* ────────────────────────────────────────────────────────────
+ * HighlightStat —— 单个真实数字/事实(Level 2),不得编造数据
+ * ──────────────────────────────────────────────────────────── */
+
+const HighlightStatWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  .value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-family: ${({ theme }) => theme.fonts.display};
+    font-weight: 500;
+    font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem);
+    line-height: 1;
+    color: ${({ $dark, theme }) => ($dark ? theme.colors.bronzeOnDark : theme.colors.ink)};
+  }
+
+  .unit {
+    font-family: ${({ theme }) => theme.fonts.sans};
+    font-size: 1rem;
+    font-weight: 600;
+    color: ${({ $dark, theme }) => ($dark ? theme.colors.textOnDarkSecondary : theme.colors.inkMuted)};
+  }
+
+  .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: ${({ $dark, theme }) => ($dark ? theme.colors.textOnDarkSecondary : theme.colors.inkMuted)};
+  }
+
+  .explanation {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    max-width: 26ch;
+    color: ${({ $dark, theme }) => ($dark ? theme.colors.textOnDarkSecondary : theme.colors.inkSecondary)};
+  }
+`
+
+export function HighlightStat({ value, unit, label, explanation, dark = false, className }) {
+  return (
+    <HighlightStatWrapper $dark={dark} className={className}>
+      <span className="value">
+        {value}
+        {unit && <span className="unit">{unit}</span>}
+      </span>
+      {label && <span className="label">{label}</span>}
+      {explanation && <span className="explanation">{explanation}</span>}
+    </HighlightStatWrapper>
+  )
+}
+
+/* ────────────────────────────────────────────────────────────
+ * FactStrip —— 横向 Location / Year / Status / Services 事实栏
+ * 移动端自然换行,不做成胶囊标签集合
+ * ──────────────────────────────────────────────────────────── */
+
+const FactStripWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid ${({ $dark, theme }) => (theme.colors[$dark ? 'borderDark' : 'border'])};
+  border-bottom: 1px solid ${({ $dark, theme }) => (theme.colors[$dark ? 'borderDark' : 'border'])};
+
+  @media (max-width: 640px) {
+    gap: 1.25rem 2rem;
+  }
+`
+
+const FactItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 6rem;
+
+  span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: ${({ $dark, theme }) => (theme.colors[$dark ? 'textOnDarkSecondary' : 'inkMuted'])};
+  }
+
+  strong {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: ${({ $dark, theme }) => (theme.colors[$dark ? 'textOnDark' : 'ink'])};
+  }
+`
+
+export function FactStrip({ items, dark = false, className }) {
+  return (
+    <FactStripWrapper $dark={dark} className={className}>
+      {items.map((item) => (
+        <FactItem key={item.label} $dark={dark}>
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+        </FactItem>
+      ))}
+    </FactStripWrapper>
+  )
+}
+
+/* ────────────────────────────────────────────────────────────
+ * PullQuote —— 从已有文案提炼的品牌声明,不伪装成客户评价
+ * 不加引号,不加署名
+ * ──────────────────────────────────────────────────────────── */
+
+const PullQuoteWrapper = styled.p`
+  font-family: ${({ theme }) => theme.fonts.display};
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(1.3rem, 1.05rem + 1.3vw, 2rem);
+  line-height: 1.4;
+  max-width: 28ch;
+  padding-left: 1.25rem;
+  border-left: 2px solid ${({ $dark, theme }) => (theme.colors[$dark ? 'bronzeOnDark' : 'bronze'])};
+  color: ${({ $dark, theme }) => (theme.colors[$dark ? 'textOnDark' : 'ink'])};
+`
+
+export function PullQuote({ children, dark = false, className }) {
+  return (
+    <PullQuoteWrapper as="p" $dark={dark} className={className}>
+      {children}
+    </PullQuoteWrapper>
+  )
+}
 
 export function PageHero({ eyebrow, title, titleItalic, body }) {
   return (

@@ -5,19 +5,31 @@ import { Reveal } from './Reveal'
 const ContactLink = styled.a`
   display: inline-block;
   margin-top: 0.6rem;
-  color: ${({ theme }) => theme.colors.textPrimary};
+  color: ${({ $dark, theme }) => theme.colors[$dark ? 'textOnDark' : 'ink']};
   line-height: 1.6;
 `
 
-export function ContactInfoCards({ items }) {
+const DarkCard = styled(Card)`
+  background: ${({ theme }) => theme.colors.industrialDarkAlt};
+  border-color: ${({ theme }) => theme.colors.borderDark};
+
+  h3 {
+    color: ${({ theme }) => theme.colors.textOnDark};
+  }
+`
+
+export function ContactInfoCards({ items, dark = false }) {
+  const CardComponent = dark ? DarkCard : Card
+
   return (
     <Grid>
       {items.map((item, index) => (
         <Reveal key={item.label} delay={index * 0.08}>
-          <Card>
+          <CardComponent>
             <IconBadge>{item.icon}</IconBadge>
             <h3>{item.label}</h3>
             <ContactLink
+              $dark={dark}
               href={item.href}
               target={item.href.startsWith('https') ? '_blank' : undefined}
               rel={item.href.startsWith('https') ? 'noreferrer' : undefined}
@@ -25,7 +37,7 @@ export function ContactInfoCards({ items }) {
             >
               {item.value}
             </ContactLink>
-          </Card>
+          </CardComponent>
         </Reveal>
       ))}
     </Grid>

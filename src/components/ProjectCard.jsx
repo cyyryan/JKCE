@@ -1,41 +1,48 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { Meta, TagRow, Tag } from './PageScaffold'
+import { Meta } from './PageScaffold'
 
 const CardWrapper = styled(Link)`
   display: block;
-  padding: 1.25rem;
+  height: 100%;
+  padding: 1.15rem;
   background: ${({ theme }) => theme.colors.canvas};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.radius.md};
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease;
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.bronze};
+    transform: translateY(-3px);
+    box-shadow: ${({ theme }) => theme.shadow.sm};
   }
 
   h3 {
     font-size: ${({ theme }) => theme.fontSize.lg};
     font-weight: 500;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.55rem;
   }
 
   p {
     color: ${({ theme }) => theme.colors.inkSecondary};
-    line-height: 1.6;
-    font-size: 0.92rem;
+    line-height: 1.55;
+    font-size: 0.96rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 `
 
 const ImageWrap = styled.div`
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   border-radius: ${({ theme }) => theme.radius.sm};
   background: ${({ theme }) => theme.colors.surface};
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
 
   img {
     width: 100%;
@@ -54,15 +61,15 @@ const CardFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1rem;
-  padding-top: 0.85rem;
+  margin-top: 0.9rem;
+  padding-top: 0.75rem;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `
 
 const ViewLabel = styled.span`
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.inkMuted};
 `
@@ -99,15 +106,9 @@ export function ProjectCard({ project, showImage = true }) {
       <Meta>
         <span>{project.projectType}</span>
         <span>{project.location}</span>
-        <span>{project.status}</span>
       </Meta>
       <h3>{project.title}</h3>
       <p>{project.summary}</p>
-      <TagRow>
-        {project.tags.slice(0, 2).map((tag) => (
-          <Tag key={tag}>{tag}</Tag>
-        ))}
-      </TagRow>
       <CardFooter>
         <ViewLabel>View Project</ViewLabel>
         <Arrow>→</Arrow>

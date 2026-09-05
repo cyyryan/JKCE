@@ -183,6 +183,25 @@ const emailjsConfigured = Boolean(
 const FIELD_ORDER = ['name', 'email', 'serviceNeeded', 'projectType', 'message']
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const MINIMUM_COMPLETION_TIME_MS = 3000
+const SUBMISSION_COOLDOWN_MS = 60_000
+const LAST_SUBMISSION_KEY = 'jkce-inquiry-last-submission'
+
+function getLastSubmissionTime() {
+  try {
+    return Number(window.localStorage.getItem(LAST_SUBMISSION_KEY) || 0)
+  } catch {
+    return 0
+  }
+}
+
+function rememberSubmission() {
+  try {
+    window.localStorage.setItem(LAST_SUBMISSION_KEY, String(Date.now()))
+  } catch {
+    // Storage can be unavailable in strict privacy modes; sending should still work.
+  }
+}
 
 /**
  * EmailJS 模板变量清单(template_pngskco 必须包含以下变量才能正确渲染邮件):
@@ -203,6 +222,7 @@ export function InquiryForm({ formConfig }) {
   const [formState, setFormState] = useState(EMPTY_FORM)
   const [status, setStatus] = useState('idle') // idle | submitting | success | error
   const [errors, setErrors] = useState({})
+  const formStartedAt = useRef(Date.now())
 
   const fieldRefs = {
     name: useRef(null),
@@ -247,8 +267,12 @@ export function InquiryForm({ formConfig }) {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    // 蜜罐命中:静默丢弃,不给机器人任何反馈
-    if (formState.website) {
+    const completedTooQuickly = Date.now() - formStartedAt.current < MINIMUM_COMPLETION_TIME_MS
+    const lastSubmission = getLastSubmissionTime()
+    const submittedRecently = Date.now() - lastSubmission < SUBMISSION_COOLDOWN_MS
+
+    // 蜜罐、异常快速填写或短时间重复提交均静默丢弃,不给机器人反馈
+    if (formState.website || completedTooQuickly || submittedRecently) {
       setStatus('success')
       return
     }
@@ -283,10 +307,19 @@ export function InquiryForm({ formConfig }) {
           message: formState.message,
           to_email: EMAILJS.TO_EMAIL,
         },
-        { publicKey: EMAILJS.PUBLIC_KEY }
+        {
+          publicKey: EMAILJS.PUBLIC_KEY,
+          blockHeadless: true,
+          limitRate: {
+            id: 'jkce-inquiry',
+            throttle: SUBMISSION_COOLDOWN_MS,
+          },
+        }
       )
+      rememberSubmission()
       setStatus('success')
       setFormState(EMPTY_FORM)
+      formStartedAt.current = Date.now()
     } catch (error) {
       setStatus('error')
     }
@@ -328,6 +361,7 @@ export function InquiryForm({ formConfig }) {
                 onChange={handleChange}
                 placeholder="Your name"
                 autoComplete="name"
+                maxLength={100}
                 required
                 $invalid={Boolean(errors.name)}
                 aria-invalid={Boolean(errors.name)}
@@ -344,6 +378,7 @@ export function InquiryForm({ formConfig }) {
                 onChange={handleChange}
                 placeholder="Company name"
                 autoComplete="organization"
+                maxLength={120}
               />
             </Field>
           </Row>
@@ -360,6 +395,7 @@ export function InquiryForm({ formConfig }) {
                 onChange={handleChange}
                 placeholder="you@example.com"
                 autoComplete="email"
+                maxLength={254}
                 required
                 $invalid={Boolean(errors.email)}
                 aria-invalid={Boolean(errors.email)}
@@ -376,6 +412,7 @@ export function InquiryForm({ formConfig }) {
                 onChange={handleChange}
                 placeholder="Phone number"
                 autoComplete="tel"
+                maxLength={40}
               />
             </Field>
           </Row>
@@ -432,6 +469,7 @@ export function InquiryForm({ formConfig }) {
               value={formState.message}
               onChange={handleChange}
               placeholder="Tell us about your project, timeline, location, and what kind of support you need."
+              maxLength={4000}
               aria-describedby={errors.message ? 'inquiry-message-error inquiry-form-note' : 'inquiry-form-note'}
               required
               $invalid={Boolean(errors.message)}

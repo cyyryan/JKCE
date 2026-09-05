@@ -6,6 +6,7 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
+  StatementBlock,
   CTA,
 } from '../components/PageScaffold'
 import { Reveal } from '../components/Reveal'
@@ -76,14 +77,24 @@ export default function Careers() {
       <Seo
         title="Join Our Team | JKCE Probuild"
         description="Explore open positions at JKCE Probuild — a full-service construction company operating across Greater Vancouver."
+        path="/careers"
       />
       <PageInner>
         <PageHero
           eyebrow="Careers"
           title="Grow with"
           titleItalic="our team."
-          body="JKCE is built on experienced people who take pride in their work. If you're looking for a team that values quality, accountability, and long-term growth — we want to hear from you."
+          body="JKCE is built on experienced people who take pride in their work."
         />
+
+        <Section $border={false} style={{ paddingTop: 0 }}>
+          <Reveal variant="side">
+            <StatementBlock>
+              Looking for a team that values quality, accountability, and long-term growth?
+              We want to hear from you.
+            </StatementBlock>
+          </Reveal>
+        </Section>
 
         <Section>
           <SectionHeader>

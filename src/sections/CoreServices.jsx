@@ -12,6 +12,7 @@ const HOME_SERVICE_CARDS = [
     to: `/services/${service.slug}`,
     name: service.name,
     summary: service.summary,
+    capabilities: (service.subcategories || []).slice(0, 3).map((sub) => sub.name),
     scopeLabel: service.subcategories?.length ? `${service.subcategories.length} specialties` : null,
     image: service.image,
   })),
@@ -19,6 +20,7 @@ const HOME_SERVICE_CARDS = [
     to: '/icf',
     name: 'ICF Construction',
     summary: 'Insulated Concrete Form building — superior strength, thermal efficiency, and long-term durability.',
+    capabilities: ['Excellent Insulation', 'Fast Construction', 'High Structural Strength'],
     scopeLabel: 'Dedicated capability',
     image: { src: '/images/icf/case-study-banner.webp', alt: 'ICF exterior wall construction with scaffolding and bracing' },
   },
@@ -40,11 +42,11 @@ const Inner = styled.div`
 
 const Eyebrow = styled.span`
   display: block;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.25rem;
   font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.bronzeText};
 `
@@ -52,8 +54,8 @@ const Eyebrow = styled.span`
 const Head = styled.div`
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
-  gap: 3rem;
-  margin-bottom: 2.5rem;
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-bottom: 2rem;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -115,7 +117,7 @@ const CardImage = styled.div`
 `
 
 const CardBody = styled.div`
-  padding: 1.5rem 1.75rem 1.75rem;
+  padding: 1.35rem 1.5rem 1.5rem;
 `
 
 const CardTop = styled.div`
@@ -137,11 +139,48 @@ const CardTitle = styled.h3`
   font-weight: 500;
 `
 
+const CapabilityList = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.6rem;
+  margin-bottom: 1rem;
+
+  li {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: ${({ theme }) => theme.colors.inkSecondary};
+    padding: 0.3rem 0.65rem;
+    border: 1px solid ${({ theme }) => theme.colors.border};
+    border-radius: ${({ theme }) => theme.radius.sm};
+  }
+`
+
+/* 摘要句是 Level 3 支撑说明:桌面端 hover/focus 展开,触屏设备默认直接可读 */
 const CardSummary = styled.p`
   color: ${({ theme }) => theme.colors.inkSecondary};
   line-height: 1.6;
   font-size: 0.95rem;
   margin-bottom: 1rem;
+
+  @media (hover: hover) and (pointer: fine) {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    overflow: hidden;
+    transition: grid-template-rows 0.3s ease, opacity 0.25s ease;
+
+    > span {
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    ${CardLink}:hover &, ${CardLink}:focus-within & {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+  }
 `
 
 const CardFooter = styled.div`
@@ -150,7 +189,7 @@ const CardFooter = styled.div`
   justify-content: space-between;
   padding-top: 1rem;
   border-top: 1px solid ${({ theme }) => theme.colors.border};
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 `
@@ -203,7 +242,16 @@ export function CoreServices() {
                     <Index>{String(index + 1).padStart(2, '0')}</Index>
                     <CardTitle>{card.name}</CardTitle>
                   </CardTop>
-                  <CardSummary>{card.summary}</CardSummary>
+                  {card.capabilities.length > 0 && (
+                    <CapabilityList>
+                      {card.capabilities.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </CapabilityList>
+                  )}
+                  <CardSummary>
+                    <span>{card.summary}</span>
+                  </CardSummary>
                   <CardFooter>
                     <ScopeLabel>{card.scopeLabel}</ScopeLabel>
                     <Arrow aria-hidden="true">→</Arrow>

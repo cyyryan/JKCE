@@ -18,11 +18,11 @@ export const companyInfo = {
 
 export const siteMeta = {
   siteName: 'JKCE Probuild',
-  siteUrl: 'https://jkce-new-web-dzs5.vercel.app',
+  siteUrl: import.meta.env?.VITE_SITE_URL || 'https://www.jkceprobuild.com',
   defaultTitle: 'JKCE Probuild | Construction Company in Greater Vancouver',
   defaultDescription:
     'JKCE Probuild is a full-service construction company in Greater Vancouver specializing in excavation, construction management, design service, and ICF construction.',
-  defaultOgImage: 'https://jkce-new-web-dzs5.vercel.app/images/icf/case-study-banner.webp',
+  defaultOgImage: 'https://www.jkceprobuild.com/images/icf/case-study-banner.webp',
   locale: 'en_CA',
 }
 

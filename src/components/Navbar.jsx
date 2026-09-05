@@ -29,7 +29,7 @@ const Wrapper = styled(motion.nav)`
   left: 0;
   right: 0;
   z-index: 100;
-  padding: ${({ $scrolled }) => ($scrolled ? '0.9rem 2.5rem' : '1.15rem 2.5rem')};
+  padding: ${({ $scrolled }) => ($scrolled ? '0.75rem 2.5rem' : '1rem 2.5rem')};
   background: ${({ $transparent, $scrolled, theme }) =>
     $transparent && !$scrolled ? 'transparent' : theme.colors.canvas};
   color: ${({ $transparent, $scrolled, theme }) =>
@@ -64,7 +64,7 @@ const LogoWrap = styled.div`
 
 /* 透明态与滚动态高度差控制在 8px 内,避免明显跳动 */
 const LogoBase = styled.img`
-  height: ${({ $big }) => ($big ? '46px' : '38px')};
+  height: ${({ $big }) => ($big ? '50px' : '42px')};
   width: auto;
   display: block;
   transition: height 0.3s ease, opacity 0.25s ease;
@@ -79,7 +79,7 @@ const LogoOver = styled(LogoBase)`
 const NavLinks = styled.ul`
   display: flex;
   align-items: center;
-  gap: 1.75rem;
+  gap: 1.65rem;
   list-style: none;
 
   @media (max-width: 900px) {
@@ -89,9 +89,9 @@ const NavLinks = styled.ul`
 
 const navLinkStyle = css`
   font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 0.3rem 0;
   position: relative;
@@ -354,16 +354,19 @@ export function Navbar() {
         <Inner>
           <Logo to="/" aria-label="JKCE Probuild homepage">
             <LogoWrap>
+              {/* 透明态(首页首屏/深色视频背景):白色版可见,承载真实 alt */}
               <LogoBase
                 src="/logo/logo-w.PNG"
-                alt="JKCE Probuild"
+                alt={transparent && !scrolled ? 'JKCE Probuild' : ''}
+                aria-hidden={transparent && !scrolled ? undefined : 'true'}
                 $big={transparent && !scrolled}
                 style={{ opacity: transparent && !scrolled ? 1 : 0 }}
               />
+              {/* 滚动态/内页(浅色背景):黑+金版可见,承载真实 alt */}
               <LogoOver
-                src="/logo/logo-g.png"
-                alt=""
-                aria-hidden="true"
+                src="/logo/jkce-logo-dark.png"
+                alt={transparent && !scrolled ? '' : 'JKCE Probuild'}
+                aria-hidden={transparent && !scrolled ? 'true' : undefined}
                 $big={transparent && !scrolled}
                 style={{ opacity: transparent && !scrolled ? 0 : 1 }}
               />

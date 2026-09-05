@@ -6,6 +6,7 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
+  PullQuote,
   CTA,
   CTAButton,
 } from '../components/PageScaffold'
@@ -13,7 +14,7 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
-import { pageMeta, services, servicesPageContent, getProjectsByServiceSlug } from '../content/siteData'
+import { pageMeta, services, servicesPageContent, getProjectsByServiceSlug, aboutContent } from '../content/siteData'
 
 const ServiceLink = styled.span`
   display: inline-flex;
@@ -29,11 +30,44 @@ const ServiceLink = styled.span`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
+  }
+`
+
+/* ICF 独立强调 —— 铜金左边线区分于三项核心服务,不做成广告横幅 */
+const IcfCard = styled(Link)`
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-left: 3px solid ${({ theme }) => theme.colors.bronze};
+  border-radius: ${({ theme }) => theme.radius.md};
+  overflow: hidden;
+  background: ${({ theme }) => theme.colors.canvas};
+  margin-top: 1.5rem;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.bronze};
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`
+
+const IcfImage = styled.div`
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 `
 
@@ -113,26 +147,24 @@ const SubItem = styled.div`
   color: ${({ theme }) => theme.colors.inkSecondary};
 `
 
-const SERVICE_CARDS = [
-  ...services.map((service) => ({
-    slug: service.slug,
-    to: `/services/${service.slug}`,
-    name: service.name,
-    description: service.description,
-    subcategories: service.subcategories,
-    projectCount: getProjectsByServiceSlug(service.slug).length,
-    image: service.image,
-  })),
-  {
-    slug: 'icf',
-    to: '/icf',
-    name: 'ICF Construction',
-    description: 'Insulated Concrete Form expertise delivering superior structural performance, thermal efficiency, and long-term durability — a dedicated JKCE capability across residential and community projects.',
-    subcategories: null,
-    projectCount: getProjectsByServiceSlug('icf').length,
-    image: { src: '/images/icf/case-study-banner.webp', alt: 'ICF exterior wall construction with scaffolding and bracing' },
-  },
-]
+const SERVICE_CARDS = services.map((service) => ({
+  slug: service.slug,
+  to: `/services/${service.slug}`,
+  name: service.name,
+  description: service.description,
+  subcategories: service.subcategories,
+  projectCount: getProjectsByServiceSlug(service.slug).length,
+  image: service.image,
+}))
+
+const ICF_CARD = {
+  slug: 'icf',
+  to: '/icf',
+  name: 'ICF Construction',
+  description: 'Insulated Concrete Form expertise delivering superior structural performance, thermal efficiency, and long-term durability — a dedicated JKCE capability across residential and community projects.',
+  projectCount: getProjectsByServiceSlug('icf').length,
+  image: { src: '/images/icf/case-study-banner.webp', alt: 'ICF exterior wall construction with scaffolding and bracing' },
+}
 
 export default function Services() {
   return (
@@ -183,9 +215,33 @@ export default function Services() {
               </Reveal>
             ))}
           </Grid>
+
+          <Reveal delay={0.2} variant="side">
+            <IcfCard to={ICF_CARD.to} aria-label={`View ${ICF_CARD.name}`}>
+              <IcfImage>
+                <img src={ICF_CARD.image.src} alt={ICF_CARD.image.alt} loading="lazy" />
+              </IcfImage>
+              <ServiceCardBody>
+                <CardTop>
+                  <Index>04</Index>
+                  <h3>{ICF_CARD.name}</h3>
+                </CardTop>
+                <p>{ICF_CARD.description}</p>
+                <ServiceLink>
+                  {ICF_CARD.projectCount > 0
+                    ? `View Service — ${ICF_CARD.projectCount} related project${ICF_CARD.projectCount === 1 ? '' : 's'}`
+                    : 'View Service'} →
+                </ServiceLink>
+              </ServiceCardBody>
+            </IcfCard>
+          </Reveal>
         </Section>
 
         <Section $border={false}>
+          <Reveal>
+            <PullQuote>{aboutContent.mission}</PullQuote>
+          </Reveal>
+
           <CTA>
             <div>
               <h3>{servicesPageContent.cta.title}</h3>

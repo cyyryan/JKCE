@@ -6,13 +6,15 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
-  SplitPanel,
+  SectionLabelOnDark,
+  SectionLeadOnDark,
   MediaFrame,
-  DividerList,
-  DividerItem,
+  FactStrip,
+  HighlightStat,
   CTA,
   CTAButton,
 } from '../components/PageScaffold'
+import { DetailAccordion } from '../components/DetailAccordion'
 import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
 import styled from 'styled-components'
@@ -82,7 +84,7 @@ const FlowArrow = styled.div`
   }
 `
 
-/* ── Real jobsite photo strip ── */
+/* ── Real jobsite photo strip (Media Section) ── */
 const PhotoStrip = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -93,91 +95,26 @@ const PhotoStrip = styled.div`
   }
 `
 
-/* ── Advantage rows ── */
-const AdvantageRow = styled.div`
+/* ── Benefits: sticky lead + accordion detail ── */
+const BenefitsGrid = styled.div`
   display: grid;
-  grid-template-columns: 16rem 1fr;
-  gap: 2rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 3rem;
   align-items: start;
 
-  &:first-child {
-    border-top: 1px solid ${({ theme }) => theme.colors.border};
-  }
-
-  @media (max-width: 640px) {
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
-    gap: 0.5rem;
+    gap: 1.5rem;
   }
 `
 
-const AdvantageLeft = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-`
+const BenefitsSticky = styled.div`
+  position: sticky;
+  top: 6.5rem;
 
-const AdvantageIndex = styled.span`
-  font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.bronzeText};
-`
-
-const AdvantageName = styled.span`
-  font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-`
-
-const AdvantageDesc = styled.p`
-  font-size: 0.95rem;
-  color: ${({ theme }) => theme.colors.inkSecondary};
-  line-height: 1.7;
-  margin: 0;
-`
-
-/* ── Case study panel ── */
-const PanelTitle = styled.p`
-  font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.inkMuted};
-  margin-bottom: 1.5rem;
-`
-
-const MetaRow = styled.div`
-  display: flex;
-  gap: 1.5rem;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  font-size: 0.85rem;
-  line-height: 1.5;
-
-  &:first-child {
-    border-top: 1px solid ${({ theme }) => theme.colors.border};
+  @media (max-width: 900px) {
+    position: static;
   }
-`
-
-const MetaLabel = styled.span`
-  font-family: ${({ theme }) => theme.fonts.sans};
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.inkMuted};
-  flex: 0 0 9rem;
-  padding-top: 0.1rem;
-`
-
-const MetaValue = styled.span`
-  color: inherit;
-  flex: 1;
 `
 
 /* ── Suitable project types ── */
@@ -208,13 +145,36 @@ const TypeCard = styled.div`
   }
 `
 
+/* ── Case study outcomes (dark-safe) ── */
+const OutcomeList = styled.div`
+  border-top: 1px solid ${({ theme }) => theme.colors.borderDark};
+`
+
+const OutcomeItem = styled.div`
+  padding: 1rem 0;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderDark};
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.85rem;
+  font-weight: 500;
+`
+
+const PanelTitle = styled.p`
+  font-family: ${({ theme }) => theme.fonts.sans};
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.bronzeOnDark};
+  margin-bottom: 1.5rem;
+`
+
 const ICF_ADVANTAGES = [
-  { num: '01', title: 'Excellent Insulation', description: 'Easily reaches R-24, meeting or exceeding Step Code 4 standards.' },
-  { num: '02', title: 'Fast Construction', description: 'Modular design allows the structural frame to be completed in as little as one week.' },
-  { num: '03', title: 'Cost-Saving', description: 'No building wrap needed, saving on materials and labour costs.' },
-  { num: '04', title: 'High Structural Strength', description: 'Reinforced with concrete and steel for better wind and seismic resistance.' },
-  { num: '05', title: 'Outstanding Soundproofing & Airtightness', description: 'Reduces noise and air infiltration, improving indoor comfort significantly.' },
-  { num: '06', title: 'Fire-Resistant', description: 'Foam is fire-rated, and concrete is naturally non-combustible.' },
+  { id: 'insulation', num: '01', title: 'Excellent Insulation', description: 'Easily reaches R-24, meeting or exceeding Step Code 4 standards.' },
+  { id: 'speed', num: '02', title: 'Fast Construction', description: 'Modular design allows the structural frame to be completed in as little as one week.' },
+  { id: 'cost', num: '03', title: 'Cost-Saving', description: 'No building wrap needed, saving on materials and labour costs.' },
+  { id: 'strength', num: '04', title: 'High Structural Strength', description: 'Reinforced with concrete and steel for better wind and seismic resistance.' },
+  { id: 'soundproofing', num: '05', title: 'Outstanding Soundproofing & Airtightness', description: 'Reduces noise and air infiltration, improving indoor comfort significantly.' },
+  { id: 'fire', num: '06', title: 'Fire-Resistant', description: 'Foam is fire-rated, and concrete is naturally non-combustible.' },
 ]
 
 const HOW_IT_WORKS_STEPS = [
@@ -241,11 +201,18 @@ const ICF_PROJECT_TYPES = [
 export default function ICF() {
   const icfProjectCount = getProjectsByServiceSlug('icf').length
 
+  const accordionItems = ICF_ADVANTAGES.map((item) => ({
+    id: item.id,
+    title: `${item.num} — ${item.title}`,
+    content: item.description,
+  }))
+
   return (
     <PageWrapper>
       <Seo
         title="ICF Construction | JKCE Probuild"
         description="JKCE delivers Insulated Concrete Form construction for commercial and residential projects across Greater Vancouver — superior strength, efficiency, and long-term value."
+        path="/icf"
       />
       <PageInner>
         <PageHero
@@ -255,7 +222,7 @@ export default function ICF() {
           body="ICF is setting the standard for the future of sustainable building — combining insulation, soundproofing, and structural strength in one system. JKCE Probuild is one of the teams in the Greater Vancouver area with hands-on experience using this technology."
         />
 
-        {/* What is ICF */}
+        {/* ICF 核心定义 */}
         <Section>
           <SectionHeader>
             <Reveal><SectionLabel>What is ICF</SectionLabel></Reveal>
@@ -267,7 +234,7 @@ export default function ICF() {
             </Reveal>
           </SectionHeader>
           <ImageTextGrid>
-            <Reveal>
+            <Reveal variant="side">
               <MediaFrame $ratio="4 / 3">
                 <img
                   src="/images/icf/block-diagram.webp"
@@ -276,11 +243,9 @@ export default function ICF() {
                 />
               </MediaFrame>
             </Reveal>
-            <Reveal delay={0.08}>
-              <p style={{ lineHeight: 1.8, color: 'inherit' }}>
-                This forms walls that provide insulation, soundproofing, and structural strength.
-                Beyond energy efficiency, ICF is setting the standard for the future of sustainable
-                building. Unlike traditional wood framing, the foam forms stay in place permanently —
+            <Reveal variant="side" direction="right" delay={0.08}>
+              <p style={{ lineHeight: 1.8, color: 'inherit', maxWidth: '52ch' }}>
+                Unlike traditional wood framing, the foam forms stay in place permanently —
                 providing continuous insulation on both sides of a solid concrete wall while
                 eliminating the need for a building wrap.
               </p>
@@ -326,7 +291,7 @@ export default function ICF() {
           ))}
         </Section>
 
-        {/* Real ICF work on site */}
+        {/* Real ICF work on site — Media Section */}
         <Section>
           <SectionHeader>
             <Reveal><SectionLabel>ICF on Site</SectionLabel></Reveal>
@@ -346,43 +311,50 @@ export default function ICF() {
             ))}
           </PhotoStrip>
         </Section>
+      </PageInner>
 
-        {/* Why Choose ICF */}
-        <Section>
+      {/* Benefits — Surface 通栏,sticky 摘要 + accordion 细节 */}
+      <Section $tone="surface">
+        <PageInner>
           <SectionHeader>
             <Reveal><SectionLabel>Why Choose ICF</SectionLabel></Reveal>
             <Reveal delay={0.1}>
               <SectionLead>
-                Six performance advantages — from R-24 insulation to fire resistance — that make
-                ICF the right choice for durable, efficient, and sustainable building.
+                Six performance advantages — from R-24 insulation to fire resistance.
               </SectionLead>
             </Reveal>
           </SectionHeader>
-          <div>
-            {ICF_ADVANTAGES.map((item, i) => (
-              <Reveal key={item.num} delay={i * 0.05}>
-                <AdvantageRow>
-                  <AdvantageLeft>
-                    <AdvantageIndex>{item.num}</AdvantageIndex>
-                    <AdvantageName>{item.title}</AdvantageName>
-                  </AdvantageLeft>
-                  <AdvantageDesc>{item.description}</AdvantageDesc>
-                </AdvantageRow>
+          <BenefitsGrid>
+            <BenefitsSticky>
+              <Reveal variant="mask" as="p" style={{ fontSize: '1.1rem', fontWeight: 500, maxWidth: '26ch' }}>
+                What makes ICF the right choice for durable, efficient, sustainable building.
               </Reveal>
-            ))}
-          </div>
-        </Section>
+            </BenefitsSticky>
+            <Reveal variant="side" direction="right">
+              <DetailAccordion items={accordionItems} defaultOpenId="insulation" />
+            </Reveal>
+          </BenefitsGrid>
+        </PageInner>
+      </Section>
 
+      <PageInner>
         {/* Suitable Project Types */}
         <Section>
           <SectionHeader>
             <Reveal><SectionLabel>Suitable Project Types</SectionLabel></Reveal>
             <Reveal delay={0.1}>
               <SectionLead>
-                {icfProjectCount} JKCE project{icfProjectCount === 1 ? '' : 's'} delivered with ICF construction, across these project types.
+                Where JKCE has already put ICF to work across Greater Vancouver and BC.
               </SectionLead>
             </Reveal>
           </SectionHeader>
+          <Reveal variant="mask" as="div" style={{ marginBottom: '2rem' }}>
+            <HighlightStat
+              value={icfProjectCount}
+              label={`ICF project${icfProjectCount === 1 ? '' : 's'} delivered`}
+              explanation="Across residential, cultural, and community builds."
+            />
+          </Reveal>
           <TypeGrid>
             {ICF_PROJECT_TYPES.map((type, i) => (
               <Reveal key={type.title} delay={i * 0.06}>
@@ -394,15 +366,17 @@ export default function ICF() {
             ))}
           </TypeGrid>
         </Section>
+      </PageInner>
 
-        {/* Case Study: Tlowitsis Nation */}
-        <Section $border={false}>
+      {/* Case Study: Tlowitsis Nation — Dark Section */}
+      <Section $tone="dark" $border={false}>
+        <PageInner>
           <SectionHeader>
-            <Reveal><SectionLabel>Case Study</SectionLabel></Reveal>
+            <Reveal><SectionLabelOnDark>Case Study</SectionLabelOnDark></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>
+              <SectionLeadOnDark>
                 Tlowitsis Nation — Residential ICF Housing Development
-              </SectionLead>
+              </SectionLeadOnDark>
             </Reveal>
           </SectionHeader>
           <Reveal>
@@ -414,40 +388,30 @@ export default function ICF() {
               />
             </MediaFrame>
           </Reveal>
-          <SplitPanel>
-            <Reveal>
-              <div>
-                <PanelTitle>Project Overview</PanelTitle>
-                <MetaRow>
-                  <MetaLabel>Client</MetaLabel>
-                  <MetaValue>Tlowitsis Nation</MetaValue>
-                </MetaRow>
-                <MetaRow>
-                  <MetaLabel>Type</MetaLabel>
-                  <MetaValue>Residential community housing — ICF</MetaValue>
-                </MetaRow>
-                <MetaRow>
-                  <MetaLabel>Location</MetaLabel>
-                  <MetaValue>Campbell River, BC</MetaValue>
-                </MetaRow>
-                <MetaRow>
-                  <MetaLabel>Scope</MetaLabel>
-                  <MetaValue>Full-envelope ICF, foundations, above-grade walls, structural coordination</MetaValue>
-                </MetaRow>
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div>
-                <PanelTitle>Outcomes</PanelTitle>
-                <DividerList>
-                  <DividerItem>Energy Performance</DividerItem>
-                  <DividerItem>Structural Durability</DividerItem>
-                  <DividerItem>Build Quality</DividerItem>
-                </DividerList>
-              </div>
-            </Reveal>
-          </SplitPanel>
+          <Reveal>
+            <FactStrip
+              dark
+              items={[
+                { label: 'Client', value: 'Tlowitsis Nation' },
+                { label: 'Location', value: 'Campbell River, BC' },
+                { label: 'Type', value: 'Residential community housing — ICF' },
+                { label: 'Scope', value: 'Full-envelope ICF, foundations, walls' },
+              ]}
+            />
+          </Reveal>
+          <div style={{ marginTop: '2rem' }}>
+            <PanelTitle>Outcomes</PanelTitle>
+            <OutcomeList>
+              <OutcomeItem>Energy Performance</OutcomeItem>
+              <OutcomeItem>Structural Durability</OutcomeItem>
+              <OutcomeItem>Build Quality</OutcomeItem>
+            </OutcomeList>
+          </div>
+        </PageInner>
+      </Section>
 
+      <PageInner>
+        <Section $border={false}>
           <CTA>
             <div>
               <h3>Interested in ICF for your project?</h3>

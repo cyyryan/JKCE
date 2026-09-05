@@ -4,9 +4,11 @@ import { homeContent } from '../content/home'
 
 const { trustStrip } = homeContent
 
+/* 暖白背景,与 Hero 深色视频形成明确的亮暗交界 */
 const Section = styled.section`
-  background: ${({ theme }) => theme.colors.industrialDark};
-  color: ${({ theme }) => theme.colors.textOnDark};
+  background: ${({ theme }) => theme.colors.canvas};
+  color: ${({ theme }) => theme.colors.ink};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 `
 
 const Inner = styled.div`
@@ -34,7 +36,7 @@ const StatItem = styled.div`
     font-family: ${({ theme }) => theme.fonts.display};
     font-weight: 500;
     font-size: 1.5rem;
-    color: ${({ theme }) => theme.colors.bronzeOnDark};
+    color: ${({ theme }) => theme.colors.ink};
   }
 
   span {
@@ -42,14 +44,14 @@ const StatItem = styled.div`
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: ${({ theme }) => theme.colors.textOnDarkSecondary};
+    color: ${({ theme }) => theme.colors.inkMuted};
   }
 `
 
 const Divider = styled.span`
   width: 1px;
   height: 1.5rem;
-  background: ${({ theme }) => theme.colors.borderDark};
+  background: ${({ theme }) => theme.colors.border};
   flex-shrink: 0;
 
   @media (max-width: 640px) {
@@ -62,7 +64,7 @@ const CapabilityTag = styled.span`
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textOnDarkSecondary};
+  color: ${({ theme }) => theme.colors.inkSecondary};
   flex-shrink: 0;
 `
 

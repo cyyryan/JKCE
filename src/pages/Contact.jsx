@@ -7,14 +7,14 @@ import {
   SectionHeader,
   SectionLabel,
   SectionLead,
-  SplitPanel,
-  PlainList,
-  PlainItem,
+  SectionLabelOnDark,
+  SectionLeadOnDark,
   CTA,
   CTAButton,
 } from '../components/PageScaffold'
 import { ContactInfoCards } from '../components/ContactInfoCards'
 import { InquiryForm } from '../components/InquiryForm'
+import { DetailAccordion } from '../components/DetailAccordion'
 import { Reveal } from '../components/Reveal'
 import { Seo } from '../components/Seo'
 import { contactContent, pageMeta } from '../content/siteData'
@@ -23,7 +23,7 @@ const ResponseNote = styled.p`
   margin-top: 1rem;
   font-size: 0.9rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.colors.ink};
+  color: ${({ theme }) => theme.colors.textOnDark};
 `
 
 export default function Contact() {
@@ -37,20 +37,25 @@ export default function Contact() {
           titleItalic={contactContent.titleItalic}
           body={contactContent.intro}
         />
+      </PageInner>
 
-        <Section>
+      {/* 联系方式 —— 独立高对比色块 */}
+      <Section $tone="dark" $border={false}>
+        <PageInner>
           <SectionHeader>
-            <Reveal><SectionLabel>Reach Us</SectionLabel></Reveal>
+            <Reveal><SectionLabelOnDark>Reach Us</SectionLabelOnDark></Reveal>
             <Reveal delay={0.1}>
-              <SectionLead>{contactContent.lead}</SectionLead>
+              <SectionLeadOnDark>{contactContent.lead}</SectionLeadOnDark>
             </Reveal>
           </SectionHeader>
-          <ContactInfoCards items={contactContent.details} />
+          <ContactInfoCards items={contactContent.details} dark />
           <Reveal delay={0.15}>
             <ResponseNote>{contactContent.responseNote}</ResponseNote>
           </Reveal>
-        </Section>
+        </PageInner>
+      </Section>
 
+      <PageInner>
         <Section>
           <SectionHeader>
             <Reveal><SectionLabel>Inquiry Form</SectionLabel></Reveal>
@@ -68,28 +73,13 @@ export default function Contact() {
               <SectionLead>Quick answers.</SectionLead>
             </Reveal>
           </SectionHeader>
-          <SplitPanel>
-            <PlainList as="div">
-              {contactContent.faqs.slice(0, Math.ceil(contactContent.faqs.length / 2)).map((faq, index) => (
-                <Reveal key={faq.question} delay={index * 0.08}>
-                  <PlainItem>
-                    <h3>{faq.question}</h3>
-                    <p>{faq.answer}</p>
-                  </PlainItem>
-                </Reveal>
-              ))}
-            </PlainList>
-            <PlainList as="div">
-              {contactContent.faqs.slice(Math.ceil(contactContent.faqs.length / 2)).map((faq, index) => (
-                <Reveal key={faq.question} delay={index * 0.08}>
-                  <PlainItem>
-                    <h3>{faq.question}</h3>
-                    <p>{faq.answer}</p>
-                  </PlainItem>
-                </Reveal>
-              ))}
-            </PlainList>
-          </SplitPanel>
+          <DetailAccordion
+            items={contactContent.faqs.map((faq, i) => ({
+              id: String(i),
+              title: faq.question,
+              content: faq.answer,
+            }))}
+          />
 
           <CTA>
             <div>
