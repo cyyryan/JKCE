@@ -11,11 +11,11 @@ const project = getProjectBySlug('tlowitsis-nation')
 
 /* Surface 通栏 + 深色文字面板,和相邻的 CoreServices(canvas)/TechCapability(dark)都形成区隔 */
 const Section = styled.section`
-  padding: 0 2.5rem ${({ theme }) => theme.section.paddingY};
+  padding: ${({ theme }) => theme.section.paddingY} 2.5rem;
   background: ${({ theme }) => theme.colors.surface};
 
   @media (max-width: 768px) {
-    padding: 0 1.5rem ${({ theme }) => theme.section.paddingYTight};
+    padding: ${({ theme }) => theme.section.paddingYTight} 1.5rem;
   }
 `
 
